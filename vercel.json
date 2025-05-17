@@ -1,20 +1,12 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "api/**/*.ts",
-      "use": "@vercel/node"
-    }
-  ],
+  "buildCommand": "pnpm build",
+  "outputDirectory": "dist",
   "env": {
-    "VITE_API_URL": "@vite-api-url",
     "VITE_STOREFRONT_URL": "@vite-storefront-url",
     "VITE_CLERK_PUBLISHABLE_KEY": "@clerk-publishable-key"
   },
-  "buildCommand": "pnpm build",
-  "outputDirectory": "dist",
-  "routes": [
-    { "handle": "filesystem" },
-    { "src": "/(.*)", "dest": "/" }
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
