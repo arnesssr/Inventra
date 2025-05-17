@@ -2,10 +2,6 @@
   "version": 2,
   "buildCommand": "pnpm build",
   "outputDirectory": "dist",
-  "env": {
-    "VITE_STOREFRONT_URL": "@vite-storefront-url",
-    "VITE_CLERK_PUBLISHABLE_KEY": "@clerk-publishable-key"
-  },
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ]
