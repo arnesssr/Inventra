@@ -20,7 +20,7 @@ export const config: Config = {
   development: {
     storefrontUrl: formatUrl(import.meta.env.VITE_STOREFRONT_URL || 'localhost:5174'),
     apiUrl: formatUrl(import.meta.env.VITE_API_URL || 'localhost:3000'),
-    apiKey: import.meta.env.VITE_API_KEY
+    apiKey: import.meta.env.VITE_API_KEY || ''  // Remove default value for security
   },
   production: {
     storefrontUrl: formatUrl(import.meta.env.VITE_STOREFRONT_URL),
