@@ -12,14 +12,10 @@ export type StockMovementType = 'in' | 'out' | 'adjustment';
 export interface StockMovement {
   id: string;
   productId: string;
-  type: StockMovementType;
+  type: 'in' | 'out' | 'adjustment';
   quantity: number;
   date: string;
-  notes: string;
-  /**
-   * Reference number for tracking (e.g., order number, invoice number)
-   */
-  reference?: string;
+  notes?: string;
 }
 
 /**
@@ -33,14 +29,6 @@ export interface InventoryItem {
   minimumStock: number;
   lastUpdated: string;
   movements: StockMovement[];
-  /**
-   * Threshold for triggering low stock alerts
-   */
-  alertThreshold?: number;
-  /**
-   * Timestamp of the last alert sent
-   */
-  lastAlertDate?: string;
 }
 
 /**

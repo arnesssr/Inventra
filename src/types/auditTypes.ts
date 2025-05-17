@@ -4,6 +4,7 @@ export const EVENT_TYPES = {
     UPDATE: 'product.update',
     DELETE: 'product.delete',
     ARCHIVE: 'product.archive',
+    PUBLISH_TO_STOREFRONT: 'product.publish_to_storefront',
   },
   INVENTORY: {
     ADJUST: 'inventory.adjust',
@@ -45,17 +46,25 @@ type EventValues<T> = {
   [K in keyof T]: T[K] extends { [s: string]: string } ? ValueOf<T[K]> : never
 }[keyof T]
 
-export type AuditEventType = EventValues<typeof EVENT_TYPES>
-export type AuditSeverity = 'info' | 'warning' | 'critical'
+export type AuditEventType = 
+  | 'product.create'
+  | 'product.update'
+  | 'product.delete'
+  | 'product.publish_to_storefront'
+  | 'inventory.adjust'
+  | 'inventory.threshold_change'
+  | 'order.create'
+  | 'order.status_change';
+
+export type AuditSeverity = 'info' | 'warning' | 'critical';
 
 export interface AuditLog {
-  reviewed: any
-  id: string
-  timestamp: string
-  eventType: AuditEventType
-  userId: string
-  userName: string
-  details: string
-  severity: AuditSeverity
-  metadata?: Record<string, any>
+  id: string;
+  timestamp: string;
+  eventType: AuditEventType;
+  userId: string;
+  userName: string;
+  details: string;
+  severity: AuditSeverity;
+  metadata?: Record<string, any>;
 }

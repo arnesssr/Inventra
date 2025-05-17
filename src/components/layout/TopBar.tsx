@@ -4,6 +4,7 @@ import { Button } from "../ui/Button"
 import { ThemeToggle } from "../ui/ThemeToggle"
 import { useStore } from "../../store/useStore"
 import { useNavigate } from "react-router-dom"
+import { getCurrentConfig } from '../../config/environment'
 
 export function TopBar() {
   const navigate = useNavigate()
@@ -11,9 +12,13 @@ export function TopBar() {
   const unreadCount = notifications?.filter(n => !n.read).length || 0
 
   const handleStoreClick = () => {
-    // Development environment
-    window.open('http://localhost:5174', '_blank')
-    // For production, would be: window.open('https://store.yourdomain.com', '_blank')
+    const { storefrontUrl } = getCurrentConfig();
+    try {
+      console.log(`Opening storefront at: ${storefrontUrl}`);
+      window.open(storefrontUrl, '_blank', 'noopener,noreferrer');
+    } catch (error) {
+      console.error('Failed to open storefront:', error);
+    }
   }
 
   return (

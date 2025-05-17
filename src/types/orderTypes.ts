@@ -1,5 +1,21 @@
-export type OrderStatus = 'pending' | 'processing' | 'completed' | 'cancelled'
-export type PaymentStatus = 'pending' | 'paid' | 'failed' | 'refunded'
+export type OrderStatus = 'pending' | 'processing' | 'completed' | 'cancelled';
+export type PaymentStatus = 'pending' | 'paid' | 'failed' | 'refunded';
+
+export interface Order {
+  id: string;
+  orderNumber: string;
+  customerName: string;
+  customerEmail: string;
+  items: OrderItem[];
+  status: OrderStatus;
+  paymentStatus: PaymentStatus;
+  subtotal: number;
+  tax: number;
+  total: number;
+  shippingAddress: Address;
+  createdAt: string;
+  updatedAt: string;
+}
 
 export interface OrderItem {
   id: string;
@@ -10,26 +26,10 @@ export interface OrderItem {
   subtotal: number;
 }
 
-export interface Order {
-  id: string;
-  orderNumber: string;
-  customerName: string;
-  customerEmail: string;
-  status: OrderStatus;
-  paymentStatus: PaymentStatus;
-  items: OrderItem[];
-  subtotal: number;
-  tax: number;
-  total: number;
-  createdAt: string;
-  updatedAt: string;
-  completedAt?: string;
-  notes?: string;
-  shippingAddress?: {
-    street: string;
-    city: string;
-    state: string;
-    country: string;
-    postalCode: string;
-  };
+interface Address {
+  street: string;
+  city: string;
+  state: string;
+  country: string;
+  postalCode: string;
 }

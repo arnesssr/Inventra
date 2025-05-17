@@ -1,23 +1,29 @@
 export interface Product {
   id: string;
   name: string;
-  category: string;
-  categoryName: string;
-  price: number;
-  stock: number;
   description: string;
-  status: 'draft' | 'published';
-  createdAt?: string; // Make createdAt optional
-  [key: string]: any;
+  price: number;
+  category: string;
+  status: 'draft' | 'published' | 'archived';
+  stock: number;
+  images: ImageWithPreview[];
+  imageUrls: string[];
+  publishedToStorefront?: boolean;
+  archivedAt?: string;
+  updatedAt: string;
+  createdAt: string;
 }
 
-export interface StockMovement {
+export interface ImageWithPreview {
+  file: File;
+  previewUrl: string;
+}
+
+export interface Category {
   id: string;
-  productId: string;
-  type: 'in' | 'out' | 'adjustment';
-  quantity: number;
-  date: string;
-  notes: string;
+  name: string;
+  description: string;
+  fields: CategoryField[];
 }
 
 export interface CategoryField {
@@ -26,11 +32,4 @@ export interface CategoryField {
   label: string;
   required: boolean;
   options?: string[];
-}
-
-export interface Category {
-  id: string;
-  name: string;
-  description: string;
-  fields: CategoryField[];
 }
