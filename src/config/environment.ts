@@ -2,7 +2,6 @@ interface EnvConfig {
   storefrontUrl: string;
   apiUrl: string;
   apiKey: string;
-  databaseUrl?: string;  // Make optional
 }
 
 interface Config {
@@ -21,14 +20,12 @@ export const config: Config = {
   development: {
     storefrontUrl: formatUrl(import.meta.env.VITE_STOREFRONT_URL || 'localhost:5174'),
     apiUrl: formatUrl(import.meta.env.VITE_API_URL || 'localhost:3000'),
-    apiKey: import.meta.env.VITE_API_KEY || '',  // Remove default value for security
-    databaseUrl: import.meta.env.DATABASE_URL  // Will be undefined if not set
+    apiKey: import.meta.env.VITE_API_KEY
   },
   production: {
     storefrontUrl: formatUrl(import.meta.env.VITE_STOREFRONT_URL),
     apiUrl: formatUrl(import.meta.env.VITE_API_URL),
-    apiKey: import.meta.env.VITE_API_KEY,
-    databaseUrl: import.meta.env.DATABASE_URL
+    apiKey: import.meta.env.VITE_API_KEY
   }
 };
 
