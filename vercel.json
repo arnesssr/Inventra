@@ -7,17 +7,13 @@
     }
   ],
   "env": {
-    "DATABASE_URL": "@database-url",
-    "CLERK_SECRET_KEY": "@clerk-secret-key",
-    "CLERK_PUBLISHABLE_KEY": "@clerk-publishable-key"
+    "VITE_API_URL": "@vite-api-url",
+    "VITE_STOREFRONT_URL": "@vite-storefront-url",
+    "VITE_CLERK_PUBLISHABLE_KEY": "@clerk-publishable-key"
   },
   "buildCommand": "pnpm build",
   "outputDirectory": "dist",
   "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
-    },
     { "handle": "filesystem" },
     { "src": "/(.*)", "dest": "/" }
   ]
