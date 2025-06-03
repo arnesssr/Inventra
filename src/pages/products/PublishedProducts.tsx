@@ -1,4 +1,5 @@
-import { useStore } from "../../store/useStore"
+import { useProductStore } from "../../store/productStore"
+import { useCategoryStore } from "../../store/categoryStore" // Add this import
 import { Table, TableHeader, TableBody, TableRow, TableCell } from "../../components/ui/Table"
 import { Card, CardContent } from "../../components/ui/Card"
 import { Input } from "../../components/ui/Input"
@@ -32,13 +33,15 @@ interface OutletContextType {
  * - Export functionality
  */
 export function PublishedProducts() {
-  // Get products and store actions
-  const products = useStore(state => state.products.filter(p => p.status === 'published'))
-  const categories = useStore(state => state.categories)
-  const getCategoryName = useStore(state => state.getCategoryName)
-  const archiveProduct = useStore(state => state.archiveProduct)
-  const adjustProductStock = useStore(state => state.adjustProductStock)
-  const updateProduct = useStore(state => state.updateProduct)
+  // Get products and categories from their respective stores
+  const products = useProductStore(state => 
+    state.products.filter(p => p.status === 'published')
+  )
+  const categories = useCategoryStore(state => state.categories)
+  const getCategoryName = useCategoryStore(state => state.getCategoryName)
+  const archiveProduct = useProductStore(state => state.archiveProduct)
+  const adjustProductStock = useProductStore(state => state.adjustProductStock)
+  const updateProduct = useProductStore(state => state.updateProduct)
 
   // Filter and sort state
   const [categoryFilter, setCategoryFilter] = useState("all")
@@ -386,7 +389,8 @@ export function PublishedProducts() {
                   </TableCell>
                   <TableCell>
                     <div className="flex items-center gap-3">
-                      {product.imageUrls[0] && (
+                      {/* Add optional chaining for imageUrls */}
+                      {product.imageUrls?.[0] && (
                         <img
                           src={product.imageUrls[0]}
                           alt={product.name}
@@ -400,45 +404,15 @@ export function PublishedProducts() {
                     </div>
                   </TableCell>
                   <TableCell>{getCategoryName(product.category)}</TableCell>
-                  <TableCell>KES {product.price.toLocaleString()}</TableCell>
                   <TableCell>
-                    <div className="flex items-center gap-2">
-                      <span className={`${
-                        product.stock > 10 ? 'text-green-600' :
-                        product.stock > 0 ? 'text-yellow-600' : 'text-red-600'
-                      }`}>
-                        {product.stock}
-                      </span>
-                      <div className="flex gap-1">
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          onClick={() => handleQuickStockAdjust(product.id, -1)}
-                        >
-                          <MinusCircle className="h-4 w-4" />
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          onClick={() => handleQuickStockAdjust(product.id, 1)}
-                        >
-                          <PlusCircle className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    </div>
+                    {product.price != null 
+                      ? `KES ${product.price.toLocaleString()}`
+                      : 'N/A'
+                    }
                   </TableCell>
+                  <TableCell>{product.stock ?? 0}</TableCell>
                   <TableCell>
-                    {product.hasVariations ? (
-                      <Button 
-                        variant="ghost" 
-                        size="sm"
-                        onClick={() => setSelectedProduct(product)}
-                      >
-                        View {product.variants?.length || 0} SKUs
-                      </Button>
-                    ) : (
-                      <span className="font-mono text-sm">{product.sku}</span>
-                    )}
+                    <span className="text-green-500">Published</span>
                   </TableCell>
                   <TableCell>
                     <div className="flex gap-2">

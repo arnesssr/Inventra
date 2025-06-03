@@ -1,11 +1,12 @@
-import { useStore } from "../../store/useStore"
+import { useInventoryStore } from "../../store/inventoryStore"
+import { useProductStore } from "../../store/productStore"
 import { Card } from "../../components/ui/Card"
 import { Table, TableHeader, TableBody, TableRow, TableCell } from "../../components/ui/Table"
-import { Box as BoxIcon, AlertTriangle, MinusCircle, TrendingUp } from "lucide-react"
+import { BoxIcon, AlertTriangle, MinusCircle, TrendingUp } from "lucide-react"
 
 export function InventoryReport() {
-  const inventory = useStore(state => state.inventory)
-  const products = useStore(state => state.products)
+  const inventory = useInventoryStore(state => state.inventory)
+  const products = useProductStore(state => state.products)
 
   const stats = {
     totalValue: Object.values(inventory).reduce((sum, item) => {

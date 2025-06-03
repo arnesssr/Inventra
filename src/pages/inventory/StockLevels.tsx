@@ -1,6 +1,7 @@
 import { Table, TableHeader, TableRow, TableCell, TableBody } from "../../components/ui/Table"
 import { Button } from "../../components/ui/Button"
-import { useStore } from "../../store/useStore"
+import { useInventoryStore } from "../../store/inventoryStore"
+import { useCategoryStore } from "../../store/categoryStore"
 import { AlertTriangle, CheckCircle, ShoppingCart, ArrowUpDown, Filter } from "lucide-react"
 import { Input } from "../../components/ui/Input"
 import { useState } from "react"
@@ -17,9 +18,9 @@ export function StockLevels() {
   const [filterStatus, setFilterStatus] = useState<'all' | 'low' | 'out'>('all')
   const [categoryFilter, setCategoryFilter] = useState('all')
 
-  const inventory = useStore(state => state.inventory)
-  const updateMinimumStock = useStore(state => state.updateMinimumStock)
-  const categories = useStore(state => state.categories)
+  const inventory = useInventoryStore(state => state.inventory)
+  const updateMinimumStock = useInventoryStore(state => state.updateMinimumStock)
+  const categories = useCategoryStore(state => state.categories)
 
   const getStockStatus = (current: number, minimum: number) => {
     if (current <= 0) return { 

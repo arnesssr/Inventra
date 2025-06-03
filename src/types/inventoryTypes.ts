@@ -12,10 +12,10 @@ export type StockMovementType = 'in' | 'out' | 'adjustment';
 export interface StockMovement {
   id: string;
   productId: string;
-  type: 'in' | 'out' | 'adjustment';
-  quantity: number;
   date: string;
-  notes?: string;
+  type: 'in' | 'out';
+  quantity: number;
+  reason?: string;
 }
 
 /**
@@ -23,12 +23,13 @@ export interface StockMovement {
  */
 export interface InventoryItem {
   productId: string;
-  productName: string;
-  categoryId: string;
-  currentStock: number;
+  currentStock: number;  // This replaces quantity
   minimumStock: number;
-  lastUpdated: string;
-  movements: StockMovement[];
+  movements?: StockMovement[];
+  lastUpdated?: string;
+  categoryId?: string;
+  productName?: string;
+  price: number;  // Add price property
 }
 
 /**
@@ -48,4 +49,17 @@ export interface StockAlert {
   currentStock: number;
   createdAt: string;
   status: 'active' | 'resolved';
+}
+
+/**
+ * Represents a stock order in the inventory system
+ */
+export interface StockOrder {
+  id: string;
+  productId: string;
+  quantity: number;
+  status: 'pending' | 'completed' | 'cancelled';
+  createdAt: string;
+  completedAt?: string;
+  notes?: string;
 }

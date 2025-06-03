@@ -1,8 +1,8 @@
-import { useStore } from "../../store/useStore"
+import { useProductStore } from "../../store/productStore"
 import { Table, TableHeader, TableBody, TableRow, TableCell } from "../../components/ui/Table"
 
 export function ProductsList() {
-  const products = useStore(state => state.products.filter(p => p.status === 'published'))
+  const products = useProductStore(state => state.products.filter(p => p.status === 'published'))
 
   return (
     <div className="rounded-md border">

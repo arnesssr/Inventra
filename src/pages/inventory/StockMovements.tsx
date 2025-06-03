@@ -1,12 +1,12 @@
 import { Table, TableHeader, TableRow, TableCell, TableBody } from "../../components/ui/Table"
 import { Button } from "../../components/ui/Button"
-import { useStore } from "../../store/useStore"
+import { useInventoryStore } from "../../store/inventoryStore"
 import { Plus } from "lucide-react"
 import { useState } from "react"
 import { StockMovementDialog } from "./StockMovementDialog"
 
 export function StockMovements() {
-  const inventory = useStore(state => state.inventory)
+  const inventory = useInventoryStore(state => state.inventory)
   const [showDialog, setShowDialog] = useState(false)
 
   return (

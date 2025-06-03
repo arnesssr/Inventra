@@ -1,23 +1,26 @@
 import { useParams, useNavigate } from "react-router-dom"
 import { Button } from "../../components/ui/Button"
 import { Plus } from "lucide-react"
-import { useStore } from "../../store/useStore"
+import { useProductStore } from "../../store/productStore"
+import { useCategoryStore } from "../../store/categoryStore"
 import { Table, TableHeader, TableRow, TableCell, TableBody } from "../../components/ui/Table"
 
 export function CategoryDetails() {
   const { categoryId } = useParams()
   const navigate = useNavigate()
-  const products = useStore(state => 
+  const products = useProductStore(state => 
     state.products.filter(p => p.category === categoryId && p.status === 'published')
   )
-  const getCategoryName = useStore(state => state.getCategoryName)
+  const category = useCategoryStore(state => 
+    state.categories.find(c => c.id === categoryId)
+  )
 
-  if (!categoryId) return null
+  if (!categoryId || !category) return null
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold">{getCategoryName(categoryId)}</h2>
+        <h2 className="text-2xl font-bold">{category.name}</h2>
         <Button onClick={() => navigate(`/products/new/${categoryId}`)}>
           <Plus className="h-4 w-4 mr-2" />
           Add Product

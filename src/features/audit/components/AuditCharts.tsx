@@ -1,8 +1,8 @@
 import { Card } from "../../../components/ui/Card"
-import { useStore } from "../../../store/useStore"
+import { useAuditStore } from "../../../store/auditStore"
 
 export function AuditCharts() {
-  const logs = useStore(state => state.auditLogs)
+  const logs = useAuditStore(state => state.logs)
 
   // Empty for now, will be implemented with other visualizations later
   return null

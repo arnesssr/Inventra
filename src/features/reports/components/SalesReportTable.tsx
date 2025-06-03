@@ -1,9 +1,9 @@
 import { Table, TableHeader, TableRow, TableCell, TableBody } from "../../../components/ui/Table"
-import { useStore } from "../../../store/useStore"
+import { useOrderStore } from "../../../store/orderStore"
 import { formatDate } from "../../../lib/utils/dateUtils"
 
 export function SalesReportTable() {
-  const orders = useStore(state => state.orders)
+  const orders = useOrderStore(state => state.orders)
 
   return (
     <div className="space-y-4">

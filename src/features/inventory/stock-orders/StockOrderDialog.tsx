@@ -5,6 +5,9 @@ import { Button } from "../../../components/ui/Button"
 import { useStore } from "../../../store/useStore"
 import { useState } from "react"
 import { Textarea } from "../../../components/ui/Textarea"
+import { useProductStore } from '../../../store/productStore'
+import { useSupplierStore } from '../../../store/supplierStore'
+import { useInventoryStore } from '../../../store/inventoryStore'
 
 interface StockOrderDialogProps {
   open: boolean
@@ -13,9 +16,9 @@ interface StockOrderDialogProps {
 }
 
 export function StockOrderDialog({ open, onClose, productId }: StockOrderDialogProps) {
-  const products = useStore(state => state.products)
-  const suppliers = useStore(state => state.suppliers)
-  const createStockOrder = useStore(state => state.createStockOrder)
+  const products = useProductStore(state => state.products)
+  const suppliers = useSupplierStore(state => state.suppliers)
+  const createStockOrder = useInventoryStore(state => state.createStockOrder)
 
   const [formData, setFormData] = useState({
     productId: productId || '',

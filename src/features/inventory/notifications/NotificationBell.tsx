@@ -1,11 +1,11 @@
 import { Bell } from "lucide-react"
 import { Button } from "../../../components/ui/Button"
 import { useNavigate } from "react-router-dom"
-import { useStore } from "../../../store/useStore"
+import { useNotificationStore } from '../../../store/notificationStore'
 
 export function NotificationBell() {
   const navigate = useNavigate()
-  const unreadCount = useStore(state => 
+  const unreadCount = useNotificationStore(state => 
     state.notifications.filter(n => !n.read).length
   )
 

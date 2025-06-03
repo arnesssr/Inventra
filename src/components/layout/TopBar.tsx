@@ -2,14 +2,16 @@ import { UserButton } from "@clerk/clerk-react"
 import { Bell, Search, Store } from "lucide-react"
 import { Button } from "../ui/Button"
 import { ThemeToggle } from "../ui/ThemeToggle"
-import { useStore } from "../../store/useStore"
+import { useNotificationStore } from "../../store/notificationStore" // Updated import
 import { useNavigate } from "react-router-dom"
 import { getCurrentConfig } from '../../config/environment'
 
 export function TopBar() {
   const navigate = useNavigate()
-  const notifications = useStore(state => state.notifications)
-  const unreadCount = notifications?.filter(n => !n.read).length || 0
+  const unreadCount = useNotificationStore(state => 
+    (state.notifications?.filter(n => !n.read)?.length || 0) + 
+    (state.alerts?.filter(a => !a.read)?.length || 0)
+  );
 
   const handleStoreClick = () => {
     const { storefrontUrl } = getCurrentConfig();
@@ -82,8 +84,8 @@ export function TopBar() {
 
 // Quick Notifications List Component
 function NotificationsList() {
-  const notifications = useStore(state => state.notifications)
-  const markAsRead = useStore(state => state.markNotificationAsRead)
+  const notifications = useNotificationStore(state => state.notifications)
+  const markAsRead = useNotificationStore(state => state.markAsRead)
 
   if (notifications.length === 0) {
     return (
@@ -109,7 +111,7 @@ function NotificationsList() {
           onClick={() => markAsRead(notification.id)}
         >
           <p className="text-sm font-medium">
-            {notification.type === 'out_of_stock' ? 'Out of Stock' : 'Low Stock'
+            {notification.type === 'error' ? 'Out of Stock' : 'Warning'
             }
           </p>
           <p className="text-xs text-muted-foreground mt-1">

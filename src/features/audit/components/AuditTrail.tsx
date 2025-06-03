@@ -3,7 +3,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import { Input } from "../../../components/ui/Input"
 import { Button } from "../../../components/ui/Button"
 import { formatDate } from "../../../lib/utils/dateUtils"
-import { useStore } from "../../../store/useStore"
+import { useAuditStore } from "../../../store/auditStore"
 import { AlertTriangle, AlertCircle, Info, MoreHorizontal, ExternalLink, Check } from "lucide-react"
 import type { AuditEventType, AuditSeverity, AuditLog } from "../../../types/auditTypes"
 import { EVENT_TYPES } from "../../../types/auditTypes"  // Fixed import path
@@ -34,6 +34,12 @@ interface FilterState {
   resourceType: string
 }
 
+// Add this type to handle table sorting
+type SortConfig = {
+  key: 'timestamp' | 'eventType' | 'userId' | 'severity';
+  direction: 'asc' | 'desc';
+};
+
 export function AuditTrail({ defaultSeverity, defaultType }: AuditTrailProps) {
   const [filters, setFilters] = useState<FilterState>({
     eventType: defaultType || 'all',
@@ -44,28 +50,38 @@ export function AuditTrail({ defaultSeverity, defaultType }: AuditTrailProps) {
     resourceType: ''
   })
 
-  const [sortConfig, setSortConfig] = useState<{
-    key: 'timestamp' | 'eventType' | 'userId' | 'severity';
-    direction: 'asc' | 'desc';
-  } | null>(null);
+  const [sortConfig, setSortConfig] = useState<SortConfig | null>(null);
 
-  const logs = useStore(state => state.getAuditLogs({
+  const logs = useAuditStore(state => state.getLogs({
     eventType: filters.eventType === 'all' ? undefined : filters.eventType,
     severity: filters.severity === 'all' ? undefined : filters.severity,
     startDate: filters.startDate ? new Date(filters.startDate) : undefined,
     endDate: filters.endDate ? new Date(filters.endDate) : undefined,
-    user: filters.user || undefined,
-    resourceType: filters.resourceType || undefined
   }))
 
+  const handleSort = (key: SortConfig['key']) => {
+    setSortConfig(current => ({
+      key,
+      direction: current?.key === key && current.direction === 'asc' ? 'desc' : 'asc'
+    }));
+  };
+
+  // Add proper type check for sortedLogs
   const sortedLogs = React.useMemo(() => {
-    if (!sortConfig) return logs;
+    const logs = useAuditStore.getState().getLogs();
+    
+    if (!sortConfig?.key) return logs;
 
     return [...logs].sort((a, b) => {
-      if (a[sortConfig.key] < b[sortConfig.key]) {
+      if (!a[sortConfig.key] || !b[sortConfig.key]) return 0;
+      
+      const aValue = a[sortConfig.key].toString().toLowerCase();
+      const bValue = b[sortConfig.key].toString().toLowerCase();
+      
+      if (aValue < bValue) {
         return sortConfig.direction === 'asc' ? -1 : 1;
       }
-      if (a[sortConfig.key] > b[sortConfig.key]) {
+      if (aValue > bValue) {
         return sortConfig.direction === 'asc' ? 1 : -1;
       }
       return 0;
@@ -75,14 +91,14 @@ export function AuditTrail({ defaultSeverity, defaultType }: AuditTrailProps) {
   useEffect(() => {
     // Subscribe to real-time updates
     const unsubscribe = AuditService.subscribeToAuditLogs((newLog) => {
-      useStore.getState().addAuditLog(newLog)
-    })
+      useAuditStore.getState().addLog(newLog);
+    });
 
     // Load initial logs from localStorage
-    const savedLogs = JSON.parse(localStorage.getItem('auditLogs') || '[]')
-    useStore.getState().setAuditLogs(savedLogs)
+    const savedLogs = JSON.parse(localStorage.getItem('auditLogs') || '[]');
+    useAuditStore.getState().setLogs(savedLogs);
 
-    return () => unsubscribe()
+    return () => unsubscribe();
   }, [])
 
   const getSeverityIcon = (severity: AuditSeverity) => {
@@ -109,7 +125,7 @@ export function AuditTrail({ defaultSeverity, defaultType }: AuditTrailProps) {
       ...log,
       reviewed: true,
       reviewedAt: new Date().toISOString(),
-      reviewedBy: useStore.getState().currentUser?.id
+      reviewedBy: 'system' // Replace with actual user ID from auth context
     })
   }
 
@@ -117,13 +133,6 @@ export function AuditTrail({ defaultSeverity, defaultType }: AuditTrailProps) {
     // We'll implement this in a follow-up with a modal
     console.log('Add notes for:', log.id)
   }
-
-  const handleSort = (key: typeof sortConfig.key) => {
-    setSortConfig(current => ({
-      key,
-      direction: current?.key === key && current.direction === 'asc' ? 'desc' : 'asc'
-    }));
-  };
 
   // Create event type options array
   const eventTypeOptions = Object.values(EVENT_TYPES)

@@ -6,7 +6,8 @@ import {
   DropdownMenuTrigger,
 } from "../../components/ui/DropdownMenu"
 import { Button } from "../../components/ui/Button"
-import { useStore } from "../../store/useStore"
+import { useCategoryStore } from "../../store/categoryStore"
+import { useProductStore } from "../../store/productStore"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -26,8 +27,8 @@ interface CategoryActionsProps {
 
 export function CategoryActions({ categoryId, onEdit }: CategoryActionsProps) {
   const [showDeleteDialog, setShowDeleteDialog] = useState(false)
-  const deleteCategory = useStore(state => state.deleteCategory)
-  const hasProducts = useStore(state => 
+  const deleteCategory = useCategoryStore(state => state.deleteCategory)
+  const hasProducts = useProductStore(state => 
     state.products.some(p => p.category === categoryId)
   )
 

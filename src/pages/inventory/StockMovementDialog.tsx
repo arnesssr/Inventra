@@ -2,7 +2,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../../componen
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../components/ui/Select"
 import { Input } from "../../components/ui/Input"
 import { Button } from "../../components/ui/Button"
-import { useStore } from "../../store/useStore"
+import { useProductStore } from "../../store/productStore"
+import { useInventoryStore } from "../../store/inventoryStore"
 import { useState } from "react"
 
 interface StockMovementDialogProps {
@@ -13,8 +14,8 @@ interface StockMovementDialogProps {
 }
 
 export function StockMovementDialog({ open, onClose, productId, onSave }: StockMovementDialogProps) {
-  const products = useStore(state => state.products)
-  const addStockMovement = useStore(state => state.addStockMovement)
+  const products = useProductStore(state => state.products)
+  const addStockMovement = useInventoryStore(state => state.addStockMovement)
 
   const [formData, setFormData] = useState({
     productId: productId || '',

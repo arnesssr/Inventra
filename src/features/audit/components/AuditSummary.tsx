@@ -1,9 +1,9 @@
 import { Card } from "../../../components/ui/Card"
-import { useStore } from "../../../store/useStore"
+import { useAuditStore } from "../../../store/auditStore"
 import { ActivitySquare, AlertTriangle, UserCog, Settings } from "lucide-react"
 
 export function AuditSummary() {
-  const logs = useStore(state => state.auditLogs)
+  const logs = useAuditStore(state => state.logs)
   const today = new Date().toDateString()
 
   const stats = {

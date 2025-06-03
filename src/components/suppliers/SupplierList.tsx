@@ -1,5 +1,5 @@
 import { Table, TableHeader, TableRow, TableCell, TableBody } from "../ui/Table"
-import { useStore } from "../../store/useStore"
+import { useSupplierStore } from "../../store/supplierStore"
 import { SupplierStatusBadge } from "./SupplierStatusBadge"
 import { SupplierDetailsDrawer } from "./SupplierDetailsDrawer"
 import { useState } from "react"
@@ -8,7 +8,7 @@ import { SupplierFormActions } from "../../features/suppliers/SupplierFormAction
 
 export function SupplierList() {
   const [selectedSupplier, setSelectedSupplier] = useState<Supplier | null>(null)
-  const suppliers = useStore(state => state.suppliers)
+  const suppliers = useSupplierStore(state => state.suppliers)
 
   return (
     <div className="space-y-4">

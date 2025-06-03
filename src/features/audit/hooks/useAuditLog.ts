@@ -1,20 +1,20 @@
-import { useStore } from '../../../store/useStore'
 import { AuditService } from '../services/auditService'
 import type { AuditEventType } from '../../../types/auditTypes'
+import { useClerk } from '@clerk/clerk-react' // Add this import
 
 export function useAuditLog() {
-  const currentUser = useStore(state => state.currentUser)
+  const { user } = useClerk() // Get current user from Clerk
 
   const logAction = async (
     action: AuditEventType,
     details: string,
     metadata?: Record<string, any>
   ) => {
-    if (!currentUser) return
+    if (!user) return
 
-    await AuditService.logAction(action, currentUser.id, details, {
+    await AuditService.logAction(action, user.id, details, {
       metadata: {
-        userName: currentUser.fullName,
+        userName: user.fullName,
         ...metadata
       }
     })

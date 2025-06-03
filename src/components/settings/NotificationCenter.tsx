@@ -1,11 +1,11 @@
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/Card"
 import { Switch } from "../ui/Switch"
-import { useStore } from "../../store/useStore"
+import { useNotificationStore } from "../../store/notificationStore"
 import { Button } from "../ui/Button"
 
 export function NotificationCenter() {
-  const preferences = useStore(state => state.notificationPreferences)
-  const updatePreferences = useStore(state => state.updateNotificationPreferences)
+  const preferences = useNotificationStore(state => state.preferences)
+  const updatePreferences = useNotificationStore(state => state.updatePreferences)
 
   const handlePreferenceChange = (key: string, value: boolean) => {
     updatePreferences({ [key]: value })

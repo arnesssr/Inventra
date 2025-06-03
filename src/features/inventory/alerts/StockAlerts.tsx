@@ -1,19 +1,22 @@
 import { Card } from "../../../components/ui/Card"
 import { Table, TableHeader, TableBody, TableRow, TableCell } from "../../../components/ui/Table"
-import { useStore } from "../../../store/useStore"
+import { useInventoryStore } from '../../../store/inventoryStore'
+import { useProductStore } from '../../../store/productStore'
 import { AlertTriangle } from "lucide-react"
 import { Button } from "../../../components/ui/Button"
 import { useNavigate } from "react-router-dom"
+import type { InventoryItem } from "../../../store/inventoryStore"
 
 export function StockAlerts() {
   const navigate = useNavigate()
-  const inventory = useStore(state => state.inventory)
-  const getCategoryName = useStore(state => state.getCategoryName)
+  const inventory = useInventoryStore(state => state.inventory)
+  const getCategoryName = useProductStore(state => state.getCategoryName)
 
   // Filter items that need attention
-  const alertItems = Object.values(inventory).filter(item => 
-    item.currentStock <= item.minimumStock
-  )
+  const alertItems = Object.entries(inventory).map(([id, item]: [string, InventoryItem]) => ({
+    id,
+    ...item
+  })).filter(item => item.currentStock <= item.minimumStock)
 
   // Navigate to orders tab with pre-filled data
   const handleCreateOrder = (productId: string) => {

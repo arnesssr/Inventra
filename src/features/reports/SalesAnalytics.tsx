@@ -1,9 +1,9 @@
 import { Card } from "../../components/ui/Card"
-import { useStore } from "../../store/useStore"
+import { useOrderStore } from "../../store/orderStore"
 
 export function SalesAnalytics() {
-  const orders = useStore(state => state.orders)
-  const stats = useStore(state => state.getOrderStats())
+  const orders = useOrderStore(state => state.orders)
+  const stats = useOrderStore(state => state.getOrderStats())
 
   return (
     <div className="space-y-6">

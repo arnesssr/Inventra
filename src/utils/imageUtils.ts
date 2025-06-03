@@ -1,41 +1,47 @@
-export async function validateImage(file: File): Promise<boolean> {
-  // Check MIME type
-  if (!file.type.startsWith('image/')) {
+export const validateImage = async (file: File): Promise<boolean> => {
+  // Size validation (max 5MB)
+  const MAX_SIZE = 5 * 1024 * 1024
+  if (file.size > MAX_SIZE) {
+    console.error('File too large:', file.name)
     return false
   }
 
-  // Check file size (5MB limit)
-  if (file.size > 5 * 1024 * 1024) {
+  // Type validation
+  const allowedTypes = ['image/jpeg', 'image/png', 'image/webp']
+  if (!allowedTypes.includes(file.type)) {
+    console.error('Invalid file type:', file.type)
     return false
   }
 
-  // Validate image contents
-  return new Promise((resolve) => {
-    const img = new Image()
-    const objectUrl = URL.createObjectURL(file)
-
-    img.onload = () => {
-      URL.revokeObjectURL(objectUrl)
-      resolve(true)
+  // Dimension validation
+  try {
+    const dimensions = await getImageDimensions(file)
+    if (dimensions.width < 200 || dimensions.height < 200) {
+      console.error('Image too small:', dimensions)
+      return false
     }
+  } catch (error) {
+    console.error('Failed to validate image dimensions:', error)
+    return false
+  }
 
-    img.onerror = () => {
-      URL.revokeObjectURL(objectUrl)
-      resolve(false)
-    }
-
-    img.src = objectUrl
-  })
+  return true
 }
 
-export function createSafeObjectURL(file: File): string | null {
+export const createSafeObjectURL = (file: File): string | null => {
   try {
-    if (!file.type.startsWith('image/')) {
-      return null
-    }
     return URL.createObjectURL(file)
   } catch (error) {
-    console.error('Error creating object URL:', error)
+    console.error('Failed to create object URL:', error)
     return null
   }
+}
+
+const getImageDimensions = (file: File): Promise<{ width: number; height: number }> => {
+  return new Promise((resolve, reject) => {
+    const img = new Image()
+    img.onload = () => resolve({ width: img.width, height: img.height })
+    img.onerror = reject
+    img.src = URL.createObjectURL(file)
+  })
 }

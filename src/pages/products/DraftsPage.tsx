@@ -1,4 +1,5 @@
-import { useStore } from "../../store/useStore"
+import { useProductStore } from "../../store/productStore"
+import { useCategoryStore } from "../../store/categoryStore"
 import { Table, TableHeader, TableBody, TableRow, TableCell } from "../../components/ui/Table"
 import { Card } from "../../components/ui/Card"
 import { Button } from "../../components/ui/Button"
@@ -8,10 +9,10 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 export function DraftsPage() {
-  const drafts = useStore(state => state.products.filter(p => p.status === 'draft'))
-  const getCategoryName = useStore(state => state.getCategoryName)
-  const updateProduct = useStore(state => state.updateProduct)
-  const deleteProduct = useStore(state => state.deleteProduct)
+  const drafts = useProductStore(state => state.products.filter(p => p.status === 'draft'))
+  const getCategoryName = useCategoryStore(state => state.getCategoryName)
+  const updateProduct = useProductStore(state => state.updateProduct)
+  const deleteProduct = useProductStore(state => state.deleteProduct)
   const navigate = useNavigate()
   
   const [showPublishConfirm, setShowPublishConfirm] = useState(false)
@@ -32,14 +33,20 @@ export function DraftsPage() {
     navigate(`/app/products/${productId}`)
   }
 
-  const confirmPublish = () => {
+  const confirmPublish = async () => {
     if (selectedProduct) {
-      updateProduct(selectedProduct, { 
-        status: 'published',
-        publishedAt: new Date().toISOString()
-      })
-      setShowPublishConfirm(false)
-      setSelectedProduct(null)
+      try {
+        const timestamp = new Date().toISOString();
+        await updateProduct(selectedProduct, { 
+          status: 'published',
+          updatedAt: timestamp,
+          publishedAt: timestamp // Now this is typed correctly
+        });
+        setShowPublishConfirm(false);
+        setSelectedProduct(null);
+      } catch (error) {
+        console.error('Publish failed:', error);
+      }
     }
   }
 
@@ -68,7 +75,12 @@ export function DraftsPage() {
               <TableRow key={draft.id}>
                 <TableCell>{draft.name}</TableCell>
                 <TableCell>{getCategoryName(draft.category)}</TableCell>
-                <TableCell>KES {draft.price.toLocaleString()}</TableCell>
+                <TableCell>
+                  {draft.price ? new Intl.NumberFormat('en-US', {
+                    style: 'currency',
+                    currency: 'USD'
+                  }).format(draft.price) : 'N/A'}
+                </TableCell>
                 <TableCell>
                   <div className="flex items-center gap-2">
                     <Button variant="outline" size="sm" onClick={() => handlePreview(draft.id)}>

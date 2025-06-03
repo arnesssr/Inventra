@@ -3,22 +3,24 @@ import { AuditTrail } from "../../features/audit/components/AuditTrail"
 import { AuditSummary } from "../../features/audit/components/AuditSummary"
 import { AuditToolbar } from "../../features/audit/components/AuditToolbar"
 import { Card } from "../../components/ui/Card"
-import { useStore } from "../../store/useStore"
+import { useAuditStore } from "../../store/auditStore"
 import { AuditService } from "../../features/audit/services/auditService"
 
 export function AuditsPage() {
-  const setAuditLogs = useStore(state => state.setAuditLogs)
+  const stats = useAuditStore(state => state.getStats())
+  const logs = useAuditStore(state => state.getLogs())
+  const addAuditLog = useAuditStore(state => state.addAuditLog)
 
   useEffect(() => {
     const savedLogs = AuditService.getAuditLogs(1, 10) // Get first page with 10 items
-    setAuditLogs(savedLogs)
+    setLogs(savedLogs)
 
     const unsubscribe = AuditService.subscribeToAuditLogs((newLog) => {
-      useStore.getState().addAuditLog(newLog)
+      useAuditStore.getState().addLog(newLog)
     })
 
     return () => unsubscribe()
-  }, [setAuditLogs])
+  }, [setLogs])
 
   return (
     <div className="space-y-6">

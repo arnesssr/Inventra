@@ -1,4 +1,5 @@
-import { useStore } from "../../store/useStore"
+import { useProductStore } from "../../store/productStore"
+import { useCategoryStore } from "../../store/categoryStore" // Add this import
 import { Table, TableHeader, TableBody, TableRow, TableCell } from "../../components/ui/Table"
 import { Card } from "../../components/ui/Card"
 import { Button } from "../../components/ui/Button"
@@ -7,11 +8,11 @@ import { Undo, Trash2 } from "lucide-react"
 import { useState } from "react"
 
 export function ArchivedProducts() {
-  const archived = useStore(state => state.products.filter(p => p.status === 'archived'))
-  const getCategoryName = useStore(state => state.getCategoryName)
-  const restoreProduct = useStore(state => state.restoreProduct)
-  const deleteProduct = useStore(state => state.deleteProduct)
-  
+  const archived = useProductStore(state => state.products.filter(p => p.status === 'archived'))
+  const getCategoryName = useCategoryStore(state => state.getCategoryName)
+  const restoreProduct = useProductStore(state => state.restoreProduct)
+  const deleteProduct = useProductStore(state => state.deleteProduct)
+
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
   const [selectedProduct, setSelectedProduct] = useState<string | null>(null)
 
@@ -46,9 +47,9 @@ export function ArchivedProducts() {
               <TableRow key={product.id}>
                 <TableCell>
                   <div className="flex items-center gap-3">
-                    {product.images[0] && (
+                    {product.imageUrls?.[0] && (
                       <img
-                        src={URL.createObjectURL(product.images[0].file)}
+                        src={product.imageUrls[0]}
                         alt={product.name}
                         className="w-10 h-10 rounded-lg object-cover"
                       />
@@ -62,11 +63,16 @@ export function ArchivedProducts() {
                   </div>
                 </TableCell>
                 <TableCell>{getCategoryName(product.category)}</TableCell>
-                <TableCell>KES {product.price.toLocaleString()}</TableCell>
+                <TableCell>
+                  {product.price != null 
+                    ? `KES ${product.price.toLocaleString()}`
+                    : 'N/A'
+                  }
+                </TableCell>
                 <TableCell>
                   {product.archivedAt 
                     ? new Date(product.archivedAt).toLocaleDateString()
-                    : 'Unknown'
+                    : '-'
                   }
                 </TableCell>
                 <TableCell>

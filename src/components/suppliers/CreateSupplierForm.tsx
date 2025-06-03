@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useStore } from "../../store/useStore"
+import { useSupplierStore } from "../../store/supplierStore"
 import { Button } from "../ui/Button"
 import { Input } from "../ui/Input"
 import { Textarea } from "../ui/Textarea"
@@ -12,7 +12,7 @@ interface CreateSupplierFormProps {
 }
 
 export function CreateSupplierForm({ onSuccess }: CreateSupplierFormProps) {
-  const addSupplier = useStore(state => state.addSupplier)
+  const addSupplier = useSupplierStore(state => state.addSupplier)
   const [formData, setFormData] = useState({
     name: '',
     email: '',

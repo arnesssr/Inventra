@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useStore } from "../../store/useStore"
+import { useOrderStore } from "../../store/orderStore"
 import { Table, TableBody, TableCell, TableHeader, TableRow } from "../ui/Table"
 import { OrderStatusBadge } from "./OrderStatusBadge"
 import { OrderDetailsDrawer } from "./OrderDetailsDrawer"
@@ -8,7 +8,7 @@ import type { Order } from "../../types/orderTypes"
 
 export function OrderList() {
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null)
-  const orders = useStore(state => state.orders)
+  const orders = useOrderStore(state => state.orders)
 
   return (
     <div className="space-y-4">

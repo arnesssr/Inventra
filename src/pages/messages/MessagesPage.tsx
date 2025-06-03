@@ -1,5 +1,5 @@
 import { Card } from "../../components/ui/Card"
-import { useStore } from "../../store/useStore"
+import { useNotificationStore } from "../../store/notificationStore"
 import { 
   AlertTriangle, 
   CheckCircle, 
@@ -9,8 +9,8 @@ import {
 import { cn } from "../../lib/utils"
 
 export function MessagesPage() {
-  const notifications = useStore(state => state.notifications)
-  const markNotificationAsRead = useStore(state => state.markNotificationAsRead)
+  const notifications = useNotificationStore(state => state.notifications)
+  const markNotificationAsRead = useNotificationStore(state => state.markNotificationAsRead)
 
   // Group notifications by date
   const groupedNotifications = notifications.reduce((groups: Record<string, any[]>, notification) => {

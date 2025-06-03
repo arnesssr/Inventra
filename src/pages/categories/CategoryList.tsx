@@ -2,21 +2,14 @@ import { useNavigate } from "react-router-dom"
 import { Button } from "../../components/ui/Button"
 import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/Card"
 import { Plus, MoreVertical, Pen, Trash2, Book, BookOpen, Gift, PenTool, Baby } from "lucide-react"
-import { useState } from "react"
-import { useStore } from "../../store/useStore"
+import { useState, useEffect } from "react"
+import { useCategoryStore } from "../../store/categoryStore"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../../components/ui/Dialog"
 import { Input } from "../../components/ui/Input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../components/ui/Select"
 import { Checkbox } from "../../components/ui/Checkbox"
-import { type Category, type CategoryField } from '../../types/productTypes'
-
-// Default fields that every product category will have
-const DEFAULT_FIELDS: CategoryField[] = [
-  { name: 'name', type: 'text', label: 'Product Name', required: true },
-  { name: 'price', type: 'number', label: 'Price (KES)', required: true },
-  { name: 'stock', type: 'number', label: 'Stock Quantity', required: true },
-  { name: 'description', type: 'text', label: 'Description', required: true }
-]
+import type { Category, CategoryField } from "../../types/categoryTypes"
+import { DEFAULT_FIELDS } from '../../types/categoryTypes'
 
 // Icon mappings for different category types
 const CATEGORY_ICONS: Record<string, JSX.Element> = {
@@ -40,15 +33,23 @@ export function CategoryList() {
   const [newCategory, setNewCategory] = useState<Omit<Category, 'id'>>({
     name: '',
     description: '',
-    fields: [...DEFAULT_FIELDS]
+    fields: [...DEFAULT_FIELDS],
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
   })
   const [customFields, setCustomFields] = useState<CategoryField[]>([])
 
   // Store actions and state
-  const addCategory = useStore(state => state.addCategory)
-  const categories = useStore(state => state.categories)
-  const deleteCategory = useStore(state => state.deleteCategory)
-  
+  const addCategory = useCategoryStore(state => state.addCategory)
+  const categories = useCategoryStore(state => state.categories)
+  const deleteCategory = useCategoryStore(state => state.deleteCategory)
+  const initializeCategories = useCategoryStore(state => state.initializeCategories)
+
+  // Initialize categories on component mount
+  useEffect(() => {
+    initializeCategories();
+  }, [initializeCategories]);
+
   // Dialog state management
   const [showEditDialog, setShowEditDialog] = useState(false)
   const [showDeleteDialog, setShowDeleteDialog] = useState(false)
@@ -87,18 +88,23 @@ export function CategoryList() {
    * Saves a new category with validation
    */
   const handleSave = () => {
-    if (!newCategory.name.trim()) {
-      // Add validation - show error if name is empty
-      return;
-    }
+    if (!newCategory.name.trim()) return;
 
-    const categoryData: Category = {
-      ...newCategory,
-      id: newCategory.name.toLowerCase().replace(/\s+/g, '-'),
+    const categoryData: Omit<Category, 'id'> = {
+      name: newCategory.name,
+      description: newCategory.description,
       fields: [
-        ...DEFAULT_FIELDS,
-        ...customFields // Add custom fields to category
-      ]
+        ...DEFAULT_FIELDS.map(field => ({
+          ...field,
+          label: field.name
+        })),
+        ...customFields.map(field => ({
+          ...field,
+          label: field.name
+        }))
+      ],
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
     }
 
     addCategory(categoryData)
@@ -108,7 +114,9 @@ export function CategoryList() {
     setNewCategory({
       name: '',
       description: '',
-      fields: [...DEFAULT_FIELDS]
+      fields: [...DEFAULT_FIELDS],
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
     })
     setCustomFields([])
   }

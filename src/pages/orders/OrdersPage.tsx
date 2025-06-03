@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { useStore } from "../../store/useStore"
 import { OrderList } from "../../components/orders/OrderList"
 import { CreateOrderForm } from "../../components/orders/CreateOrderForm"
 import { Card } from "../../components/ui/Card"
@@ -9,7 +8,6 @@ import { OrderAnalytics } from "../../features/orders/OrderAnalytics"
 
 export function OrdersPage() {
   const [isCreating, setIsCreating] = useState(false)
-  const stats = useStore(state => state.getOrderStats())
 
   return (
     <div className="space-y-6">

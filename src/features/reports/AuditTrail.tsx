@@ -10,6 +10,7 @@ import { AlertTriangle, AlertCircle, Info } from "lucide-react"
 import { EVENT_TYPES, type AuditEventType, type AuditSeverity } from "../../types/auditTypes"
 import { AuditService } from "../audit/services/auditService"
 import React from "react"
+import { useAuditStore } from "../../store/auditStore"
 
 interface AuditTrailProps {
   defaultSeverity?: AuditSeverity
@@ -35,19 +36,17 @@ export function AuditTrail({ defaultSeverity, defaultType }: AuditTrailProps) {
     resourceType: ''
   })
 
-  const logs = useStore(state => state.getAuditLogs({
+  const logs = useAuditStore(state => state.getLogs({
     eventType: filters.eventType === 'all' ? undefined : filters.eventType,
     severity: filters.severity === 'all' ? undefined : filters.severity,
     startDate: filters.startDate ? new Date(filters.startDate) : undefined,
     endDate: filters.endDate ? new Date(filters.endDate) : undefined,
-    user: filters.user || undefined,
-    resourceType: filters.resourceType || undefined
   }))
 
   useEffect(() => {
     // Subscribe to real-time updates
     const unsubscribe = AuditService.subscribeToAuditLogs((newLog) => {
-      useStore.getState().addAuditLog(newLog)
+      useAuditStore.getState().addLog(newLog)
     })
 
     // Load initial logs from localStorage

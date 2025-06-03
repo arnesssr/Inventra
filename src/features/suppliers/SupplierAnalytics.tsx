@@ -1,12 +1,13 @@
 import { Card } from "../../components/ui/Card"
-import { useStore } from "../../store/useStore"
+import { useSupplierStore } from "../../store/supplierStore"
+import { useInventoryStore } from "../../store/inventoryStore"
 import { PackageCheck, Clock, AlertTriangle, BadgeDollarSign } from "lucide-react"
 import { cn } from "../../lib/utils"
 
 export function SupplierAnalytics() {
-  const suppliers = useStore(state => state.suppliers)
-  const inventory = useStore(state => state.inventory)
-  const purchaseOrders = useStore(state => state.purchaseOrders)
+  const suppliers = useSupplierStore(state => state.suppliers)
+  const inventory = useInventoryStore(state => state.inventory)
+  const purchaseOrders = useSupplierStore(state => state.purchaseOrders)
 
   const stats = [
     {

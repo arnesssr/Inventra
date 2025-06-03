@@ -1,4 +1,4 @@
-import { useStore } from "../../store/useStore"
+import { useProductStore } from "../../store/productStore"
 import { Table, TableHeader, TableBody, TableRow, TableCell } from "../../components/ui/Table"
 import { Button } from "../../components/ui/Button"
 import { Plus } from "lucide-react"
@@ -10,7 +10,7 @@ interface CategoryProductsListProps {
 
 export function CategoryProductsList({ category }: CategoryProductsListProps) {
   const navigate = useNavigate()
-  const products = useStore(state => 
+  const products = useProductStore(state => 
     state.products.filter(p => p.category === category && p.status === 'published')
   )
 

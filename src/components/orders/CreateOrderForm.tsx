@@ -1,5 +1,6 @@
 import { useState } from "react"
-import { useStore } from "../../store/useStore"
+import { useOrderStore } from "../../store/orderStore"
+import { useProductStore } from "../../store/productStore"
 import { Button } from "../ui/Button"
 import { Input } from "../ui/Input"
 import { Card } from "../ui/Card"
@@ -17,8 +18,8 @@ interface CreateOrderFormProps {
 }
 
 export function CreateOrderForm({ onSuccess }: CreateOrderFormProps) {
-  const products = useStore(state => state.products)
-  const createOrder = useStore(state => state.createOrder)
+  const products = useProductStore(state => state.products)
+  const createOrder = useOrderStore(state => state.createOrder)
   
   const [orderItems, setOrderItems] = useState<Array<{
     productId: string;

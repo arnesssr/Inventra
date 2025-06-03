@@ -1,13 +1,4 @@
-interface EnvConfig {
-  storefrontUrl: string;
-  apiUrl: string;
-  apiKey: string;
-}
-
-interface Config {
-  development: EnvConfig;
-  production: EnvConfig;
-}
+import { type EnvConfig } from '../types/environment';
 
 // Ensure URLs are properly formatted with protocol
 const formatUrl = (url: string): string => {
@@ -15,11 +6,10 @@ const formatUrl = (url: string): string => {
   return url.startsWith('http') ? url : `https://${url}`;
 };
 
-// Never expose API keys or sensitive URLs directly in code
-export const config: Config = {
+export const config: Record<string, EnvConfig> = {
   development: {
-    storefrontUrl: formatUrl(import.meta.env.VITE_STOREFRONT_URL || 'localhost:5174'),
-    apiUrl: formatUrl(import.meta.env.VITE_API_URL || 'localhost:3000'),
+    storefrontUrl: formatUrl(import.meta.env.VITE_STOREFRONT_URL),
+    apiUrl: formatUrl(import.meta.env.VITE_API_URL),
     apiKey: import.meta.env.VITE_API_KEY
   },
   production: {

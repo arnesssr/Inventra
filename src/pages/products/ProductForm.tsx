@@ -1,11 +1,12 @@
 // Import required dependencies and components
-import { useState, useEffect } from "react"
+import { useState, useEffect, type FormEvent } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/Card"
 import { Input } from "../../components/ui/Input"
 import { Button } from "../../components/ui/Button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../components/ui/Select"
-import { useStore } from "../../store/useStore"
+import { useProductStore } from "../../store/productStore"
+import { useCategoryStore } from "../../store/categoryStore"
 import { Trash } from "lucide-react"
 import { VariationManager } from "../../features/products/variations/VariationManager"
 import { generateSKU } from "../../utils/productUtils" // Create this utility
@@ -150,11 +151,21 @@ export function ProductForm() {
   const { id, category } = useParams()
   const navigate = useNavigate()
 
-  // Get store actions and state
-  const products = useStore(state => state.products)
-  const addProduct = useStore(state => state.addProduct)
-  const updateProduct = useStore(state => state.updateProduct)
-  const getCategoryName = useStore(state => state.getCategoryName)
+  // Replace useStore with proper store hooks
+  const {
+    products,
+    addProduct,
+    updateProduct,
+    publishProduct,
+    unpublishProduct
+  } = useProductStore();
+  
+  const getCategoryName = useCategoryStore(state => state.getCategoryName)
+  const categories = useCategoryStore(state => state.categories)
+
+  // This will fix the TypeScript error for products
+  const editingProduct = id ? 
+    products.find(p => p.id === id) : undefined;
 
   /**
    * Initializes form data from existing product or creates new empty form
@@ -217,6 +228,7 @@ export function ProductForm() {
   // Error and image handling state
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [imageUrls, setImageUrls] = useState<string[]>([])
+  const [isLoading, setIsLoading] = useState(false)
 
   // Effect hooks for category changes and cleanup
   useEffect(() => {
@@ -261,44 +273,50 @@ export function ProductForm() {
   /**
    * Handles form submission for both draft and published states
    */
-  const handleSubmit = (e: React.FormEvent, status: 'draft' | 'published') => {
+  const handleSubmit = async (e: FormEvent, status: 'draft' | 'published') => {
     e.preventDefault();
-    if (!category) return;
-
-    if (!validateForm(status)) {
-      return;
-    }
+    if (!validateForm(status)) return;
 
     try {
-      const submitData = {
+      const productData = {
         ...formData,
         status,
-        price: parseFloat(formData.price) || 0,
-        stock: parseInt(String(formData.stock)) || 0,
-        category,
-        categoryName: getCategoryName(category),
-        id: id || Date.now().toString(),
-        images: formData.images.map((file: File): ImageWithPreview => ({
+        price: parseFloat(formData.price),
+        stock: Number(formData.stock),
+        updatedAt: new Date().toISOString(),
+        images: formData.images.map(file => ({
           file,
           previewUrl: URL.createObjectURL(file)
-        })),
-        imageUrls: formData.images.map((file: File) => URL.createObjectURL(file)),
-        updatedAt: new Date().toISOString(),
-        createdAt: formData.createdAt || new Date().toISOString()
+        }))
       };
 
-      if (id) {
-        updateProduct(id, submitData);
+      if (editingProduct) {
+        await updateProduct(editingProduct.id, productData);
+        if (status === 'published') {
+          await publishProduct(editingProduct.id);
+        }
       } else {
-        addProduct(submitData);
+        const newProduct = {
+          ...productData,
+          id: crypto.randomUUID(),
+          createdAt: new Date().toISOString(),
+          imageUrls: productData.images.map(image => image.previewUrl)
+        };
+        await addProduct(newProduct);
+        if (status === 'published') {
+          await publishProduct(newProduct.id);
+        }
       }
 
-      navigate(status === 'draft' ? '/app/products/drafts' : '/app/products/published');
+      navigate('/app/products/published');
     } catch (error) {
-      console.error('Error saving product:', error);
-      // Add error handling/notification here
+      console.error('Failed to save product:', error);
+      setErrors(prev => ({
+        ...prev,
+        submit: 'Failed to save product. Please try again.'
+      }));
     }
-  }
+  };
 
   /**
    * Safely creates object URLs for images and handles file uploads

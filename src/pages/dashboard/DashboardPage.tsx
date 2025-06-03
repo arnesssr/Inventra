@@ -1,12 +1,25 @@
-import { useStore } from "../../store/useStore"
-import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/Card"
-import { type Product } from "../../types/productTypes"
-import { Button } from "../../components/ui/Button"
-import { AlertTriangle, Package, TrendingUp, Clock, ArrowUp, ArrowDown, RefreshCw } from "lucide-react"
-import { BarChart, Bar, XAxis, YAxis, Tooltip, PieChart, Pie, Cell, ResponsiveContainer, AreaChart, Area, LineChart, Line, CartesianGrid, ComposedChart } from 'recharts'
 import { useState, useMemo } from "react"
+import { 
+  Package, TrendingUp, AlertTriangle, Clock, ArrowUp, 
+  ArrowDown, RefreshCw, ShoppingBag, Archive, AlertCircle 
+} from "lucide-react"
+import { useInventoryStore } from "../../store/inventoryStore"
+import { useProductStore } from "../../store/productStore"
+import { useCategoryStore } from "../../store/categoryStore"
+import { useActivityStore } from "../../store/activityStore"
+import type { InventoryState } from "../../store/inventoryStore"
+import type { ProductState } from "../../store/productStore"
+import type { CategoryState } from "../../store/categoryStore"
+import type { Activity, ChartDataItem, ValueComparisonData } from "../../types/activityTypes"
+
+import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/Card"
+import { Button } from "../../components/ui/Button"
+import {
+  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
+  ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell
+} from "recharts"
 import { calculateMetrics } from '../../utils/dashboardCalculations'
-import { format } from 'date-fns'
+import { format, formatDistanceToNow } from 'date-fns'
 
 /**
  * Helper function to get the appropriate icon for movement types
@@ -20,6 +33,53 @@ const getMovementIcon = (type: string) => {
 }
 
 /**
+ * MetricCard Component
+ * Displays individual metric with trend indicator
+ */
+function MetricCard({ title, value, icon, trend }: {
+  title: string;
+  value: string | number;
+  icon: React.ReactNode;
+  trend: number;
+}) {
+  return (
+    <Card className="metric-card">
+      <CardContent className="metric-content">
+        <div className="metric-header">
+          <div className="metric-info">
+            <p className="metric-title">{title}</p>
+            <p className="metric-value">{value}</p>
+          </div>
+          <div className={`p-2 rounded-full bg-primary/10 dark:bg-primary/20`}>
+            {icon}
+          </div>
+        </div>
+        <div className="metric-trend">
+          <span className={trend > 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}>
+            {trend > 0 ? '↑' : '↓'} {Math.abs(trend)}%
+          </span>
+          <span className="text-sm text-muted-foreground">vs last period</span>
+        </div>
+      </CardContent>
+    </Card>
+  )
+}
+
+// Define ActivityIcon separately from any imports
+const ActivityIcon = ({ type }: { type: Activity['type'] }) => {
+  switch (type) {
+    case 'product':
+      return <ShoppingBag className="h-4 w-4 text-blue-500" />
+    case 'inventory':
+      return <Package className="h-4 w-4 text-green-500" />
+    case 'order':
+      return <Archive className="h-4 w-4 text-purple-500" />
+    default:
+      return <AlertCircle className="h-4 w-4 text-gray-500" />
+  }
+}
+
+/**
  * Main Dashboard Component
  * Displays metrics, charts and recent activity
  */
@@ -29,10 +89,15 @@ export function DashboardPage() {
   const [chartType, setChartType] = useState<'bar' | 'line'>('bar')
   const [trendChartType, setTrendChartType] = useState<'area' | 'bar' | 'line'>('area')
   
-  // Store Hooks
-  const inventory = useStore(state => state.inventory)
-  const products = useStore((state) => state.products)
-  const categories = useStore(state => state.categories)
+  // Store Hooks with proper typing
+  const inventory = useInventoryStore((state: InventoryState) => state.inventory)
+  const products = useProductStore((state: ProductState) => state.products)
+  const categories = useCategoryStore((state: CategoryState) => state.categories)
+  const recentActivities = useActivityStore((state) => state.getRecentActivity())
+    .map((activity: Activity) => ({
+      ...activity,
+      icon: <ActivityIcon type={activity.type} />
+    }))
 
   // Calculate real metrics with proper trends
   const metrics = useMemo(() => {
@@ -100,44 +165,36 @@ export function DashboardPage() {
     }
   }, [products, inventory])
 
-  // Data Processing
+  // Chart data processing with proper typing
   const chartData = useMemo(() => {
-    // Category distribution
-    const categoryData = categories.map(category => ({
+    const categoryData: ChartDataItem[] = categories.map(category => ({
       name: category.name,
       stock: products
         .filter(p => p.category === category.id)
-        .reduce((acc, curr) => acc + (curr.stock ?? 0), 0),
+        .reduce((acc: number, curr) => acc + (curr.stock ?? 0), 0),
       value: products
         .filter(p => p.category === category.id)
-        .reduce((acc, curr) => acc + ((curr.price ?? 0) * (curr.stock ?? 0)), 0)
+        .reduce((acc: number, curr) => acc + ((curr.price ?? 0) * (curr.stock ?? 0)), 0)
     }))
 
-    // Stock movements trend
-    const movements = Object.values(inventory)
-      .flatMap(item => item.movements ?? [])
-      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-
-    // Add value comparison data
-    const valueComparisonData = categories.map(category => {
+    const valueComparisonData: ValueComparisonData[] = categories.map(category => {
       const categoryProducts = products.filter(p => p.category === category.id)
-      const currentValue = categoryProducts.reduce((acc, curr) => 
+      const currentValue = categoryProducts.reduce((acc: number, curr) => 
         acc + ((curr.price ?? 0) * (curr.stock ?? 0)), 0)
 
       return {
         name: category.name,
         currentValue: currentValue,
-        previousValue: currentValue * 0.85, // Simplified previous value
+        previousValue: currentValue * 0.85,
         change: ((currentValue - (currentValue * 0.85)) / (currentValue * 0.85) * 100).toFixed(1)
       }
-    }).sort((a, b) => b.currentValue - a.currentValue)
+    })
 
-    return { 
+    return {
       categoryData: categoryData.filter(d => d.stock > 0 || d.value > 0),
-      movements,
       valueComparisonData
     }
-  }, [categories, products, inventory])
+  }, [categories, products])
 
   // Utility Functions
   const getColor = (index: number) => `hsl(${(index * 360) / categories.length}, 70%, 50%)`
@@ -358,6 +415,7 @@ export function DashboardPage() {
             </CardContent>
           </Card>
 
+          {/* Recent Activity Card */}
           <Card className="chart-card">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -366,17 +424,17 @@ export function DashboardPage() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-3">
-                {chartData.movements.slice(0, 5).map((movement, index) => (
-                  <div key={index} 
-                    className="flex items-center justify-between p-2 rounded-lg transition-colors hover:bg-white/50">
-                    <div className="flex items-center gap-2">
-                      {getMovementIcon(movement.type)}
-                      <span className="font-medium">{movement.quantity} units</span>
+              <div className="space-y-4">
+                {recentActivities.map(activity => (
+                  <div key={activity.id} className="flex items-center gap-4 py-2">
+                    {activity.icon}
+                    <div>
+                      <h4 className="font-medium">{activity.title}</h4>
+                      <p className="text-sm text-muted-foreground">{activity.description}</p>
+                      <time className="text-xs text-muted-foreground">
+                        {formatDistanceToNow(new Date(activity.timestamp))} ago
+                      </time>
                     </div>
-                    <span className="text-sm text-muted-foreground">
-                      {new Date(movement.date).toLocaleDateString()}
-                    </span>
                   </div>
                 ))}
               </div>
@@ -385,38 +443,5 @@ export function DashboardPage() {
         </div>
       </div>
     </div>
-  )
-}
-
-/**
- * MetricCard Component
- * Displays individual metric with trend indicator
- */
-function MetricCard({ title, value, icon, trend }: {
-  title: string;
-  value: string | number;
-  icon: React.ReactNode;
-  trend: number;
-}) {
-  return (
-    <Card className="metric-card">
-      <CardContent className="metric-content">
-        <div className="metric-header">
-          <div className="metric-info">
-            <p className="metric-title">{title}</p>
-            <p className="metric-value">{value}</p>
-          </div>
-          <div className={`p-2 rounded-full bg-primary/10 dark:bg-primary/20`}>
-            {icon}
-          </div>
-        </div>
-        <div className="metric-trend">
-          <span className={trend > 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}>
-            {trend > 0 ? '↑' : '↓'} {Math.abs(trend)}%
-          </span>
-          <span className="text-sm text-muted-foreground">vs last period</span>
-        </div>
-      </CardContent>
-    </Card>
   )
 }

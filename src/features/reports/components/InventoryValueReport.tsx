@@ -1,9 +1,10 @@
 import { Card } from "../../../components/ui/Card"
-import { useStore } from "../../../store/useStore"
+import { useInventoryStore } from "../../../store/inventoryStore"
+import { useProductStore } from "../../../store/productStore"
 
 export function InventoryValueReport() {
-  const inventory = useStore(state => state.inventory)
-  const products = useStore(state => state.products)
+  const inventory = useInventoryStore(state => state.inventory)
+  const products = useProductStore(state => state.products)
 
   const getTotalValue = () => {
     return Object.entries(inventory).reduce((total, [productId, item]) => {

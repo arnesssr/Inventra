@@ -1,10 +1,10 @@
-import { useStore } from "../../store/useStore"
+import { useOrderStore } from "../../store/orderStore"
 import { Card } from "../../components/ui/Card"
 import { ShoppingBag, Clock, CheckCircle, DollarSign } from "lucide-react"
 import { cn } from "../../lib/utils"
 
 export function OrderAnalytics() {
-  const stats = useStore(state => state.getOrderStats())
+  const stats = useOrderStore(state => state.getOrderStats())
 
   const statCards = [
     { 

@@ -3,11 +3,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/Ca
 import { Input } from "../../components/ui/Input"
 import { Button } from "../../components/ui/Button"
 import { Plus, Trash } from "lucide-react"
-import { useStore } from "../../store/useStore"
-import { Category, DEFAULT_FIELDS } from "../../types/category"
+import { useCategoryStore } from "../../store/categoryStore"
+import { DEFAULT_FIELDS } from "../../types/category"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "../../components/ui/Select"
 import { useNavigate } from "react-router-dom"
-import type { CategoryField } from "../../types/productTypes"
 
 interface CustomField {
   name: string;
@@ -17,7 +16,7 @@ interface CustomField {
 
 export function CategoryCreate() {
   const navigate = useNavigate()
-  const addCategory = useStore(state => state.addCategory)
+  const addCategory = useCategoryStore(state => state.addCategory)
   
   const [category, setCategory] = useState({
     name: '',

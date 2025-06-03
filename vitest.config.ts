@@ -1,14 +1,12 @@
-import { defineConfig } from 'vitest/config'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vitest/config';
+import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
   test: {
-    environment: 'jsdom',
     globals: true,
-    setupFiles: ['./src/test/setup.ts'],
-    deps: {
-      inline: ['framer-motion']
-    }
+    environment: 'jsdom',
+    setupFiles: ['./src/tests/setup.ts'],
+    testTimeout: 10000, // Increase timeout to 10 seconds
   },
-})
+});

@@ -1,10 +1,11 @@
 import { Card } from "../../components/ui/Card"
-import { useStore } from "../../store/useStore"
+import { useInventoryStore } from "../../store/inventoryStore"
+import { useProductStore } from "../../store/productStore"
 import { AlertTriangle, CheckCircle, AlertCircle } from "lucide-react"
 
 export function InventoryAnalytics() {
-  const inventory = useStore(state => state.inventory)
-  const products = useStore(state => state.products)
+  const inventory = useInventoryStore(state => state.inventory)
+  const products = useProductStore(state => state.products)
 
   const getInventoryStats = () => {
     const items = Object.values(inventory)

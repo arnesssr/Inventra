@@ -2,14 +2,14 @@ import { Button } from "../../../components/ui/Button"
 import { Calendar } from "../../../components/ui/Calendar"
 import { Popover, PopoverContent, PopoverTrigger } from "../../../components/ui/Popover"
 import { Download, Calendar as CalendarIcon, Filter } from "lucide-react"
-import { useStore } from "../../../store/useStore"
+import { useAuditStore } from "../../../store/auditStore"
 import { format } from "date-fns"
 
 export function AuditToolbar() {
-  const { getAuditLogs } = useStore()
+  const getLogs = useAuditStore(state => state.getLogs)
   
   const handleExport = async (format: 'csv' | 'json') => {
-    const logs = getAuditLogs()
+    const logs = getLogs()
     let data: string
 
     if (format === 'csv') {

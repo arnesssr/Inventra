@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/Card"
 import { Button } from "../ui/Button"
 import { Switch } from "../ui/Switch"
-import { useStore } from "../../store/useStore"
+import { useNotificationStore } from "../../store/notificationStore"
 
 /**
  * NotificationSettings Component
@@ -12,8 +12,8 @@ import { useStore } from "../../store/useStore"
  * - Notification delivery methods
  */
 export function NotificationSettings() {
-  const preferences = useStore(state => state.notificationPreferences)
-  const updatePreferences = useStore(state => state.updateNotificationPreferences)
+  const preferences = useNotificationStore(state => state.preferences)
+  const updatePreferences = useNotificationStore(state => state.updatePreferences)
 
   const handlePreferenceChange = (key: string, value: boolean) => {
     updatePreferences({ [key]: value })
