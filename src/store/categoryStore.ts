@@ -64,14 +64,15 @@ export const useCategoryStore = create<CategoryState>()(
   devtools(
     persist(
       (set, get) => ({
-        categories: DEFAULT_CATEGORIES,
-
+        categories: [],
+        
         initializeCategories: () => {
-          const state = get();
-          // Initialize if categories array is empty or undefined
-          if (!state.categories || state.categories.length === 0) {
-            set({ categories: DEFAULT_CATEGORIES });
-          }
+          set(state => {
+            if (!state.categories || state.categories.length === 0) {
+              return { categories: DEFAULT_CATEGORIES };
+            }
+            return state;
+          });
         },
 
         addCategory: (category) => 
@@ -79,7 +80,7 @@ export const useCategoryStore = create<CategoryState>()(
             categories: [...state.categories, { 
               ...category,
               id: `cat-${Date.now()}`,
-              parentId: null, // Set default parentId
+              parentId: null,
               createdAt: new Date().toISOString(),
               updatedAt: new Date().toISOString()
             }]
@@ -107,7 +108,6 @@ export const useCategoryStore = create<CategoryState>()(
         },
 
         validateCategory: (category: Partial<Category>) => {
-          // Basic validation
           if (!category.name) return false;
           if (category.parentId && !get().categories.find(c => c.id === category.parentId)) {
             return false;
@@ -143,9 +143,9 @@ export const useCategoryStore = create<CategoryState>()(
           if (!category) return null;
 
           return {
-            productCount: 0, // This needs integration with product store
+            productCount: 0,
             subcategoryCount: get().getSubcategories(categoryId).length,
-            totalValue: 0, // This needs integration with product store
+            totalValue: 0,
             lastUpdated: category.updatedAt
           };
         },
@@ -160,25 +160,14 @@ export const useCategoryStore = create<CategoryState>()(
               }));
           };
           return buildHierarchy();
-        }      }),      {
+        }
+      }),
+      {
         name: 'category-store',
+        version: 1,
         onRehydrateStorage: () => (state) => {
-          // Set defaults if state is empty
-          if (!state || !state.categories || state.categories.length === 0) {
-            return {
-              categories: DEFAULT_CATEGORIES,
-              initializeCategories: state?.initializeCategories,
-              addCategory: state?.addCategory,
-              deleteCategory: state?.deleteCategory,
-              updateCategory: state?.updateCategory,
-              getCategoryName: state?.getCategoryName,
-              getSubcategories: state?.getSubcategories,
-              validateCategory: state?.validateCategory,
-              addSubcategory: state?.addSubcategory,
-              moveCategory: state?.moveCategory,
-              getCategoryMetrics: state?.getCategoryMetrics,
-              getCategoryHierarchy: state?.getCategoryHierarchy
-            };
+          if (!state?.categories || state.categories.length === 0) {
+            return { categories: DEFAULT_CATEGORIES };
           }
           return state;
         }
@@ -186,3 +175,4 @@ export const useCategoryStore = create<CategoryState>()(
     )
   )
 );
+
