@@ -33,3 +33,23 @@ export interface CategoryField {
   required: boolean;
   options?: string[];
 }
+
+export interface StockMovement {
+  id: string;
+  productId: string;
+  quantity: number;
+  type: 'increase' | 'decrease';
+  reason: 'purchase' | 'sale' | 'adjustment' | 'return';
+  date: string;
+  notes?: string;
+}
+
+export interface StockMovement {
+  id: string;
+  productId: string;
+  quantity: number;
+  type: 'increase' | 'decrease';
+  reason: 'purchase' | 'sale' | 'adjustment' | 'return';
+  date: string;
+  notes?: string;
+}

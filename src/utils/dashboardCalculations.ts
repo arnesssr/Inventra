@@ -8,16 +8,31 @@ export const calculateTrend = (current: number, previous: number): number => {
 export const calculateMetrics = (products: Product[], movements: StockMovement[]) => {
   const now = new Date()
   const thirtyDaysAgo = new Date(now.getTime() - (30 * 24 * 60 * 60 * 1000))
+  const sixtyDaysAgo = new Date(now.getTime() - (60 * 24 * 60 * 60 * 1000))
 
-  // Current metrics
+  // Current metrics with null checks
   const currentProducts = products.length
-  const currentValue = products.reduce((acc, curr) => acc + (curr.price * curr.stock), 0)
-  const currentMovements = movements.filter(m => new Date(m.date) >= thirtyDaysAgo).length
+  const currentValue = products.reduce((acc, curr) => 
+    acc + ((curr.price ?? 0) * (curr.stock ?? 0)), 0)
+  const currentMovements = movements.filter(m => 
+    new Date(m.date) >= thirtyDaysAgo).length
 
-  // Previous metrics (basic trend)
-  const previousProducts = Math.max(currentProducts - 1, 0)
-  const previousValue = Math.max(currentValue - 100, 0)
-  const previousMovements = Math.max(currentMovements - 2, 0)
+  // Previous metrics (using historical data)
+  const previousMovements = movements.filter(m => {
+    const date = new Date(m.date)
+    return date >= sixtyDaysAgo && date < thirtyDaysAgo
+  }).length
+
+  // Calculate real trends
+  const previousProducts = products.filter(p => 
+    new Date(p.createdAt) >= sixtyDaysAgo && 
+    new Date(p.createdAt) < thirtyDaysAgo
+  ).length
+  
+  const previousValue = products
+    .filter(p => new Date(p.createdAt) >= sixtyDaysAgo && 
+                 new Date(p.createdAt) < thirtyDaysAgo)
+    .reduce((acc, curr) => acc + ((curr.price ?? 0) * (curr.stock ?? 0)), 0)
 
   return {
     products: {

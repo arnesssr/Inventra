@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
-import type { Category, CategoryState, CategoryField, CategoryMetrics } from '../types/categoryTypes';
+import type { Category, CategoryField, CategoryMetrics, CategoryState } from '../types/categoryTypes';
 import { DEFAULT_FIELDS } from '../types/categoryTypes';
 
 const DEFAULT_CATEGORIES: Category[] = [

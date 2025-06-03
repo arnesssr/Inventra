@@ -8,8 +8,9 @@ import { useProductStore } from "../../store/productStore"
 import { useCategoryStore } from "../../store/categoryStore"
 import { useActivityStore } from "../../store/activityStore"
 import type { InventoryState } from "../../store/inventoryStore"
+import type { CategoryState } from "../../types/categoryTypes"
 import type { ProductState } from "../../store/productStore"
-import type { CategoryState } from "../../store/categoryStore"
+
 import type { Activity, ChartDataItem, ValueComparisonData } from "../../types/activityTypes"
 
 import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/Card"

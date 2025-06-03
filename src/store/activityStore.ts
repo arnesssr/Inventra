@@ -5,14 +5,18 @@ import { useOrderStore } from './orderStore';
 
 interface ActivityItem {
   id: string;
-  type: 'product' | 'inventory' | 'order' | 'audit';
+  type: 'product' | 'inventory' | 'order' | 'system';
   title: string;
   description: string;
   timestamp: string;
   metadata?: Record<string, any>;
 }
 
-export const useActivityStore = create((set, get) => ({
+interface ActivityState {
+  getRecentActivity: () => ActivityItem[];
+}
+
+export const useActivityStore = create<ActivityState>((set, get) => ({
   getRecentActivity: () => {
     const productActivities = useProductStore.getState().getRecentChanges();
     const inventoryActivities = useInventoryStore.getState().getRecentMovements();
