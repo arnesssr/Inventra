@@ -67,6 +67,7 @@
     "react-router-dom": "^7.5.0",
     "recharts": "^2.15.2",
     "remotion": "^4.0.287",
+    "socket.io-client": "^4.8.1",
     "styled-components": "^6.1.17",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
