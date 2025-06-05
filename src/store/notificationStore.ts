@@ -1,5 +1,6 @@
 import { create } from 'zustand';
-import { devtools } from 'zustand/middleware';
+import { devtools, persist } from 'zustand/middleware';
+import type { WebhookEventType } from '../types/webhookTypes';
 
 interface Notification {
   id: string;
@@ -18,6 +19,12 @@ interface Alert {
   createdAt: string;
 }
 
+interface WebhookNotification {
+  type: WebhookEventType;
+  message: string;
+  timestamp: string;
+}
+
 interface NotificationStore {
   notifications: Notification[];
   alerts: Alert[];  // Add alerts array
@@ -25,7 +32,8 @@ interface NotificationStore {
     emailNotifications: boolean;
     pushNotifications: boolean;
   };
-  
+  webhookNotifications: WebhookNotification[];
+
   // Notification Methods
   addNotification: (notification: Omit<Notification, 'id' | 'createdAt'>) => void;
   markAsRead: (id: string) => void;
@@ -39,75 +47,89 @@ interface NotificationStore {
   addAlert: (alert: Omit<Alert, 'id' | 'createdAt'>) => void;
   markAlertAsRead: (id: string) => void;
   removeAlert: (id: string) => void;
+
+  // Webhook Methods
+  addWebhookNotification: (notification: WebhookNotification) => void;
 }
 
 export const useNotificationStore = create<NotificationStore>()(
   devtools(
-    (set) => ({
-      notifications: [],
-      alerts: [],  // Initialize alerts array
-      preferences: {
-        emailNotifications: true,
-        pushNotifications: true
-      },
+    persist(
+      (set) => ({
+        notifications: [],
+        alerts: [],  // Initialize alerts array
+        preferences: {
+          emailNotifications: true,
+          pushNotifications: true
+        },
+        webhookNotifications: [],
 
-      addNotification: (notification) =>
-        set((state) => ({
-          notifications: [
-            ...state.notifications,
-            {
-              ...notification,
-              id: Date.now().toString(),
-              createdAt: new Date().toISOString(),
-              read: false
-            }
-          ]
-        })),
+        addNotification: (notification) =>
+          set((state) => ({
+            notifications: [
+              ...state.notifications,
+              {
+                ...notification,
+                id: Date.now().toString(),
+                createdAt: new Date().toISOString(),
+                read: false
+              }
+            ]
+          })),
 
-      markAsRead: (id) =>
-        set((state) => ({
-          notifications: state.notifications.map((n) =>
-            n.id === id ? { ...n, read: true } : n
-          )
-        })),
+        markAsRead: (id) =>
+          set((state) => ({
+            notifications: state.notifications.map((n) =>
+              n.id === id ? { ...n, read: true } : n
+            )
+          })),
 
-      removeNotification: (id) =>
-        set((state) => ({
-          notifications: state.notifications.filter((n) => n.id !== id)
-        })),
+        removeNotification: (id) =>
+          set((state) => ({
+            notifications: state.notifications.filter((n) => n.id !== id)
+          })),
 
-      clearAll: () =>
-        set({ notifications: [] }),
+        clearAll: () =>
+          set({ notifications: [] }),
 
-      updatePreferences: (preferences) =>
-        set((state) => ({
-          preferences: { ...state.preferences, ...preferences },
-        })),
+        updatePreferences: (preferences) =>
+          set((state) => ({
+            preferences: { ...state.preferences, ...preferences },
+          })),
 
-      addAlert: (alert) =>
-        set((state) => ({
-          alerts: [
-            ...state.alerts,
-            {
-              ...alert,
-              id: Date.now().toString(),
-              createdAt: new Date().toISOString(),
-              read: false
-            }
-          ]
-        })),
+        addAlert: (alert) =>
+          set((state) => ({
+            alerts: [
+              ...state.alerts,
+              {
+                ...alert,
+                id: Date.now().toString(),
+                createdAt: new Date().toISOString(),
+                read: false
+              }
+            ]
+          })),
 
-      markAlertAsRead: (id) =>
-        set((state) => ({
-          alerts: state.alerts.map((a) =>
-            a.id === id ? { ...a, read: true } : a
-          )
-        })),
+        markAlertAsRead: (id) =>
+          set((state) => ({
+            alerts: state.alerts.map((a) =>
+              a.id === id ? { ...a, read: true } : a
+            )
+          })),
 
-      removeAlert: (id) =>
-        set((state) => ({
-          alerts: state.alerts.filter((a) => a.id !== id)
-        })),
-    })
+        removeAlert: (id) =>
+          set((state) => ({
+            alerts: state.alerts.filter((a) => a.id !== id)
+          })),
+
+        addWebhookNotification: (notification) =>
+          set((state) => ({
+            webhookNotifications: [notification, ...state.webhookNotifications]
+          }))
+      }),
+      {
+        name: 'notification-store'
+      }
+    )
   )
 );
