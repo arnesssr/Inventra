@@ -30,7 +30,7 @@ class SocketService {
       console.log('Socket disconnected');
     });
 
-    this.socket.on('connect_error', (error) => {
+    this.socket.on('connect_error', (error: any) => {
       console.error('Socket connection error:', error);
     });
   }
@@ -49,3 +49,5 @@ class SocketService {
 }
 
 export const socketService = new SocketService();
+
+// Configuration is imported from environment.ts

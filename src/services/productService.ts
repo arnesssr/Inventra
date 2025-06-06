@@ -1,82 +1,44 @@
-import { API_CONFIG } from './api/config';
-import { api } from '../lib/api';
+import { apiService } from './apiService';
 import type { Product } from '../types/productTypes';
 
-interface ProductData {
-  name: string;
-  description: string;
-  price: number;
-  category: string;
-  imageUrls: string[];
-  status: 'draft' | 'published' | 'archived';
-  stock: number;
+export class ProductService {
+  private baseUrl = '/api/products';
+
+  async testConnection(): Promise<any> {
+    return apiService.get('/health');
+  }
+
+  async getProducts(): Promise<Product[]> {
+    return apiService.get<Product[]>(this.baseUrl);
+  }
+
+  async createProduct(data: Omit<Product, 'id'>): Promise<Product> {
+    return apiService.post<Product>(this.baseUrl, data);
+  }
+
+  async updateProduct(id: string, data: Partial<Product>): Promise<Product> {
+    return apiService.put<Product>(`${this.baseUrl}/${id}`, data);
+  }
+
+  async publishToStorefront(id: string): Promise<void> {
+    return apiService.post(`${this.baseUrl}/${id}/publish`);
+  }
+
+  async unpublishFromStorefront(id: string): Promise<void> {
+    return apiService.post(`${this.baseUrl}/${id}/unpublish`);
+  }
+
+  async getProduct(id: string): Promise<Product> {
+    return apiService.get<Product>(`${this.baseUrl}/${id}`);
+  }
+
+  async publishProduct(id: string): Promise<Product> {
+    return apiService.post<Product>(`${this.baseUrl}/${id}/publish`);
+  }
+
+  async unpublishProduct(id: string): Promise<Product> {
+    return apiService.post<Product>(`${this.baseUrl}/${id}/unpublish`);
+  }
 }
 
-export const productService = {
-  // Test API connection
-  testConnection: async () => {
-    const response = await api.get('/health');
-    return response.data;
-  },
-
-  createProduct: async (data: Omit<Product, 'id'>): Promise<Product> => {
-    try {
-      const response = await api.post('/api/products', data);
-      // Ensure we return the data property from response
-      return response.data.data;
-    } catch (error) {
-      console.error('Failed to create product:', error);
-      throw error;
-    }
-  },
-
-  async updateProduct(id: string, data: Partial<Product>) {
-    try {
-      const response = await api.patch(`/api/products/${id}`, data);
-      return response.data;
-    } catch (error) {
-      console.error('Failed to update product:', error);
-      throw error;
-    }
-  },
-
-  async publishProduct(id: string) {
-    try {
-      const response = await api.post(`/api/products/${id}/publish`);
-      return response.data;
-    } catch (error) {
-      console.error('Failed to publish product:', error);
-      throw error;
-    }
-  },
-
-  publishToStorefront: async (productId: string) => {
-    try {
-      const response = await api.post(`/api/products/${productId}/publish`)
-      return response.data
-    } catch (error) {
-      console.error('Failed to publish product:', error)
-      throw error
-    }
-  },
-
-  unpublishFromStorefront: async (productId: string) => {
-    try {
-      const response = await api.post(`/api/products/${productId}/unpublish`)
-      return response.data
-    } catch (error) {
-      console.error('Failed to unpublish product:', error)
-      throw error
-    }
-  },
-
-  async getProducts() {
-    try {
-      const response = await api.get('/api/products');
-      return response.data;
-    } catch (error) {
-      console.error('Failed to get products:', error);
-      throw error;
-    }
-  }
-};
+export const productService = new ProductService();

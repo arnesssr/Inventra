@@ -1,7 +1,4 @@
 export interface EnvConfig {
-  wsUrl(wsUrl: any, arg1: { path: any; timeout: any; auth: { token: string; }; }): unknown;
-  socketPath: string | undefined;
-  socketTimeout: number | undefined;
   storefrontUrl: string;
   apiUrl: string;
   apiKey: string;
@@ -9,6 +6,14 @@ export interface EnvConfig {
   webhookUrl: string;
   appName: string;
   appVersion: string;
+  wsUrl: string;
+  socketPath: string;
+  socketTimeout: number;
+  webhookEndpoints: {
+    products: string;
+    inventory: string;
+    orders: string;
+  };
 }
 
 declare global {
@@ -20,6 +25,9 @@ declare global {
     VITE_WEBHOOK_URL: string;
     VITE_APP_NAME: string;
     VITE_APP_VERSION: string;
+    VITE_WS_URL: string;
+    VITE_SOCKET_PATH: string;
+    VITE_SOCKET_TIMEOUT: string;
     MODE: 'development' | 'production';
   }
 }

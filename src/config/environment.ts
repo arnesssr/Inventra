@@ -1,4 +1,20 @@
-import { type EnvConfig } from '../types/environment';
+export interface EnvConfig {
+  storefrontUrl: string;
+  apiUrl: string;
+  apiKey: string;
+  webhookSecret: string;
+  webhookUrl: string;
+  appName: string;
+  appVersion: string;
+  wsUrl: string;
+  socketPath: string;
+  socketTimeout: number;
+  webhookEndpoints: {
+    products: string;
+    inventory: string;
+    orders: string;
+  };
+}
 
 // Ensure URLs are properly formatted with protocol
 const formatUrl = (url: string): string => {
@@ -58,21 +74,3 @@ export const getCurrentConfig = (): EnvConfig => {
 
   return currentConfig;
 };
-
-export interface EnvConfig {
-  storefrontUrl: string;
-  apiUrl: string;
-  apiKey: string;
-  webhookSecret: string;
-  webhookUrl: string;
-  appName: string;
-  appVersion: string;
-  wsUrl: string;
-  socketPath: string;
-  socketTimeout: number;
-  webhookEndpoints: {
-    products: string;
-    inventory: string;
-    orders: string;
-  };
-}

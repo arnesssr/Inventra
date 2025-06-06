@@ -43,6 +43,7 @@
     "@shadcn/ui": "^0.0.4",
     "@tanstack/react-query": "^5.72.2",
     "@tanstack/react-table": "^8.21.3",
+    "@types/socket.io-client": "^3.0.0",
     "@types/styled-components": "^5.1.34",
     "axios": "^1.9.0",
     "chart.js": "^4.4.2",

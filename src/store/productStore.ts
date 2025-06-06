@@ -66,7 +66,7 @@ export interface ProductState {
   adjustProductStock: (id: string, adjustment: number) => void;
   // Add async methods
   createProductAsync: (data: Product) => Promise<Product>;
-  updateProductAsync: (id: string, data: Partial<Product>) => Promise<void>;
+  updateProductAsync: (id: string, data: Partial<Product>) => Promise<Product>;
   publishProductAsync: (id: string) => Promise<void>;
   publishProduct: (productId: string) => Promise<void>;
   unpublishProduct: (productId: string) => Promise<void>;

@@ -3,7 +3,7 @@ import { socketService } from '../services/socketService';
 import type { SocketConnectionState } from '../types/socket.types';
 
 export function useSocket() {
-  const [connectionState, setConnectionState] = useState<SocketConnectionState>('disconnected');
+  const [connectionState] = useState<SocketConnectionState>('disconnected');
 
   useEffect(() => {
     // Connect on mount
