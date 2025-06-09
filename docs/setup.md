@@ -19,7 +19,7 @@ VITE_API_URL=<backend-url>
 VITE_API_KEY=<api-key>
 ```
 
-### Backend
+### Backend  ---for more information about backend, see [https://github.com/arnesssr/Backendpms/tree/main/docs](docs/backend.md)
 1. Install dependencies:
 ```bash
 pnpm install
@@ -27,12 +27,37 @@ pnpm install
 
 2. Environment variables:
 ```env
-PORT=8000
-DATABASE_URL=<supabase-url>
-SUPABASE_KEY=<supabase-key>
-CLOUDINARY_CLOUD_NAME=<cloud-name>
-CLOUDINARY_API_KEY=<api-key>
-CLOUDINARY_API_SECRET=<api-secret>
+# Authentication (Clerk)
+VITE_CLERK_PUBLISHABLE_KEY=       # Clerk public key
+VITE_CLERK_SECRET_KEY=            # Clerk secret key
+
+# API Configuration
+VITE_API_URL=                     # Backend API URL
+VITE_STOREFRONT_URL=              # Storefront URL
+VITE_API_KEY=                     # API authentication key
+
+# WebSocket Configuration
+VITE_WS_URL=                      # WebSocket URL
+VITE_SOCKET_PATH=                 # Socket.io path
+VITE_SOCKET_TIMEOUT=              # Connection timeout
+VITE_SOCKET_RECONNECTION=         # Enable reconnection
+VITE_SOCKET_RECONNECTION_ATTEMPTS=# Max reconnection attempts
+
+# Security Configuration
+VITE_SECURITY_SIGNATURE_SECRET=   # Request signing secret
+VITE_SECURITY_TIMESTAMP_TOLERANCE=# Timestamp validity window
+VITE_SECURITY_NONCE_TIMEOUT=      # Nonce expiration time
+
+# Rate Limiting (Frontend)
+VITE_RATE_LIMIT_WINDOW=          # Rate limit window in ms
+VITE_RATE_LIMIT_MAX_REQUESTS=    # Max requests per window
+
+# Monitoring
+VITE_ENABLE_REQUEST_LOGGING=     # Enable request logging
+VITE_ENABLE_PERFORMANCE_METRICS= # Enable performance metrics
+
+# Webhook Configuration
+VITE_WEBHOOK_SECRET=             # Webhook verification secret
 ```
 
 ## Development Workflow

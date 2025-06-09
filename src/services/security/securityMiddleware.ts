@@ -11,13 +11,13 @@ export class SecurityMiddleware {
     config.headers = config.headers || new AxiosHeaders();
 
     // Check rate limiting
-    if (!rateLimiter.canMakeRequest()) {
+    if (!rateLimiter.canMakeRequest(config.url || '')) {
       throw new Error('Rate limit exceeded');
     }
 
     // Add request signing
     if (config.data) {
-      const signature = RequestSigner.sign(config.data);
+      const signature = await RequestSigner.sign(config.data);
       config.headers = {
           ...config.headers,
           'X-Request-Signature': signature.signature,

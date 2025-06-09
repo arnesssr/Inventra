@@ -1,9 +1,22 @@
 export interface SecurityConfig {
-  maxRequestsPerMinute: number;
-  requestTimeout: number;
-  signingSecret: string;
-  corsOrigins: string[];
   tokenRefreshThreshold: number;
+  signingSecret(arg0: string, signingSecret: any): unknown;
+  maxRequestsPerMinute: number;
+  // Security settings
+  signatureSecret: string;
+  timestampTolerance: number;
+  nonceTimeout: number;
+  
+  // Rate limiting
+  rateLimitWindow: number;
+  maxRequests: number;
+  
+  // Monitoring
+  enableRequestLogging: boolean;
+  enablePerformanceMetrics: boolean;
+  
+  // CORS
+  corsOrigins: string[];
 }
 
 export interface RequestSignature {

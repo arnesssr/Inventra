@@ -1,28 +1,49 @@
 import { securityConfig } from '../../config/securityConfig';
 
 export class RateLimiter {
-  private requests: number[] = [];
+  private requests: { timestamp: number; endpoint: string }[] = [];
 
-  canMakeRequest(): boolean {
+  canMakeRequest(endpoint: string): boolean {
     const now = Date.now();
-    const windowStart = now - 60000; // 1 minute window
+    const windowStart = now - securityConfig.rateLimitWindow;
     
-    // Remove old requests
-    this.requests = this.requests.filter(time => time > windowStart);
+    // Clean old requests outside the window
+    this.requests = this.requests.filter(req => 
+      req.timestamp > windowStart && req.endpoint === endpoint
+    );
     
-    if (this.requests.length >= securityConfig.maxRequestsPerMinute) {
+    // Check if under limit
+    if (this.requests.length >= securityConfig.maxRequests) {
       return false;
     }
 
-    this.requests.push(now);
+    // Add new request
+    this.requests.push({ timestamp: now, endpoint });
     return true;
   }
 
-  getTimeUntilNextRequest(): number {
-    if (this.canMakeRequest()) return 0;
+  getTimeUntilNext(endpoint: string): number {
+    const requests = this.requests.filter(req => req.endpoint === endpoint);
+    if (requests.length < securityConfig.maxRequests) return 0;
     
-    const oldestRequest = this.requests[0];
-    return oldestRequest + 60000 - Date.now();
+    // Get time until oldest request expires
+    const oldestTimestamp = Math.min(...requests.map(r => r.timestamp));
+    return oldestTimestamp + securityConfig.rateLimitWindow - Date.now();
+  }
+
+  getRemainingRequests(endpoint: string): number {
+    const now = Date.now();
+    const windowStart = now - securityConfig.rateLimitWindow;
+    
+    const activeRequests = this.requests.filter(req => 
+      req.timestamp > windowStart && req.endpoint === endpoint
+    ).length;
+    
+    return Math.max(0, securityConfig.maxRequests - activeRequests);
+  }
+
+  reset(): void {
+    this.requests = [];
   }
 }
 
