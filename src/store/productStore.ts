@@ -53,6 +53,8 @@ export interface Category {
 }
 
 export interface ProductState {
+  isLoading?: boolean;
+  error?: string;
   products: Product[];
   categories: Category[];
   updateProductStatus: (productId: string, status: Product['status']) => void;
@@ -111,23 +113,32 @@ export const useProductStore = create<ProductState>()(
         )
       })),
 
-      addProduct: (product) => set((state) => ({
-        products: [...state.products, product]
-      })),
-
-      updateProduct: async (id: string, updates: Partial<Product>) => {
+      addProduct: async (product) => {
         try {
-          if (updates.images) {
-            updates.imageUrls = get().handleImageUpdates(id, updates.images);
-          }
+          set({ isLoading: true });
+          const createdProduct = await productService.createProduct(product);
+          set(state => ({
+            products: [...state.products, createdProduct],
+            isLoading: false
+          }));
+          return createdProduct;
+        } catch (error) {
+          set({ isLoading: false, error: error instanceof Error ? error.message : 'An unknown error occurred' });
+          throw error;
+        }
+      },
+
+      updateProduct: async (id, updates) => {
+        try {
+          set({ isLoading: true });
           const updatedProduct = await productService.updateProduct(id, updates);
           set(state => ({
-            products: state.products.map(p => p.id === id ? updatedProduct : p
-            )
+            products: state.products.map(p => p.id === id ? updatedProduct : p),
+            isLoading: false
           }));
           return updatedProduct;
         } catch (error) {
-          console.error('Failed to update product:', error);
+          set({ isLoading: false, error: error instanceof Error ? error.message : 'An unknown error occurred' });
           throw error;
         }
       },

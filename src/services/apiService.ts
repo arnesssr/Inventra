@@ -1,6 +1,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { getCurrentConfig } from '../config/environment';
 import type { ApiResponse, ApiError } from '../types/apiTypes';
+import { API_CONFIG } from './api/config';
 
 export class ApiService {
   private api: AxiosInstance;
@@ -9,11 +10,12 @@ export class ApiService {
     const config = getCurrentConfig();
     this.api = axios.create({
       baseURL: config.apiUrl,
-      timeout: 30000,
+      timeout: 60000, // Increased timeout
       headers: {
         'Content-Type': 'application/json',
         'x-api-key': config.apiKey
-      }
+      },
+      withCredentials: true // Added CORS credentials
     });
 
     this.setupInterceptors();
@@ -50,4 +52,72 @@ export class ApiService {
   }
 }
 
-export const apiService = new ApiService();
+export const apiService = {
+  async post<T>(endpoint: string, data: any, p0: { headers: { 'Content-Type': string; }; }): Promise<T> {
+    try {
+      const config = {
+        method: 'POST',
+        url: `${API_CONFIG.baseUrl}${endpoint}`,
+        data,
+        headers: {
+          ...API_CONFIG.headers,
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        },
+        withCredentials: false // Set to false for now
+      };
+
+      const response = await axios(config);
+      return response.data;
+    } catch (error: any) {
+      console.error('API Error:', error);
+      throw error;
+    }
+  },
+
+  async get<T>(endpoint: string): Promise<T> {
+    if (!endpoint) {
+      throw new Error('Endpoint is required');
+    }
+    try {
+      const config = {
+        method: 'GET',
+        url: `${API_CONFIG.baseUrl}${endpoint}`,
+        headers: {
+          ...API_CONFIG.headers,
+          'Content-Type': 'application/json'
+        },
+        withCredentials: false
+      };
+
+      const response = await axios(config);
+      return response.data;
+    } catch (error: any) {
+      console.error('API Error:', error);
+      throw error;
+    }
+  },
+
+  async put<T>(endpoint: string, data: any, config = {
+    headers: { 'Content-Type': 'application/json' }
+  }): Promise<T> {
+    if (!endpoint) {
+      throw new Error('Endpoint is required');
+    }
+    try {
+      const response = await axios({
+        method: 'PUT',
+        url: `${API_CONFIG.baseUrl}${endpoint}`,
+        data,
+        headers: {
+          ...API_CONFIG.headers,
+          ...config.headers
+        }
+      });
+      return response.data;
+    } catch (error: any) {
+      console.error('API Error:', error);
+      throw error;
+    }
+  }
+};
