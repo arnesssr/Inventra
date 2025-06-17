@@ -2,20 +2,17 @@ import axios from 'axios';
 
 export const API_CONFIG = {
   baseUrl: import.meta.env.VITE_API_URL,
-  storefrontUrl: import.meta.env.VITE_STOREFRONT_URL,
-  apiKey: import.meta.env.VITE_API_KEY,
-  timeout: 30000,
-  retryAttempts: 3,
+  endpoints: {
+    pms: '/api/pms',
+    products: '/api/products',
+    health: '/health'
+  },
   headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
     'X-API-Key': import.meta.env.VITE_API_KEY
   },
-  corsOrigins: [
-    'http://localhost:5173',
-    'http://localhost:3000',
-    'https://inventra-frontend.vercel.app'
-  ]
+  timeout: 5000 // Adding timeout in milliseconds
 };
 
 // Add debug logging

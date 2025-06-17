@@ -1,8 +1,13 @@
 import { apiService } from './apiService';
 import type { Product } from '../types/productTypes';
+import { API_CONFIG } from './api/config';
 
 export class ProductService {
-  private baseUrl = '/api/products';
+  deleteProduct(id: string) {
+    throw new Error('Method not implemented.');
+  }
+  // Use config instead of hardcoded paths
+  private baseUrl = `${API_CONFIG.endpoints.pms}/products`;
 
   async testConnection(): Promise<any> {
     return apiService.get('/health');
@@ -18,11 +23,11 @@ export class ProductService {
       console.log('Creating product with data:', data);
       
       // Ensure correct endpoint
-      const response = await apiService.post<Product>('/api/pms/products', {
+      const response = await apiService.post<Product>(this.baseUrl, {
         ...data,
         status: data.status || 'draft'
       }, {
-        headers: { 'Content-Type': 'application/json' }
+        headers: API_CONFIG.headers
       });
       
       console.log('Product created successfully:', response);
@@ -76,15 +81,20 @@ export class ProductService {
     files.forEach(file => formData.append('images', file));
 
     try {
-      const response = await apiService.post<{urls: string[]}>('/api/pms/products/images', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
+      const response = await apiService.post<{urls: string[]}>(
+        `${this.baseUrl}/images`, 
+        formData,
+        {
+          headers: {
+            ...API_CONFIG.headers,
+            'Content-Type': 'multipart/form-data'
+          }
         }
-      });
+      );
       return response.urls;
     } catch (error: any) {
       console.error('Image upload failed:', error);
-      throw new Error(error.response?.data?.message || 'Failed to upload images');
+      throw error;
     }
   }
 }

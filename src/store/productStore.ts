@@ -1,62 +1,13 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { productService } from '../services/productService';
+import type { Category, ImageWithPreview, Product, ProductVariant } from '../types/productTypes';
 
-// Add ProductVariant interface
-interface ProductVariant {
-  id: string;
-  sku: string;
-  price: number;
-  stock: number;
-  combination: Record<string, string>;
-}
-
-// Move interfaces to the top for better organization
-export interface ImageWithPreview {
-  file: File;
-  previewUrl: string;
-}
-
-export interface Product {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  category: string;
-  categoryName?: string;
-  status: 'draft' | 'published' | 'archived';
-  stock: number;
-  imageUrls: string[];
-  images: ImageWithPreview[];
-  createdAt: string;
-  updatedAt: string;
-  publishedAt?: string;
-  archivedAt?: string;
-  published_to_storefront?: boolean;
-  sku?: string;
-  hasVariations?: boolean;
-  variants?: Array<{
-    id: string;
-    sku: string;
-    price: number;
-    stock: number;
-    combination: Record<string, string>;
-  }>;
-}
-
-export interface Category {
-  id: string;
-  name: string;
-  description?: string;
-  createdAt: string;
-  updatedAt: string;
-}
-
-export interface ProductState {
-  isLoading?: boolean;
-  error?: string;
+interface ProductState {
   products: Product[];
   categories: Category[];
+  isLoading: boolean;
+  error: string | undefined; // Change from string | null
   updateProductStatus: (productId: string, status: Product['status']) => void;
   addProduct: (product: Product) => void;
   updateProduct: (id: string, updates: Partial<Product>) => void;
@@ -71,7 +22,7 @@ export interface ProductState {
   createProductAsync: (data: Product) => Promise<Product>;
   updateProductAsync: (id: string, data: Partial<Product>) => Promise<Product>;
   publishProductAsync: (id: string) => Promise<void>;
-  publishProduct: (productId: string) => Promise<void>;
+  publishProduct: (productId: string) => Promise<Product>;
   unpublishProduct: (productId: string) => Promise<void>;
   getCategoryName: (id: string) => string;
   getTotalValue: () => number;
@@ -91,6 +42,7 @@ export interface ProductState {
   createVariant: (productId: string, variantData: Omit<ProductVariant, 'id'>) => void;
   updateVariant: (productId: string, variantId: string, updates: Partial<ProductVariant>) => void;
   deleteVariant: (productId: string, variantId: string) => void;
+  rollbackOptimisticUpdate: (originalProduct: Product) => void;
 }
 
 // Create and export the store hook
@@ -99,6 +51,8 @@ export const useProductStore = create<ProductState>()(
     (set, get): ProductState => ({
       products: [],
       categories: [],
+      isLoading: false,
+      error: undefined, // Change from null
 
       updateProductStatus: (productId: string, status: Product['status']) => set((state) => ({
         products: state.products.map((product) => product.id === productId
@@ -114,38 +68,101 @@ export const useProductStore = create<ProductState>()(
       })),
 
       addProduct: async (product) => {
+        set({ isLoading: true, error: undefined }); // Change from null
+        const tempId = crypto.randomUUID();
         try {
-          set({ isLoading: true });
+          // Optimistic update
+          const optimisticProduct = { ...product, id: tempId };
+          set(state => ({ products: [...state.products, optimisticProduct] }));
+
+          // Actual API call
           const createdProduct = await productService.createProduct(product);
+          
+          // Update with real data
           set(state => ({
-            products: [...state.products, createdProduct],
+            products: state.products.map(p => 
+              p.id === tempId ? createdProduct : p
+            ),
             isLoading: false
           }));
+
           return createdProduct;
-        } catch (error) {
-          set({ isLoading: false, error: error instanceof Error ? error.message : 'An unknown error occurred' });
+        } catch (error: any) {
+          // Rollback on failure
+          set(state => ({
+            products: state.products.filter(p => p.id !== tempId),
+            error: error.message || 'An error occurred', // Ensure string
+            isLoading: false
+          }));
           throw error;
         }
       },
 
       updateProduct: async (id, updates) => {
+        set({ isLoading: true, error: undefined }); // Change from null
+        const originalProduct = get().products.find(p => p.id === id);
+        
+        if (!originalProduct) throw new Error('Product not found');
+
         try {
-          set({ isLoading: true });
-          const updatedProduct = await productService.updateProduct(id, updates);
+          // Optimistic update
           set(state => ({
-            products: state.products.map(p => p.id === id ? updatedProduct : p),
-            isLoading: false
+            products: state.products.map(p =>
+              p.id === id ? { ...p, ...updates } : p
+            )
           }));
+
+          // Actual API call
+          const updatedProduct = await productService.updateProduct(id, updates);
+          set({ isLoading: false });
           return updatedProduct;
-        } catch (error) {
-          set({ isLoading: false, error: error instanceof Error ? error.message : 'An unknown error occurred' });
+        } catch (error: any) {
+          // Rollback on failure
+          get().rollbackOptimisticUpdate(originalProduct);
+          set({ error: error.message, isLoading: false });
           throw error;
         }
       },
 
-      deleteProduct: (id) => set((state) => ({
-        products: state.products.filter((p) => p.id !== id)
-      })),
+      deleteProduct: async (id) => {
+        set({ isLoading: true, error: undefined }); // Change from null
+        try {
+          await productService.deleteProduct(id);
+          set((state) => ({
+            products: state.products.filter((p) => p.id !== id),
+            isLoading: false
+          }));
+          return true;
+        } catch (error: any) {
+          set({ error: error.message, isLoading: false });
+          throw error;
+        }
+      },
+
+      publishProduct: async (id) => {
+        set({ isLoading: true, error: undefined }); // Change from null
+        try {
+          const publishedProduct = await productService.publishProduct(id);
+          set(state => ({
+            products: state.products.map(p =>
+              p.id === id ? publishedProduct : p
+            ),
+            isLoading: false
+          }));
+          return publishedProduct;
+        } catch (error: any) {
+          set({ error: error.message, isLoading: false });
+          throw error;
+        }
+      },
+
+      rollbackOptimisticUpdate: (originalProduct) => {
+        set(state => ({
+          products: state.products.map(p =>
+            p.id === originalProduct.id ? originalProduct : p
+          )
+        }));
+      },
 
       getProduct: (id) => {
         return get().products.find((p) => p.id === id);
@@ -223,13 +240,6 @@ export const useProductStore = create<ProductState>()(
       publishProductAsync: async (id) => {
         await productService.publishProduct(id);
         set(state => ({
-          products: state.products.map(p => p.id === id ? { ...p, status: 'published' } : p
-          )
-        }));
-      },
-
-      publishProduct: async (id: string) => {
-        set(state => ({
           products: state.products.map(p => p.id === id ? {
             ...p,
             status: 'published',
@@ -259,7 +269,7 @@ export const useProductStore = create<ProductState>()(
 
       getCategoryName: (id: string) => {
         const product = get().products.find(p => p.category === id);
-        return product?.categoryName || id;
+        return product?.category || id;
       },
 
       getTotalValue: () => {
@@ -291,6 +301,8 @@ export const useProductStore = create<ProductState>()(
 
       getRecentChanges: () => {
         return get().products
+          .filter((product): product is Product & { updatedAt: string } => 
+            product.updatedAt !== undefined)
           .sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
           .slice(0, 5);
       },
