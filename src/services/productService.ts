@@ -1,33 +1,43 @@
+import { API_CONFIG } from '../config/apiConfig';
+import axios from 'axios';
 import { apiService } from './apiService';
-import type { Product } from '../types/productTypes';
-import { API_CONFIG } from './api/config';
+import type { ProductInput, Product } from '../types/productTypes';
 
-export class ProductService {
-  deleteProduct(id: string) {
-    throw new Error('Method not implemented.');
-  }
-  // Use config instead of hardcoded paths
-  private baseUrl = `${API_CONFIG.endpoints.pms}/products`;
+class ProductService {
+  private config = API_CONFIG;
+  private axiosInstance = axios.create({
+    baseURL: this.config.baseUrl,
+    timeout: this.config.timeout,
+    headers: this.config.headers
+  });
 
   async testConnection(): Promise<any> {
     return apiService.get('/health');
   }
 
   async getProducts(): Promise<Product[]> {
-    return apiService.get<Product[]>(this.baseUrl);
+    try {
+      const response = await this.axiosInstance.get(this.config.endpoints.products.base);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching products:', error);
+      throw error;
+    }
   }
 
-  async createProduct(data: Omit<Product, 'id'>): Promise<Product> {
+  async createProduct(data: ProductInput): Promise<Product> {
     try {
       // Log the request
       console.log('Creating product with data:', data);
       
       // Ensure correct endpoint
-      const response = await apiService.post<Product>(this.baseUrl, {
+      const response = await apiService.post<Product>(this.config.endpoints.products.base, {
         ...data,
-        status: data.status || 'draft'
+        status: data.status || 'draft',
+        id: crypto.randomUUID(), // Generate ID for new products
+        createdAt: new Date().toISOString()
       }, {
-        headers: API_CONFIG.headers
+        headers: this.config.headers
       });
       
       console.log('Product created successfully:', response);
@@ -43,35 +53,35 @@ export class ProductService {
   }
 
   async updateProduct(id: string, data: Partial<Product>): Promise<Product> {
-    return apiService.put<Product>(`${this.baseUrl}/${id}`, data, {
+    return apiService.put<Product>(`${this.config.endpoints.products.base}/${id}`, data, {
       headers: { 'Content-Type': 'application/json' }
     });
   }
 
   async publishToStorefront(id: string): Promise<void> {
-    return apiService.post(`${this.baseUrl}/${id}/publish`, {}, {
+    return apiService.post(`${this.config.endpoints.products.base}/${id}/publish`, {}, {
       headers: { 'Content-Type': 'application/json' }
     });
   }
 
   async unpublishFromStorefront(id: string): Promise<void> {
-    return apiService.post(`${this.baseUrl}/${id}/unpublish`, {}, {
+    return apiService.post(`${this.config.endpoints.products.base}/${id}/unpublish`, {}, {
       headers: { 'Content-Type': 'application/json' }
     });
   }
 
   async getProduct(id: string): Promise<Product> {
-    return apiService.get<Product>(`${this.baseUrl}/${id}`);
+    return apiService.get<Product>(`${this.config.endpoints.products.base}/${id}`);
   }
 
   async publishProduct(id: string): Promise<Product> {
-    return apiService.post<Product>(`${this.baseUrl}/${id}/publish`, {}, {
+    return apiService.post<Product>(`${this.config.endpoints.products.base}/${id}/publish`, {}, {
       headers: { 'Content-Type': 'application/json' }
     });
   }
 
   async unpublishProduct(id: string): Promise<Product> {
-    return apiService.post<Product>(`${this.baseUrl}/${id}/unpublish`, {}, {
+    return apiService.post<Product>(`${this.config.endpoints.products.base}/${id}/unpublish`, {}, {
       headers: { 'Content-Type': 'application/json' }
     });
   }
@@ -82,11 +92,11 @@ export class ProductService {
 
     try {
       const response = await apiService.post<{urls: string[]}>(
-        `${this.baseUrl}/images`, 
+        `${this.config.endpoints.products.base}/images`, 
         formData,
         {
           headers: {
-            ...API_CONFIG.headers,
+            ...this.config.headers,
             'Content-Type': 'multipart/form-data'
           }
         }

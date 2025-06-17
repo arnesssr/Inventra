@@ -1,33 +1,39 @@
-export interface ProductVariant {
-  id: string;
-  productId: string;
-  sku: string;
-  price: number;
-  stock: number;
-  combination: Record<string, string>;
-  isDefault?: boolean;
-  createdAt?: string;
-  updatedAt?: string;
-}
+export type ProductStatus = 'draft' | 'published' | 'archived';
+export type VariantStatus = 'active' | 'inactive';
 
-export interface Product {
+export interface BaseProduct {
   id: string;
   name: string;
   description: string;
+  category: string;
   price: number;
   stock: number;
-  category: string;
-  status: 'draft' | 'published' | 'archived';
+  sku: string;
+  status: ProductStatus;
   imageUrls?: string[];
-  hasVariations: boolean;
-  variants: ProductVariant[];
   createdAt: string;
   updatedAt?: string;
   publishedAt?: string;
+  archivedAt?: string;
 }
 
-export type CreateProductInput = Omit<Product, 'id' | 'createdAt' | 'updatedAt' | 'publishedAt'>;
-export type UpdateProductInput = Partial<CreateProductInput>;
+export interface ProductVariant {
+  id: string;
+  productId: string;
+  price: number;
+  stock: number;
+  sku: string;
+  status: VariantStatus;
+  combination: Record<string, string>;
+}
+
+export interface Product extends BaseProduct {
+  hasVariations: boolean;
+  variants: ProductVariant[];
+}
+
+export type ProductInput = Omit<Product, 'id' | 'createdAt' | 'updatedAt' | 'publishedAt' | 'archivedAt'>;
+export type ProductUpdate = Partial<ProductInput>;
 
 export interface ImageWithPreview {
   file: File;
