@@ -1,32 +1,37 @@
 export interface ProductVariant {
   id: string;
   productId: string;
-  sku: string;
   price: number;
   stock: number;
+  sku: string;
+  status: 'active' | 'inactive';
   combination: Record<string, string>;
-  isDefault?: boolean;
-  createdAt?: string;
-  updatedAt?: string;
 }
 
 export interface Product {
   id: string;
   name: string;
   description: string;
+  category: string;
   price: number;
   stock: number;
-  category: string;
+  sku: string;
   status: 'draft' | 'published' | 'archived';
-  imageUrls?: string[];
   hasVariations: boolean;
   variants: ProductVariant[];
+  imageUrls?: string[];
   createdAt: string;
   updatedAt?: string;
+}
+export interface Product extends BaseProduct {
+  id: string;
+  createdAt: string;
   publishedAt?: string;
 }
 
-export type CreateProductInput = Omit<Product, 'id' | 'createdAt' | 'updatedAt' | 'publishedAt'>;
+export type CreateProductInput = Omit<BaseProduct, 'imageUrls'> & {
+  imageUrls?: string[]; // Allow optional for creation
+};
 export type UpdateProductInput = Partial<CreateProductInput>;
 
 export interface ImageWithPreview {
@@ -54,6 +59,10 @@ export interface StockMovement {
   productId: string;
   quantity: number;
   type: 'increase' | 'decrease';
+  reason: 'purchase' | 'sale' | 'adjustment' | 'return';
+  date: string;
+  notes?: string;
+}
   reason: 'purchase' | 'sale' | 'adjustment' | 'return';
   date: string;
   notes?: string;
