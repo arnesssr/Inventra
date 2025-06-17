@@ -1,28 +1,20 @@
-import { API_CONFIG } from '../config/apiConfig';
-import axios from 'axios';
 import { apiService } from './apiService';
 import type { ProductInput, Product } from '../types/productTypes';
+import { API_CONFIG } from './api/config';
 
-class ProductService {
-  private config = API_CONFIG;
-  private axiosInstance = axios.create({
-    baseURL: this.config.baseUrl,
-    timeout: this.config.timeout,
-    headers: this.config.headers
-  });
+export class ProductService {
+  deleteProduct(id: string) {
+    throw new Error('Method not implemented.');
+  }
+  // Use config instead of hardcoded paths
+  private baseUrl = `${API_CONFIG.baseUrl}/products`;
 
   async testConnection(): Promise<any> {
     return apiService.get('/health');
   }
 
   async getProducts(): Promise<Product[]> {
-    try {
-      const response = await this.axiosInstance.get(this.config.endpoints.products.base);
-      return response.data;
-    } catch (error) {
-      console.error('Error fetching products:', error);
-      throw error;
-    }
+    return apiService.get<Product[]>(this.baseUrl);
   }
 
   async createProduct(data: ProductInput): Promise<Product> {
@@ -31,13 +23,13 @@ class ProductService {
       console.log('Creating product with data:', data);
       
       // Ensure correct endpoint
-      const response = await apiService.post<Product>(this.config.endpoints.products.base, {
+      const response = await apiService.post<Product>(this.baseUrl, {
         ...data,
         status: data.status || 'draft',
         id: crypto.randomUUID(), // Generate ID for new products
         createdAt: new Date().toISOString()
       }, {
-        headers: this.config.headers
+        headers: API_CONFIG.headers
       });
       
       console.log('Product created successfully:', response);
@@ -53,35 +45,35 @@ class ProductService {
   }
 
   async updateProduct(id: string, data: Partial<Product>): Promise<Product> {
-    return apiService.put<Product>(`${this.config.endpoints.products.base}/${id}`, data, {
+    return apiService.put<Product>(`${this.baseUrl}/${id}`, data, {
       headers: { 'Content-Type': 'application/json' }
     });
   }
 
   async publishToStorefront(id: string): Promise<void> {
-    return apiService.post(`${this.config.endpoints.products.base}/${id}/publish`, {}, {
+    return apiService.post(`${this.baseUrl}/${id}/publish`, {}, {
       headers: { 'Content-Type': 'application/json' }
     });
   }
 
   async unpublishFromStorefront(id: string): Promise<void> {
-    return apiService.post(`${this.config.endpoints.products.base}/${id}/unpublish`, {}, {
+    return apiService.post(`${this.baseUrl}/${id}/unpublish`, {}, {
       headers: { 'Content-Type': 'application/json' }
     });
   }
 
   async getProduct(id: string): Promise<Product> {
-    return apiService.get<Product>(`${this.config.endpoints.products.base}/${id}`);
+    return apiService.get<Product>(`${this.baseUrl}/${id}`);
   }
 
   async publishProduct(id: string): Promise<Product> {
-    return apiService.post<Product>(`${this.config.endpoints.products.base}/${id}/publish`, {}, {
+    return apiService.post<Product>(`${this.baseUrl}/${id}/publish`, {}, {
       headers: { 'Content-Type': 'application/json' }
     });
   }
 
   async unpublishProduct(id: string): Promise<Product> {
-    return apiService.post<Product>(`${this.config.endpoints.products.base}/${id}/unpublish`, {}, {
+    return apiService.post<Product>(`${this.baseUrl}/${id}/unpublish`, {}, {
       headers: { 'Content-Type': 'application/json' }
     });
   }
@@ -92,11 +84,11 @@ class ProductService {
 
     try {
       const response = await apiService.post<{urls: string[]}>(
-        `${this.config.endpoints.products.base}/images`, 
+        `${this.baseUrl}/images`, 
         formData,
         {
           headers: {
-            ...this.config.headers,
+            ...API_CONFIG.headers,
             'Content-Type': 'multipart/form-data'
           }
         }
