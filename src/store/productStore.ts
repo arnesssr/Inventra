@@ -71,20 +71,34 @@ export const useProductStore = create<ProductState>()(
 
         addProduct: async (product: ProductInput): Promise<Product> => {
           set({ isLoading: true, error: undefined });
-          try {
-            const createdProduct = await productService.createProduct({
-              ...product,
-              imageUrls: product.imageUrls || [] // Ensure imageUrls is always an array
-            });
-            set(state => ({
-              products: [...state.products, createdProduct],
-              isLoading: false
-            }));
-            return createdProduct;
-          } catch (error: any) {
-            set({ error: error.message, isLoading: false });
-            throw error;
+          let retryCount = 0;
+          const maxRetries = 3;
+
+          while (retryCount < maxRetries) {
+            try {
+              const newProduct = await productService.createProduct({
+                ...product,
+                imageUrls: product.imageUrls || [] // Ensure imageUrls is always an array
+              });
+              set(state => ({
+                products: [...state.products, newProduct],
+                isLoading: false
+              }));
+              return newProduct;
+            } catch (error: any) {
+              retryCount++;
+              if (retryCount === maxRetries) {
+                set({ 
+                  error: 'Failed to create product after multiple attempts',
+                  isLoading: false 
+                });
+                throw error;
+              }
+              // Wait before retrying
+              await new Promise(resolve => setTimeout(resolve, 2000 * retryCount));
+            }
           }
+          throw new Error('Failed to create product after maximum retries');
         },
 
         updateProduct: async (id: string, updates: Partial<Product> & { images?: ImageWithPreview[] }) => {
