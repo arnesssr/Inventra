@@ -156,10 +156,7 @@ export function ProductForm() {
     updateProduct,
     publishProduct,
     unpublishProduct
-  } = // TODO: Replace with React Query;
   
-  // TODO: Replace with React Query - const mockData = []
-  // TODO: Replace with React Query - const mockData = []
 
   // This will fix the TypeScript error for products
   const editingProduct = id ? 

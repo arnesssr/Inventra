@@ -25,7 +25,6 @@ interface CategoryActionsProps {
 
 export function CategoryActions({ categoryId, onEdit }: CategoryActionsProps) {
   const [showDeleteDialog, setShowDeleteDialog] = useState(false)
-  // TODO: Replace with React Query - const mockData = []
   const hasProducts = useProductStore(state => 
     state.products.some(p => p.category === categoryId)
   )

@@ -16,9 +16,6 @@ export function StockLevels() {
   const [filterStatus, setFilterStatus] = useState<'all' | 'low' | 'out'>('all')
   const [categoryFilter, setCategoryFilter] = useState('all')
 
-  // TODO: Replace with React Query - const mockData = []
-  // TODO: Replace with React Query - const mockData = []
-  // TODO: Replace with React Query - const mockData = []
 
   const getStockStatus = (current: number, minimum: number) => {
     if (current <= 0) return { 

@@ -93,7 +93,6 @@ export function ProductForm() {
   const handleSubmit = (e: React.FormEvent, status: 'draft' | 'published') => {
     e.preventDefault()
     setFormData(prev => ({ ...prev, status }))
-    // TODO: Implement actual form submission
   }
 
   const renderGenreFields = () => {

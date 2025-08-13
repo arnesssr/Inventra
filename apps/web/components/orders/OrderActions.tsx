@@ -15,8 +15,6 @@ interface OrderActionsProps {
 }
 
 export function OrderActions({ order, onView }: OrderActionsProps) {
-  // TODO: Replace with React Query - const mockData = []
-  // TODO: Replace with React Query - const mockData = []
 
   return (
     <DropdownMenu>

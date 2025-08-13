@@ -11,8 +11,6 @@ import { Switch } from "@/ui/Switch"
  * - Notification delivery methods
  */
 export function NotificationSettings() {
-  // TODO: Replace with React Query - const mockData = []
-  // TODO: Replace with React Query - const mockData = []
 
   const handlePreferenceChange = (key: string, value: boolean) => {
     updatePreferences({ [key]: value })

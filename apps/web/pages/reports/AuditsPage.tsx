@@ -6,16 +6,12 @@ import { Card } from "@/components/ui/Card"
 import { AuditService } from "@/features/audit/services/auditService"
 
 export function AuditsPage() {
-  // TODO: Replace with React Query - const mockData = [])
-  // TODO: Replace with React Query - const mockData = [])
-  // TODO: Replace with React Query - const mockData = []
 
   useEffect(() => {
     const savedLogs = AuditService.getAuditLogs(1, 10) // Get first page with 10 items
     setLogs(savedLogs)
 
     const unsubscribe = AuditService.subscribeToAuditLogs((newLog) => {
-      // TODO: useAuditStore.getState().addLog(newLog)
     })
 
     return () => unsubscribe()

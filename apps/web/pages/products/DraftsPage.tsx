@@ -7,10 +7,6 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 export function DraftsPage() {
-  // TODO: Replace with React Query - const mockData = [])
-  // TODO: Replace with React Query - const mockData = []
-  // TODO: Replace with React Query - const mockData = []
-  // TODO: Replace with React Query - const mockData = []
   const navigate = useNavigate()
   
   const [showPublishConfirm, setShowPublishConfirm] = useState(false)

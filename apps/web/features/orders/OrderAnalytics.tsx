@@ -3,7 +3,6 @@ import { ShoppingBag, Clock, CheckCircle, DollarSign } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 export function OrderAnalytics() {
-  // TODO: Replace with React Query - const mockData = [])
 
   const statCards = [
     { 

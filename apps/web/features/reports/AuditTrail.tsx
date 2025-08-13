@@ -44,12 +44,10 @@ export function AuditTrail({ defaultSeverity, defaultType }: AuditTrailProps) {
   useEffect(() => {
     // Subscribe to real-time updates
     const unsubscribe = AuditService.subscribeToAuditLogs((newLog) => {
-      // TODO: useAuditStore.getState().addLog(newLog)
     })
 
     // Load initial logs from localStorage
     const savedLogs = JSON.parse(localStorage.getItem('auditLogs') || '[]')
-    // TODO: useStore.getState().setAuditLogs(savedLogs)
 
     return () => unsubscribe()
   }, [])

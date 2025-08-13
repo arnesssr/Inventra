@@ -39,10 +39,6 @@ export function CategoryList() {
   const [customFields, setCustomFields] = useState<CategoryField[]>([])
 
   // Store actions and state
-  // TODO: Replace with React Query - const mockData = []
-  // TODO: Replace with React Query - const mockData = []
-  // TODO: Replace with React Query - const mockData = []
-  // TODO: Replace with React Query - const mockData = []
 
   // Initialize categories on component mount
   useEffect(() => {

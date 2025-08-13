@@ -12,9 +12,6 @@ interface StockOrderDialogProps {
 }
 
 export function StockOrderDialog({ open, onClose, productId }: StockOrderDialogProps) {
-  // TODO: Replace with React Query - const mockData = []
-  // TODO: Replace with React Query - const mockData = []
-  // TODO: Replace with React Query - const mockData = []
 
   const [formData, setFormData] = useState({
     productId: productId || '',

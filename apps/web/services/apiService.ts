@@ -1,18 +1,16 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
-import { getCurrentConfig } from "@/config/environment";
 import type { ApiResponse, ApiError } from "@/types/apiTypes";
 
 export class ApiService {
   private api: AxiosInstance;
 
   constructor() {
-    const config = getCurrentConfig();
+    const baseURL = import.meta.env.VITE_API_URL || "http://localhost:8000/api";
     this.api = axios.create({
-      baseURL: config.apiUrl,
+      baseURL,
       timeout: 30000,
       headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': config.apiKey
+        'Content-Type': 'application/json'
       }
     });
 
@@ -20,10 +18,26 @@ export class ApiService {
   }
 
   private setupInterceptors() {
+    // Request interceptor for auth
+    this.api.interceptors.request.use(
+      (config) => {
+        const token = localStorage.getItem("auth-token");
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
+      },
+      (error) => Promise.reject(error)
+    );
+
+    // Response interceptor for error handling
     this.api.interceptors.response.use(
       response => response,
       error => {
-        
+        if (error.response?.status === 401) {
+          localStorage.removeItem("auth-token");
+          window.location.href = "/sign-in";
+        }
         return Promise.reject(error);
       }
     );

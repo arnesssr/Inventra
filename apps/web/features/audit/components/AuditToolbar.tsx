@@ -5,7 +5,6 @@ import { Download, Calendar as CalendarIcon, Filter } from "lucide-react"
 import { format } from "date-fns"
 
 export function AuditToolbar() {
-  // TODO: Replace with React Query - const mockData = []
   
   const handleExport = async (format: 'csv' | 'json') => {
     const logs = getLogs()

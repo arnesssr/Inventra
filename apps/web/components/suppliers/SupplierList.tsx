@@ -7,7 +7,6 @@ import { SupplierFormActions } from "@/features/suppliers/SupplierFormActions"
 
 export function SupplierList() {
   const [selectedSupplier, setSelectedSupplier] = useState<Supplier | null>(null)
-  // TODO: Replace with React Query - const mockData = []
 
   return (
     <div className="space-y-4">

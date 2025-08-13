@@ -11,7 +11,6 @@ interface CreateSupplierFormProps {
 }
 
 export function CreateSupplierForm({ onSuccess }: CreateSupplierFormProps) {
-  // TODO: Replace with React Query - const mockData = []
   const [formData, setFormData] = useState({
     name: '',
     email: '',

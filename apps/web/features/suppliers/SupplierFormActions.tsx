@@ -9,8 +9,6 @@ interface SupplierFormActionsProps {
 }
 
 export function SupplierFormActions({ supplier, onView }: SupplierFormActionsProps) {
-  // TODO: Replace with React Query - const mockData = []
-  // TODO: Replace with React Query - const mockData = []
 
   return (
     <DropdownMenu>

@@ -12,8 +12,6 @@ interface StockMovementDialogProps {
 }
 
 export function StockMovementDialog({ open, onClose, productId, onSave }: StockMovementDialogProps) {
-  // TODO: Replace with React Query - const mockData = []
-  // TODO: Replace with React Query - const mockData = []
 
   const [formData, setFormData] = useState({
     productId: productId || '',
