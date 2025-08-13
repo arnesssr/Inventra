@@ -1,80 +1,86 @@
-# Inventra Frontend (PMS)
+# 🏗️ Inventra - Microservices Architecture
 
-Product Management System for Inventra
+A modern inventory management system built with microservices architecture.
 
-## Documentation
+## 📁 Project Structure
 
-- [Architecture](./docs/architecture.md)
-- [Setup Guide](./docs/setup.md)
-- [Todo List](./docs/todo.md)
-
-## Immediate Changes Required
-
-### PMS (Frontend)
-
-1. ProductService Updates
-```typescript
-// src/services/productService.ts
-- Add createProduct
-- Add updateProduct
-- Add publishProduct
-- Add uploadImage
+```
+inventra/
+├── 📱 apps/                    # Applications layer
+├── 🔧 services/               # Backend microservices  
+├── 📚 packages/               # Shared libraries
+├── 🗄️ infrastructure/         # Infrastructure as Code
+├── 🔄 workflows/              # CI/CD & automation
+├── 🧪 testing/                # Testing infrastructure
+├── 📖 docs/                   # Documentation
+├── 🔧 tools/                  # Development tools
+├── 📊 monitoring/             # Monitoring & observability
+└── 🌍 environments/           # Environment configurations
 ```
 
-2. ProductStore Updates
-```typescript
-// src/store/productStore.ts
-- Add optimistic updates
-- Add publish state
-- Add rollback functionality
-```
+## 🚀 Quick Start
 
-3. Form Updates
-```typescript
-// src/pages/products/ProductForm.tsx
-- Add image upload
-- Add publish button
-- Add validation
-```
+### Prerequisites
+- Node.js 18+
+- Docker & Docker Compose
+- Kubernetes (optional)
 
-### Backend
-
-1. Complete API Implementation
-```typescript
-// Already created:
-- POST /api/pms/products
-- PUT /api/pms/products/:id
-- POST /api/pms/products/:id/publish
-- POST /api/pms/products/images
-```
-
-2. Service Implementation
-```typescript
-// Already set up:
-- imageService.ts
-- productPublishService.ts
-- imageUploadMiddleware.ts
-```
-
-3. Database Setup
-```sql
--- Need to create:
-- products_internal
-- products_public
-- categories
-- images
-```
-
-## Getting Started
-
-1. Install dependencies:
+### Development Setup
 ```bash
-pnpm install
+# Install dependencies
+npm run install:all
+
+# Start development environment
+npm run dev
+
+# Run tests
+npm run test:all
 ```
 
-2. Set up environment variables (see setup guide)
+## 🏛️ Architecture Overview
 
-3. Start development server:
-```bash
-pnpm dev
-```
+### Frontend Applications
+- **Web App**: React-based inventory management interface
+- **Admin Dashboard**: Administrative interface
+- **Mobile App**: React Native mobile application (future)
+
+### Backend Services
+- **API Gateway**: Request routing and authentication
+- **Product Service**: Product catalog management
+- **Inventory Service**: Stock and inventory tracking
+- **Order Service**: Order processing and fulfillment
+- **Supplier Service**: Supplier relationship management
+- **Notification Service**: Real-time notifications
+- **Audit Service**: Activity logging and reporting
+- **Auth Service**: Authentication and authorization
+
+### Shared Packages
+- **Shared Types**: Common TypeScript interfaces
+- **UI Components**: Reusable React components
+- **API Client**: HTTP client with type safety
+- **Validation Schemas**: Data validation rules
+
+## 🔧 Development
+
+See [Development Guide](docs/development/README.md) for detailed setup instructions.
+
+## 🚀 Deployment
+
+See [Deployment Guide](docs/deployment/README.md) for production deployment.
+
+## 📚 Documentation
+
+- [API Documentation](docs/api/README.md)
+- [Architecture Guide](docs/architecture/README.md)
+- [User Guides](docs/user-guides/README.md)
+
+## 🤝 Contributing
+
+1. Create a feature branch
+2. Make your changes
+3. Add tests
+4. Submit a pull request
+
+## 📄 License
+
+MIT License - see [LICENSE](LICENSE) file for details.
