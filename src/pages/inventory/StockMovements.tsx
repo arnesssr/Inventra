@@ -1,12 +1,11 @@
 import { Table, TableHeader, TableRow, TableCell, TableBody } from "@/components/ui/Table"
 import { Button } from "@/components/ui/Button"
-import { useInventoryStore } from "@/store/inventoryStore"
 import { Plus } from "lucide-react"
 import { useState } from "react"
 import { StockMovementDialog } from "@/StockMovementDialog"
 
 export function StockMovements() {
-  const inventory = useInventoryStore(state => state.inventory)
+  // TODO: Replace with React Query - const mockData = []
   const [showDialog, setShowDialog] = useState(false)
 
   return (

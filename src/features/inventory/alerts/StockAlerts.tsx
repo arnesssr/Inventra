@@ -1,16 +1,13 @@
 import { Card } from "@/../components/ui/Card"
 import { Table, TableHeader, TableBody, TableRow, TableCell } from "@/../components/ui/Table"
-import { useInventoryStore } from "@/../store/inventoryStore"
-import { useProductStore } from "@/../store/productStore"
 import { AlertTriangle } from "lucide-react"
 import { Button } from "@/../components/ui/Button"
 import { useNavigate } from "react-router-dom"
-import type { InventoryItem } from "@/../store/inventoryStore"
 
 export function StockAlerts() {
   const navigate = useNavigate()
-  const inventory = useInventoryStore(state => state.inventory)
-  const getCategoryName = useProductStore(state => state.getCategoryName)
+  // TODO: Replace with React Query - const mockData = []
+  // TODO: Replace with React Query - const mockData = []
 
   // Filter items that need attention
   const alertItems = Object.entries(inventory).map(([id, item]: [string, InventoryItem]) => ({

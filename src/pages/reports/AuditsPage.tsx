@@ -3,20 +3,19 @@ import { AuditTrail } from "@/features/audit/components/AuditTrail"
 import { AuditSummary } from "@/features/audit/components/AuditSummary"
 import { AuditToolbar } from "@/features/audit/components/AuditToolbar"
 import { Card } from "@/components/ui/Card"
-import { useAuditStore } from "@/store/auditStore"
 import { AuditService } from "@/features/audit/services/auditService"
 
 export function AuditsPage() {
-  const stats = useAuditStore(state => state.getStats())
-  const logs = useAuditStore(state => state.getLogs())
-  const addAuditLog = useAuditStore(state => state.addAuditLog)
+  // TODO: Replace with React Query - const mockData = [])
+  // TODO: Replace with React Query - const mockData = [])
+  // TODO: Replace with React Query - const mockData = []
 
   useEffect(() => {
     const savedLogs = AuditService.getAuditLogs(1, 10) // Get first page with 10 items
     setLogs(savedLogs)
 
     const unsubscribe = AuditService.subscribeToAuditLogs((newLog) => {
-      useAuditStore.getState().addLog(newLog)
+      // TODO: useAuditStore.getState().addLog(newLog)
     })
 
     return () => unsubscribe()

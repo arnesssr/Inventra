@@ -5,12 +5,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Input } from "@/components/ui/Input"
 import { Button } from "@/components/ui/Button"
 import { formatDate } from "@/lib/utils/dateUtils"
-import { useStore } from "@/store/useStore"
 import { AlertTriangle, AlertCircle, Info } from "lucide-react"
 import { EVENT_TYPES, type AuditEventType, type AuditSeverity } from "@/types/auditTypes"
 import { AuditService } from "@/audit/services/auditService"
 import React from "react"
-import { useAuditStore } from "@/store/auditStore"
 
 interface AuditTrailProps {
   defaultSeverity?: AuditSeverity
@@ -46,12 +44,12 @@ export function AuditTrail({ defaultSeverity, defaultType }: AuditTrailProps) {
   useEffect(() => {
     // Subscribe to real-time updates
     const unsubscribe = AuditService.subscribeToAuditLogs((newLog) => {
-      useAuditStore.getState().addLog(newLog)
+      // TODO: useAuditStore.getState().addLog(newLog)
     })
 
     // Load initial logs from localStorage
     const savedLogs = JSON.parse(localStorage.getItem('auditLogs') || '[]')
-    useStore.getState().setAuditLogs(savedLogs)
+    // TODO: useStore.getState().setAuditLogs(savedLogs)
 
     return () => unsubscribe()
   }, [])

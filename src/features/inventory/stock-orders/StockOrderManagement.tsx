@@ -1,17 +1,15 @@
 import { Card } from "@/../components/ui/Card"
 import { Table, TableHeader, TableBody, TableRow, TableCell } from "@/../components/ui/Table"
 import { Button } from "@/../components/ui/Button"
-import { useInventoryStore } from "@/../store/inventoryStore"
-import { useProductStore } from "@/../store/productStore"
 import { Badge } from "@/../components/ui/Badge"
 import { Plus } from "lucide-react"
 import { useState } from "react"
 import { StockOrderDialog } from "@/StockOrderDialog"
 
 export function StockOrderManagement() {
-  const stockOrders = useInventoryStore(state => state.stockOrders)
-  const getCategoryName = useProductStore(state => state.getCategoryName)
-  const products = useProductStore(state => state.products) // Add products from store
+  // TODO: Replace with React Query - const mockData = []
+  // TODO: Replace with React Query - const mockData = []
+  // TODO: Replace with React Query - const mockData = [] // Add products from store
   const [showOrderDialog, setShowOrderDialog] = useState(false)
 
   // Helper function to get product details

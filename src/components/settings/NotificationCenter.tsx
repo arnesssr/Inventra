@@ -1,14 +1,20 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/ui/Card"
 import { Switch } from "@/ui/Switch"
-import { useNotificationStore } from "@/store/notificationStore"
 import { Button } from "@/ui/Button"
 
 export function NotificationCenter() {
-  const preferences = useNotificationStore(state => state.preferences)
-  const updatePreferences = useNotificationStore(state => state.updatePreferences)
-
+  // TODO: Replace with React Query
+  const preferences = {
+    lowStock: true,
+    outOfStock: true,
+    newOrders: true,
+    orderUpdates: false,
+    systemAlerts: true,
+  };
+  
   const handlePreferenceChange = (key: string, value: boolean) => {
-    updatePreferences({ [key]: value })
+    // TODO: Implement with API call
+    console.log('Update preference:', key, value);
   }
 
   return (

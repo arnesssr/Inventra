@@ -1,13 +1,11 @@
 import { Card } from "@/components/ui/Card"
-import { useSupplierStore } from "@/store/supplierStore"
-import { useInventoryStore } from "@/store/inventoryStore"
 import { PackageCheck, Clock, AlertTriangle, BadgeDollarSign } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 export function SupplierAnalytics() {
-  const suppliers = useSupplierStore(state => state.suppliers)
-  const inventory = useInventoryStore(state => state.inventory)
-  const purchaseOrders = useSupplierStore(state => state.purchaseOrders)
+  // TODO: Replace with React Query - const mockData = []
+  // TODO: Replace with React Query - const mockData = []
+  // TODO: Replace with React Query - const mockData = []
 
   const stats = [
     {

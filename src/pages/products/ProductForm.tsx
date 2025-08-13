@@ -5,8 +5,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card"
 import { Input } from "@/components/ui/Input"
 import { Button } from "@/components/ui/Button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/Select"
-import { useProductStore } from "@/store/productStore"
-import { useCategoryStore } from "@/store/categoryStore"
 import { Trash } from "lucide-react"
 import { VariationManager } from "@/features/products/variations/VariationManager"
 import { generateSKU } from "@/utils/productUtils" // Create this utility
@@ -158,10 +156,10 @@ export function ProductForm() {
     updateProduct,
     publishProduct,
     unpublishProduct
-  } = useProductStore();
+  } = // TODO: Replace with React Query;
   
-  const getCategoryName = useCategoryStore(state => state.getCategoryName)
-  const categories = useCategoryStore(state => state.categories)
+  // TODO: Replace with React Query - const mockData = []
+  // TODO: Replace with React Query - const mockData = []
 
   // This will fix the TypeScript error for products
   const editingProduct = id ? 

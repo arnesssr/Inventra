@@ -3,13 +3,7 @@ import {
   Package, TrendingUp, AlertTriangle, Clock, ArrowUp, 
   ArrowDown, RefreshCw, ShoppingBag, Archive, AlertCircle 
 } from "lucide-react"
-import { useInventoryStore } from "@/store/inventoryStore"
-import { useProductStore } from "@/store/productStore"
-import { useCategoryStore } from "@/store/categoryStore"
-import { useActivityStore } from "@/store/activityStore"
-import type { InventoryState } from "@/store/inventoryStore"
 import type { CategoryState } from "@/types/categoryTypes"
-import type { ProductState } from "@/store/productStore"
 
 import type { Activity, ChartDataItem, ValueComparisonData } from "@/types/activityTypes"
 
@@ -91,10 +85,10 @@ export function DashboardPage() {
   const [trendChartType, setTrendChartType] = useState<'area' | 'bar' | 'line'>('area')
   
   // Store Hooks with proper typing
-  const inventory = useInventoryStore((state: InventoryState) => state.inventory)
-  const products = useProductStore((state: ProductState) => state.products)
-  const categories = useCategoryStore((state: CategoryState) => state.categories)
-  const recentActivities = useActivityStore((state) => state.getRecentActivity())
+  // TODO: Replace with React Query - const mockData = [] => state.inventory)
+  // TODO: Replace with React Query - const mockData = [] => state.products)
+  // TODO: Replace with React Query - const mockData = [] => state.categories)
+  // TODO: Replace with React Query - const mockData = [] => state.getRecentActivity())
     .map((activity: Activity) => ({
       ...activity,
       icon: <ActivityIcon type={activity.type} />

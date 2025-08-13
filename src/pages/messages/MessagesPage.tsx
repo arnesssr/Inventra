@@ -1,5 +1,4 @@
 import { Card } from "@/components/ui/Card"
-import { useNotificationStore } from "@/store/notificationStore"
 import { 
   AlertTriangle, 
   CheckCircle, 
@@ -9,8 +8,8 @@ import {
 import { cn } from "@/lib/utils"
 
 export function MessagesPage() {
-  const notifications = useNotificationStore(state => state.notifications)
-  const markNotificationAsRead = useNotificationStore(state => state.markNotificationAsRead)
+  // TODO: Replace with React Query - const mockData = []
+  // TODO: Replace with React Query - const mockData = []
 
   // Group notifications by date
   const groupedNotifications = notifications.reduce((groups: Record<string, any[]>, notification) => {

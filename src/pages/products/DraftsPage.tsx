@@ -1,5 +1,3 @@
-import { useProductStore } from "@/store/productStore"
-import { useCategoryStore } from "@/store/categoryStore"
 import { Table, TableHeader, TableBody, TableRow, TableCell } from "@/components/ui/Table"
 import { Card } from "@/components/ui/Card"
 import { Button } from "@/components/ui/Button"
@@ -9,10 +7,10 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 export function DraftsPage() {
-  const drafts = useProductStore(state => state.products.filter(p => p.status === 'draft'))
-  const getCategoryName = useCategoryStore(state => state.getCategoryName)
-  const updateProduct = useProductStore(state => state.updateProduct)
-  const deleteProduct = useProductStore(state => state.deleteProduct)
+  // TODO: Replace with React Query - const mockData = [])
+  // TODO: Replace with React Query - const mockData = []
+  // TODO: Replace with React Query - const mockData = []
+  // TODO: Replace with React Query - const mockData = []
   const navigate = useNavigate()
   
   const [showPublishConfirm, setShowPublishConfirm] = useState(false)

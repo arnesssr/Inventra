@@ -1,5 +1,3 @@
-import { useProductStore } from "@/store/productStore"
-import { useCategoryStore } from "@/store/categoryStore" // Add this import
 import { Table, TableHeader, TableBody, TableRow, TableCell } from "@/components/ui/Table"
 import { Card } from "@/components/ui/Card"
 import { Button } from "@/components/ui/Button"
@@ -8,10 +6,10 @@ import { Undo, Trash2 } from "lucide-react"
 import { useState } from "react"
 
 export function ArchivedProducts() {
-  const archived = useProductStore(state => state.products.filter(p => p.status === 'archived'))
-  const getCategoryName = useCategoryStore(state => state.getCategoryName)
-  const restoreProduct = useProductStore(state => state.restoreProduct)
-  const deleteProduct = useProductStore(state => state.deleteProduct)
+  // TODO: Replace with React Query - const mockData = [])
+  // TODO: Replace with React Query - const mockData = []
+  // TODO: Replace with React Query - const mockData = []
+  // TODO: Replace with React Query - const mockData = []
 
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
   const [selectedProduct, setSelectedProduct] = useState<string | null>(null)

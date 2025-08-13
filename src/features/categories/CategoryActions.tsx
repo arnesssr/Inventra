@@ -6,8 +6,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/DropdownMenu"
 import { Button } from "@/components/ui/Button"
-import { useCategoryStore } from "@/store/categoryStore"
-import { useProductStore } from "@/store/productStore"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -27,7 +25,7 @@ interface CategoryActionsProps {
 
 export function CategoryActions({ categoryId, onEdit }: CategoryActionsProps) {
   const [showDeleteDialog, setShowDeleteDialog] = useState(false)
-  const deleteCategory = useCategoryStore(state => state.deleteCategory)
+  // TODO: Replace with React Query - const mockData = []
   const hasProducts = useProductStore(state => 
     state.products.some(p => p.category === categoryId)
   )

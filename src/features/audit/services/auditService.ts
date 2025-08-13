@@ -84,13 +84,13 @@ export class AuditService {
     eventBus.publish('auditLog.created', auditLog)
 
     // Update audit store directly
-    useAuditStore.getState().addLog(auditLog)
+    // TODO: useAuditStore.getState().addLog(auditLog)
 
     return auditLog
   }
 
   static getAuditLogs(page: number, pageSize: number): AuditLog[] {
-    const logs = useAuditStore.getState().getLogs()
+    const logs = // TODO: useAuditStore.getState().getLogs()
     const startIndex = (page - 1) * pageSize
     const endIndex = startIndex + pageSize
     return logs.slice(startIndex, endIndex)
@@ -101,7 +101,7 @@ export class AuditService {
   }
 
   static exportLogs(format: 'csv' | 'pdf' | 'json'): string {
-    const logs = useAuditStore.getState().getLogs()
+    const logs = // TODO: useAuditStore.getState().getLogs()
     switch (format) {
       case 'csv':
         return logs.map(log => Object.values(log).join(',')).join('\n')

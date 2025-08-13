@@ -1,9 +1,8 @@
 import { Table, TableHeader, TableRow, TableCell, TableBody } from "@/../components/ui/Table"
-import { useOrderStore } from "@/../store/orderStore"
 import { formatDate } from "@/../lib/utils/dateUtils"
 
 export function SalesReportTable() {
-  const orders = useOrderStore(state => state.orders)
+  // TODO: Replace with React Query - const mockData = []
 
   return (
     <div className="space-y-4">

@@ -1,12 +1,10 @@
-import { useInventoryStore } from "@/store/inventoryStore"
-import { useProductStore } from "@/store/productStore"
 import { Card } from "@/components/ui/Card"
 import { Table, TableHeader, TableBody, TableRow, TableCell } from "@/components/ui/Table"
 import { BoxIcon, AlertTriangle, MinusCircle, TrendingUp } from "lucide-react"
 
 export function InventoryReport() {
-  const inventory = useInventoryStore(state => state.inventory)
-  const products = useProductStore(state => state.products)
+  // TODO: Replace with React Query - const mockData = []
+  // TODO: Replace with React Query - const mockData = []
 
   const stats = {
     totalValue: Object.values(inventory).reduce((sum, item) => {

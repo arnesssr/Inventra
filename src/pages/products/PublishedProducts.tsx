@@ -1,5 +1,3 @@
-import { useProductStore } from "@/store/productStore"
-import { useCategoryStore } from "@/store/categoryStore" // Add this import
 import { Table, TableHeader, TableBody, TableRow, TableCell } from "@/components/ui/Table"
 import { Card, CardContent } from "@/components/ui/Card"
 import { Input } from "@/components/ui/Input"
@@ -37,11 +35,11 @@ export function PublishedProducts() {
   const products = useProductStore(state => 
     state.products.filter(p => p.status === 'published')
   )
-  const categories = useCategoryStore(state => state.categories)
-  const getCategoryName = useCategoryStore(state => state.getCategoryName)
-  const archiveProduct = useProductStore(state => state.archiveProduct)
-  const adjustProductStock = useProductStore(state => state.adjustProductStock)
-  const updateProduct = useProductStore(state => state.updateProduct)
+  // TODO: Replace with React Query - const mockData = []
+  // TODO: Replace with React Query - const mockData = []
+  // TODO: Replace with React Query - const mockData = []
+  // TODO: Replace with React Query - const mockData = []
+  // TODO: Replace with React Query - const mockData = []
 
   // Filter and sort state
   const [categoryFilter, setCategoryFilter] = useState("all")

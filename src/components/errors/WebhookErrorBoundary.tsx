@@ -1,5 +1,4 @@
 import React, { Component, ErrorInfo } from 'react';
-import { useNotificationStore } from "@/store/notificationStore";
 
 interface Props {
   children: React.ReactNode;

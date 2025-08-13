@@ -1,9 +1,8 @@
 import { Card } from "@/../components/ui/Card"
-import { useAuditStore } from "@/../store/auditStore"
 import { ActivitySquare, AlertTriangle, UserCog, Settings } from "lucide-react"
 
 export function AuditSummary() {
-  const logs = useAuditStore(state => state.logs)
+  // TODO: Replace with React Query - const mockData = []
   const today = new Date().toDateString()
 
   const stats = {

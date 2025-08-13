@@ -3,7 +3,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Input } from "@/../components/ui/Input"
 import { Button } from "@/../components/ui/Button"
 import { formatDate } from "@/../lib/utils/dateUtils"
-import { useAuditStore } from "@/../store/auditStore"
 import { AlertTriangle, AlertCircle, Info, MoreHorizontal, ExternalLink, Check } from "lucide-react"
 import type { AuditEventType, AuditSeverity, AuditLog } from "@/../types/auditTypes"
 import { EVENT_TYPES } from "@/../types/auditTypes"  // Fixed import path
@@ -68,7 +67,7 @@ export function AuditTrail({ defaultSeverity, defaultType }: AuditTrailProps) {
 
   // Add proper type check for sortedLogs
   const sortedLogs = React.useMemo(() => {
-    const logs = useAuditStore.getState().getLogs();
+    const logs = // TODO: useAuditStore.getState().getLogs();
     
     if (!sortConfig?.key) return logs;
 
@@ -91,12 +90,12 @@ export function AuditTrail({ defaultSeverity, defaultType }: AuditTrailProps) {
   useEffect(() => {
     // Subscribe to real-time updates
     const unsubscribe = AuditService.subscribeToAuditLogs((newLog) => {
-      useAuditStore.getState().addLog(newLog);
+      // TODO: useAuditStore.getState().addLog(newLog);
     });
 
     // Load initial logs from localStorage
     const savedLogs = JSON.parse(localStorage.getItem('auditLogs') || '[]');
-    useAuditStore.getState().setLogs(savedLogs);
+    // TODO: useAuditStore.getState().setLogs(savedLogs);
 
     return () => unsubscribe();
   }, [])

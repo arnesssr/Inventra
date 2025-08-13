@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { useOrderStore } from "@/store/orderStore"
 import { Table, TableBody, TableCell, TableHeader, TableRow } from "@/ui/Table"
 import { OrderStatusBadge } from "@/OrderStatusBadge"
 import { OrderDetailsDrawer } from "@/OrderDetailsDrawer"
@@ -8,7 +7,7 @@ import type { Order } from "@/types/orderTypes"
 
 export function OrderList() {
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null)
-  const orders = useOrderStore(state => state.orders)
+  // TODO: Replace with React Query - const mockData = []
 
   return (
     <div className="space-y-4">

@@ -1,10 +1,9 @@
 import { Table, TableHeader, TableRow, TableCell, TableBody } from "@/components/ui/Table"
 import { Button } from "@/components/ui/Button"
-import { useStore } from "@/store/useStore"
 import { AlertTriangle } from "lucide-react"
 
 export function InventoryList() {
-  const inventory = useStore(state => state.inventory)
+  // TODO: Replace with React Query - const mockData = []
   
   return (
     <div className="space-y-4">

@@ -1,10 +1,8 @@
 import { Card } from "@/../components/ui/Card"
-import { useInventoryStore } from "@/../store/inventoryStore"
-import { useProductStore } from "@/../store/productStore"
 
 export function InventoryValueReport() {
-  const inventory = useInventoryStore(state => state.inventory)
-  const products = useProductStore(state => state.products)
+  // TODO: Replace with React Query - const mockData = []
+  // TODO: Replace with React Query - const mockData = []
 
   const getTotalValue = () => {
     return Object.entries(inventory).reduce((total, [productId, item]) => {

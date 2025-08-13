@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/Button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card"
 import { Plus, MoreVertical, Pen, Trash2, Book, BookOpen, Gift, PenTool, Baby } from "lucide-react"
 import { useState, useEffect } from "react"
-import { useCategoryStore } from "@/store/categoryStore"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/Dialog"
 import { Input } from "@/components/ui/Input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/Select"
@@ -40,10 +39,10 @@ export function CategoryList() {
   const [customFields, setCustomFields] = useState<CategoryField[]>([])
 
   // Store actions and state
-  const addCategory = useCategoryStore(state => state.addCategory)
-  const categories = useCategoryStore(state => state.categories)
-  const deleteCategory = useCategoryStore(state => state.deleteCategory)
-  const initializeCategories = useCategoryStore(state => state.initializeCategories)
+  // TODO: Replace with React Query - const mockData = []
+  // TODO: Replace with React Query - const mockData = []
+  // TODO: Replace with React Query - const mockData = []
+  // TODO: Replace with React Query - const mockData = []
 
   // Initialize categories on component mount
   useEffect(() => {

@@ -2,16 +2,13 @@ import { UserButton } from "@clerk/clerk-react"
 import { Bell, Search, Store } from "lucide-react"
 import { Button } from "@/ui/Button"
 import { ThemeToggle } from "@/ui/ThemeToggle"
-import { useNotificationStore } from "@/store/notificationStore" // Updated import
 import { useNavigate } from "react-router-dom"
 import { getCurrentConfig } from "@/config/environment"
 
 export function TopBar() {
   const navigate = useNavigate()
-  const unreadCount = useNotificationStore(state => 
-    (state.notifications?.filter(n => !n.read)?.length || 0) + 
-    (state.alerts?.filter(a => !a.read)?.length || 0)
-  );
+  // TODO: Replace with React Query for notifications
+  const unreadCount = 0;
 
   const handleStoreClick = () => {
     const { storefrontUrl } = getCurrentConfig();
@@ -84,8 +81,8 @@ export function TopBar() {
 
 // Quick Notifications List Component
 function NotificationsList() {
-  const notifications = useNotificationStore(state => state.notifications)
-  const markAsRead = useNotificationStore(state => state.markAsRead)
+  // TODO: Replace with React Query - const mockData = []
+  // TODO: Replace with React Query - const mockData = []
 
   if (notifications.length === 0) {
     return (

@@ -7,7 +7,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/ui/dropdown-menu"
-import { useStore } from "@/store/useStore"
 import type { Order } from "@/types/orderTypes"
 
 interface OrderActionsProps {
@@ -16,8 +15,8 @@ interface OrderActionsProps {
 }
 
 export function OrderActions({ order, onView }: OrderActionsProps) {
-  const updateOrderStatus = useStore(state => state.updateOrderStatus)
-  const deleteOrder = useStore(state => state.deleteOrder)
+  // TODO: Replace with React Query - const mockData = []
+  // TODO: Replace with React Query - const mockData = []
 
   return (
     <DropdownMenu>

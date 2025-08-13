@@ -1,9 +1,8 @@
 import { Card } from "@/components/ui/Card"
-import { useOrderStore } from "@/store/orderStore"
 
 export function SalesAnalytics() {
-  const orders = useOrderStore(state => state.orders)
-  const stats = useOrderStore(state => state.getOrderStats())
+  // TODO: Replace with React Query - const mockData = []
+  // TODO: Replace with React Query - const mockData = [])
 
   return (
     <div className="space-y-6">

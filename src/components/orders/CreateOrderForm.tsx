@@ -1,6 +1,4 @@
 import { useState } from "react"
-import { useOrderStore } from "@/store/orderStore"
-import { useProductStore } from "@/store/productStore"
 import { Button } from "@/ui/Button"
 import { Input } from "@/ui/Input"
 import { Card } from "@/ui/Card"
@@ -18,8 +16,8 @@ interface CreateOrderFormProps {
 }
 
 export function CreateOrderForm({ onSuccess }: CreateOrderFormProps) {
-  const products = useProductStore(state => state.products)
-  const createOrder = useOrderStore(state => state.createOrder)
+  // TODO: Replace with React Query - const mockData = []
+  // TODO: Replace with React Query - const mockData = []
   
   const [orderItems, setOrderItems] = useState<Array<{
     productId: string;

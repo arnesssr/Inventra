@@ -1,8 +1,7 @@
-import { useProductStore } from "@/store/productStore"
 import { Table, TableHeader, TableBody, TableRow, TableCell } from "@/components/ui/Table"
 
 export function ProductsList() {
-  const products = useProductStore(state => state.products.filter(p => p.status === 'published'))
+  // TODO: Replace with React Query - const mockData = [])
 
   return (
     <div className="rounded-md border">

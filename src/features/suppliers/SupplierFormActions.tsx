@@ -1,4 +1,3 @@
-import { useSupplierStore } from "@/store/supplierStore"
 import { Button } from "@/components/ui/Button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { MoreHorizontal } from "lucide-react"
@@ -10,8 +9,8 @@ interface SupplierFormActionsProps {
 }
 
 export function SupplierFormActions({ supplier, onView }: SupplierFormActionsProps) {
-  const updateSupplier = useSupplierStore(state => state.updateSupplier)
-  const deleteSupplier = useSupplierStore(state => state.deleteSupplier)
+  // TODO: Replace with React Query - const mockData = []
+  // TODO: Replace with React Query - const mockData = []
 
   return (
     <DropdownMenu>

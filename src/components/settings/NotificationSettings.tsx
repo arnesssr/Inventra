@@ -1,7 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/ui/Card"
 import { Button } from "@/ui/Button"
 import { Switch } from "@/ui/Switch"
-import { useNotificationStore } from "@/store/notificationStore"
 
 /**
  * NotificationSettings Component
@@ -12,8 +11,8 @@ import { useNotificationStore } from "@/store/notificationStore"
  * - Notification delivery methods
  */
 export function NotificationSettings() {
-  const preferences = useNotificationStore(state => state.preferences)
-  const updatePreferences = useNotificationStore(state => state.updatePreferences)
+  // TODO: Replace with React Query - const mockData = []
+  // TODO: Replace with React Query - const mockData = []
 
   const handlePreferenceChange = (key: string, value: boolean) => {
     updatePreferences({ [key]: value })

@@ -1,23 +1,22 @@
 import { Button } from "@/ui/Button"
-import { useStore } from "@/store/useStore"
 import { Globe, Globe2 } from "lucide-react"
 import { useToast } from "@/ui/use-toast"
 import { Product } from "@/types/productTypes"
 
 export function ProductActions({ product }: { product: Product }) {
-  const { publishToStorefront, unpublishFromStorefront } = useStore()
   const { toast } = useToast()
 
   const handlePublishToggle = async () => {
     try {
+      // TODO: Replace with React Query API call
       if (product.publishedToStorefront) {
-        await unpublishFromStorefront(product.id)
+        // await unpublishFromStorefront(product.id)
         toast({
           title: "Product unpublished",
           description: "Product removed from storefront"
         })
       } else {
-        await publishToStorefront(product.id)
+        // await publishToStorefront(product.id)
         toast({
           title: "Product published",
           description: "Product is now live on the storefront"

@@ -1,8 +1,5 @@
 import { verifyWebhookSignature } from "@/middleware/verifyWebhook";
 import type { WebhookEvent } from "@/types/webhook.types";
-import { useNotificationStore } from "@/store/notificationStore";
-import { useInventoryStore } from "@/store/inventoryStore";
-import { useProductStore } from "@/store/productStore";
 
 export async function webhookHandler(request: Request) {
   try {
@@ -14,14 +11,14 @@ export async function webhookHandler(request: Request) {
     // Handle different webhook events
     switch (body.type) {
       case 'inventory.updated':
-        useInventoryStore.getState().adjustProductStock(
+        useInventoryStore// .getState() - TODO: Replace with React Query.adjustProductStock(
           body.data.productId,
           body.data.adjustment
         );
         break;
         
       case 'product.published':
-        useProductStore.getState().updateProductStatus(
+        useProductStore// .getState() - TODO: Replace with React Query.updateProductStatus(
           body.data.productId,
           'published'
         );
@@ -32,7 +29,7 @@ export async function webhookHandler(request: Request) {
     }
 
     // Add notification
-    useNotificationStore.getState().addNotification({
+    useNotificationStore// .getState() - TODO: Replace with React Query.addNotification({
         title: 'Webhook Received',
         message: `Processed ${body.type} event`,
         type: 'info',

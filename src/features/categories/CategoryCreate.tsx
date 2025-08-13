@@ -3,7 +3,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card"
 import { Input } from "@/components/ui/Input"
 import { Button } from "@/components/ui/Button"
 import { Plus, Trash } from "lucide-react"
-import { useCategoryStore } from "@/store/categoryStore"
 import { DEFAULT_FIELDS } from "@/types/category"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/Select"
 import { useNavigate } from "react-router-dom"
@@ -16,7 +15,7 @@ interface CustomField {
 
 export function CategoryCreate() {
   const navigate = useNavigate()
-  const addCategory = useCategoryStore(state => state.addCategory)
+  // TODO: Replace with React Query - const mockData = []
   
   const [category, setCategory] = useState({
     name: '',

@@ -1,5 +1,4 @@
 import { Table, TableHeader, TableRow, TableCell, TableBody } from "@/ui/Table"
-import { useSupplierStore } from "@/store/supplierStore"
 import { SupplierStatusBadge } from "@/SupplierStatusBadge"
 import { SupplierDetailsDrawer } from "@/SupplierDetailsDrawer"
 import { useState } from "react"
@@ -8,7 +7,7 @@ import { SupplierFormActions } from "@/features/suppliers/SupplierFormActions"
 
 export function SupplierList() {
   const [selectedSupplier, setSelectedSupplier] = useState<Supplier | null>(null)
-  const suppliers = useSupplierStore(state => state.suppliers)
+  // TODO: Replace with React Query - const mockData = []
 
   return (
     <div className="space-y-4">
