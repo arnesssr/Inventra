@@ -1,0 +1,180 @@
+name: Frontend CI/CD
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'apps/web/**'
+      - 'packages/**'
+      - '.github/workflows/ci-frontend.yml'
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'apps/web/**'
+      - 'packages/**'
+
+jobs:
+  test-packages:
+    name: Test Shared Packages
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build packages
+        run: npm run build:packages
+      
+      - name: Test packages
+        run: npm run test:packages
+
+  test-frontend:
+    name: Test Frontend Application
+    runs-on: ubuntu-latest
+    needs: test-packages
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build packages
+        run: npm run build:packages
+      
+      - name: Lint frontend
+        run: cd apps/web && npm run lint
+      
+      - name: Type check
+        run: cd apps/web && npm run type-check
+      
+      - name: Run tests
+        run: cd apps/web && npm run test -- --coverage
+      
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./apps/web/coverage/lcov.info
+          flags: frontend
+          name: frontend-coverage
+
+  build-frontend:
+    name: Build Frontend
+    runs-on: ubuntu-latest
+    needs: test-frontend
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build packages
+        run: npm run build:packages
+      
+      - name: Build frontend
+        run: cd apps/web && npm run build
+      
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-build
+          path: apps/web/dist/
+          retention-days: 7
+
+  e2e-tests:
+    name: E2E Tests
+    runs-on: ubuntu-latest
+    needs: build-frontend
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Start services
+        run: |
+          docker-compose -f infrastructure/docker/docker-compose.yml up -d
+          sleep 30
+      
+      - name: Run E2E tests
+        run: cd testing/e2e && npm run test
+      
+      - name: Upload E2E results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: e2e-results
+          path: testing/e2e/test-results/
+
+  deploy-staging:
+    name: Deploy to Staging
+    runs-on: ubuntu-latest
+    needs: [build-frontend, test-frontend]
+    if: github.ref == 'refs/heads/develop'
+    environment: staging
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: frontend-build
+          path: apps/web/dist/
+      
+      - name: Deploy to Vercel Staging
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          working-directory: apps/web
+          scope: staging
+
+  deploy-production:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs: [build-frontend, test-frontend]
+    if: github.ref == 'refs/heads/main'
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: frontend-build
+          path: apps/web/dist/
+      
+      - name: Deploy to Vercel Production
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: '--prod'
+          working-directory: apps/web
