@@ -7,9 +7,6 @@ import { useState } from "react"
 import { StockOrderDialog } from "@/StockOrderDialog"
 
 export function StockOrderManagement() {
-  // TODO: Replace with React Query - const mockData = []
-  // TODO: Replace with React Query - const mockData = []
-  // TODO: Replace with React Query - const mockData = [] // Add products from store
   const [showOrderDialog, setShowOrderDialog] = useState(false)
 
   // Helper function to get product details

@@ -3,8 +3,6 @@ import { Table, TableHeader, TableBody, TableRow, TableCell } from "@/components
 import { BoxIcon, AlertTriangle, MinusCircle, TrendingUp } from "lucide-react"
 
 export function InventoryReport() {
-  // TODO: Replace with React Query - const mockData = []
-  // TODO: Replace with React Query - const mockData = []
 
   const stats = {
     totalValue: Object.values(inventory).reduce((sum, item) => {

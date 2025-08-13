@@ -7,7 +7,6 @@ import { getCurrentConfig } from "@/config/environment"
 
 export function TopBar() {
   const navigate = useNavigate()
-  // TODO: Replace with React Query for notifications
   const unreadCount = 0;
 
   const handleStoreClick = () => {
@@ -81,8 +80,6 @@ export function TopBar() {
 
 // Quick Notifications List Component
 function NotificationsList() {
-  // TODO: Replace with React Query - const mockData = []
-  // TODO: Replace with React Query - const mockData = []
 
   if (notifications.length === 0) {
     return (

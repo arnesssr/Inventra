@@ -2,7 +2,6 @@ import { Card } from "@/../components/ui/Card"
 import { ActivitySquare, AlertTriangle, UserCog, Settings } from "lucide-react"
 
 export function AuditSummary() {
-  // TODO: Replace with React Query - const mockData = []
   const today = new Date().toDateString()
 
   const stats = {

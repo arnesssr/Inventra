@@ -2,7 +2,6 @@ import { Table, TableHeader, TableRow, TableCell, TableBody } from "@/../compone
 import { formatDate } from "@/../lib/utils/dateUtils"
 
 export function SalesReportTable() {
-  // TODO: Replace with React Query - const mockData = []
 
   return (
     <div className="space-y-4">

@@ -15,7 +15,6 @@ interface CustomField {
 
 export function CategoryCreate() {
   const navigate = useNavigate()
-  // TODO: Replace with React Query - const mockData = []
   
   const [category, setCategory] = useState({
     name: '',

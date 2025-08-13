@@ -4,8 +4,6 @@ import { formatDate } from "@/lib/utils/dateUtils"
 import { BarChart, DollarSign, ShoppingCart, TrendingUp } from "lucide-react"
 
 export function SalesReport() {
-  // TODO: Replace with React Query - const mockData = []
-  // TODO: Replace with React Query - const mockData = [])
 
   // Calculate monthly revenue
   const monthlyRevenue = orders.reduce((acc, order) => {

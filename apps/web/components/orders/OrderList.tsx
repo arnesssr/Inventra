@@ -7,7 +7,6 @@ import type { Order } from "@/types/orderTypes"
 
 export function OrderList() {
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null)
-  // TODO: Replace with React Query - const mockData = []
 
   return (
     <div className="space-y-4">

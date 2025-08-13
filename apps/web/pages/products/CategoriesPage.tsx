@@ -12,8 +12,6 @@ const CATEGORY_ICONS: Record<string, JSX.Element> = {
 }
 
 export function CategoriesPage() {
-  // TODO: Replace with React Query - const mockData = []
-  // TODO: Replace with React Query - const mockData = []
 
   return (
     <div className="space-y-6">

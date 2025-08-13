@@ -85,10 +85,6 @@ export function DashboardPage() {
   const [trendChartType, setTrendChartType] = useState<'area' | 'bar' | 'line'>('area')
   
   // Store Hooks with proper typing
-  // TODO: Replace with React Query - const mockData = [] => state.inventory)
-  // TODO: Replace with React Query - const mockData = [] => state.products)
-  // TODO: Replace with React Query - const mockData = [] => state.categories)
-  // TODO: Replace with React Query - const mockData = [] => state.getRecentActivity())
     .map((activity: Activity) => ({
       ...activity,
       icon: <ActivityIcon type={activity.type} />

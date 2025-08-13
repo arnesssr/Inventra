@@ -8,8 +8,6 @@ import {
 import { cn } from "@/lib/utils"
 
 export function MessagesPage() {
-  // TODO: Replace with React Query - const mockData = []
-  // TODO: Replace with React Query - const mockData = []
 
   // Group notifications by date
   const groupedNotifications = notifications.reduce((groups: Record<string, any[]>, notification) => {

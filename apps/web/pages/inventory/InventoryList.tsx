@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/Button"
 import { AlertTriangle } from "lucide-react"
 
 export function InventoryList() {
-  // TODO: Replace with React Query - const mockData = []
   
   return (
     <div className="space-y-4">

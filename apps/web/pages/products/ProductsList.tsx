@@ -1,7 +1,6 @@
 import { Table, TableHeader, TableBody, TableRow, TableCell } from "@/components/ui/Table"
 
 export function ProductsList() {
-  // TODO: Replace with React Query - const mockData = [])
 
   return (
     <div className="rounded-md border">

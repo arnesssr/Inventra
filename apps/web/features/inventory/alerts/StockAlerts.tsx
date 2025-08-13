@@ -6,8 +6,6 @@ import { useNavigate } from "react-router-dom"
 
 export function StockAlerts() {
   const navigate = useNavigate()
-  // TODO: Replace with React Query - const mockData = []
-  // TODO: Replace with React Query - const mockData = []
 
   // Filter items that need attention
   const alertItems = Object.entries(inventory).map(([id, item]: [string, InventoryItem]) => ({

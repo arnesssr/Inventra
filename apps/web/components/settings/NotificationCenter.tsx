@@ -3,7 +3,6 @@ import { Switch } from "@/ui/Switch"
 import { Button } from "@/ui/Button"
 
 export function NotificationCenter() {
-  // TODO: Replace with React Query
   const preferences = {
     lowStock: true,
     outOfStock: true,
@@ -13,7 +12,6 @@ export function NotificationCenter() {
   };
   
   const handlePreferenceChange = (key: string, value: boolean) => {
-    // TODO: Implement with API call
     console.log('Update preference:', key, value);
   }
 

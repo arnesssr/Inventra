@@ -1,86 +1,100 @@
-# 🏗️ Inventra - Microservices Architecture
+# 📦 Inventr - Inventory Management System
 
-A modern inventory management system built with microservices architecture.
-
-## 📁 Project Structure
-
-```
-inventra/
-├── 📱 apps/                    # Applications layer
-├── 🔧 services/               # Backend microservices  
-├── 📚 packages/               # Shared libraries
-├── 🗄️ infrastructure/         # Infrastructure as Code
-├── 🔄 workflows/              # CI/CD & automation
-├── 🧪 testing/                # Testing infrastructure
-├── 📖 docs/                   # Documentation
-├── 🔧 tools/                  # Development tools
-├── 📊 monitoring/             # Monitoring & observability
-└── 🌍 environments/           # Environment configurations
-```
+A simplified, modern inventory management system built with TypeScript, React, and Node.js.
 
 ## 🚀 Quick Start
 
-### Prerequisites
-- Node.js 18+
-- Docker & Docker Compose
-- Kubernetes (optional)
-
-### Development Setup
 ```bash
-# Install dependencies
-npm run install:all
+# Clone and setup
+git clone <repo-url>
+cd Inventr
 
-# Start development environment
+# Start with Docker (Recommended)
+docker-compose up -d
+
+# Or run locally
+npm install
 npm run dev
-
-# Run tests
-npm run test:all
 ```
 
-## 🏛️ Architecture Overview
+## 🏗️ Architecture
 
-### Frontend Applications
-- **Web App**: React-based inventory management interface
-- **Admin Dashboard**: Administrative interface
-- **Mobile App**: React Native mobile application (future)
+**Simplified Monolith Architecture** (instead of complex microservices):
 
-### Backend Services
-- **API Gateway**: Request routing and authentication
-- **Product Service**: Product catalog management
-- **Inventory Service**: Stock and inventory tracking
-- **Order Service**: Order processing and fulfillment
-- **Supplier Service**: Supplier relationship management
-- **Notification Service**: Real-time notifications
-- **Audit Service**: Activity logging and reporting
-- **Auth Service**: Authentication and authorization
+```
+├── backend/           # Single Node.js API server
+│   ├── src/modules/   # Feature modules (auth, products, orders, etc.)
+│   └── src/shared/    # Shared utilities
+├── apps/web/          # React frontend
+│   ├── components/    # UI components
+│   ├── pages/         # Page components
+│   └── store/         # Zustand state management
+└── packages/          # Shared packages (minimal)
+```
 
-### Shared Packages
-- **Shared Types**: Common TypeScript interfaces
-- **UI Components**: Reusable React components
-- **API Client**: HTTP client with type safety
-- **Validation Schemas**: Data validation rules
+## 🔧 Tech Stack
 
-## 🔧 Development
+### Backend
+- **Node.js + Express** - Single API server
+- **PostgreSQL** - Primary database
+- **Redis** - Caching and sessions
+- **TypeScript** - Type safety
 
-See [Development Guide](docs/development/README.md) for detailed setup instructions.
+### Frontend
+- **React + Vite** - Fast development
+- **Zustand** - Simplified state management
+- **Tailwind CSS** - Styling
+- **React Query** - Server state management
 
-## 🚀 Deployment
+## 🎯 Key Features
 
-See [Deployment Guide](docs/deployment/README.md) for production deployment.
+- **Product Management** - Add, edit, track products
+- **Inventory Tracking** - Real-time stock levels
+- **Order Processing** - Order lifecycle management
+- **Supplier Management** - Vendor relationships
+- **Audit Trail** - Change tracking
+- **Notifications** - Real-time updates
+- **Reports** - Analytics and insights
 
-## 📚 Documentation
+## 📊 Why This Architecture?
 
-- [API Documentation](docs/api/README.md)
-- [Architecture Guide](docs/architecture/README.md)
-- [User Guides](docs/user-guides/README.md)
+### ✅ Benefits of Simplified Monolith:
+- **Faster Development** - No network calls between services
+- **Easier Debugging** - Single codebase to trace
+- **ACID Transactions** - Database consistency guaranteed
+- **Simple Deployment** - One service to deploy
+- **Lower Latency** - No inter-service communication overhead
 
-## 🤝 Contributing
+### 🔄 Migration Path:
+When you need to scale specific features:
+1. Extract high-load modules to separate services
+2. Use database per service pattern
+3. Implement event-driven communication
+4. Add service mesh for complex scenarios
 
-1. Create a feature branch
-2. Make your changes
-3. Add tests
-4. Submit a pull request
+## 🛠️ Configuration
 
-## 📄 License
+Environment variables:
+```bash
+# Backend
+DATABASE_URL=postgresql://user:pass@localhost:5432/inventr
+REDIS_URL=redis://localhost:6379
+JWT_SECRET=your-secret-here
 
-MIT License - see [LICENSE](LICENSE) file for details.
+# Frontend  
+VITE_API_URL=http://localhost:8000/api
+VITE_WS_URL=ws://localhost:8000
+```
+
+## 🔒 Security
+
+- JWT authentication
+- Request validation with Zod
+- SQL injection protection
+- CORS configuration
+- Rate limiting
+- Helmet security headers
+
+---
+
+**Note**: This architecture prioritizes simplicity and development velocity. Extract services only when you have clear scaling needs and the team experience to manage distributed systems.

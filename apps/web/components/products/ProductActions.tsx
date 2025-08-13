@@ -8,7 +8,6 @@ export function ProductActions({ product }: { product: Product }) {
 
   const handlePublishToggle = async () => {
     try {
-      // TODO: Replace with React Query API call
       if (product.publishedToStorefront) {
         // await unpublishFromStorefront(product.id)
         toast({

@@ -2,8 +2,6 @@ import { Card } from "@/components/ui/Card"
 import { AlertTriangle, CheckCircle, AlertCircle } from "lucide-react"
 
 export function InventoryAnalytics() {
-  // TODO: Replace with React Query - const mockData = []
-  // TODO: Replace with React Query - const mockData = []
 
   const getInventoryStats = () => {
     const items = Object.values(inventory)

@@ -3,8 +3,6 @@ import { Table, TableHeader, TableRow, TableCell, TableBody } from "@/components
 import { Truck, DollarSign, CheckCircle, AlertTriangle } from "lucide-react"
 
 export function SupplierReport() {
-  // TODO: Replace with React Query - const mockData = []
-  // TODO: Replace with React Query - const mockData = []
   
   return (
     <div className="space-y-6">

@@ -67,7 +67,6 @@ export function AuditTrail({ defaultSeverity, defaultType }: AuditTrailProps) {
 
   // Add proper type check for sortedLogs
   const sortedLogs = React.useMemo(() => {
-    const logs = // TODO: useAuditStore.getState().getLogs();
     
     if (!sortConfig?.key) return logs;
 
@@ -90,12 +89,10 @@ export function AuditTrail({ defaultSeverity, defaultType }: AuditTrailProps) {
   useEffect(() => {
     // Subscribe to real-time updates
     const unsubscribe = AuditService.subscribeToAuditLogs((newLog) => {
-      // TODO: useAuditStore.getState().addLog(newLog);
     });
 
     // Load initial logs from localStorage
     const savedLogs = JSON.parse(localStorage.getItem('auditLogs') || '[]');
-    // TODO: useAuditStore.getState().setLogs(savedLogs);
 
     return () => unsubscribe();
   }, [])

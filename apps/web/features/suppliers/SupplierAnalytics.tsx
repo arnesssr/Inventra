@@ -3,9 +3,6 @@ import { PackageCheck, Clock, AlertTriangle, BadgeDollarSign } from "lucide-reac
 import { cn } from "@/lib/utils"
 
 export function SupplierAnalytics() {
-  // TODO: Replace with React Query - const mockData = []
-  // TODO: Replace with React Query - const mockData = []
-  // TODO: Replace with React Query - const mockData = []
 
   const stats = [
     {

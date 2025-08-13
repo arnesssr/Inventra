@@ -4,7 +4,6 @@ import { toast } from 'sonner';
 export const NotificationContext = createContext<ReturnType<typeof useNotificationStore> | null>(null);
 
 export function NotificationProvider({ children }: { children: React.ReactNode }) {
-  // TODO: Replace with React Query - const mockData = [];
 
   return (
     <NotificationContext.Provider value={notifications}>

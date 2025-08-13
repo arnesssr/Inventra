@@ -6,10 +6,6 @@ import { Undo, Trash2 } from "lucide-react"
 import { useState } from "react"
 
 export function ArchivedProducts() {
-  // TODO: Replace with React Query - const mockData = [])
-  // TODO: Replace with React Query - const mockData = []
-  // TODO: Replace with React Query - const mockData = []
-  // TODO: Replace with React Query - const mockData = []
 
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
   const [selectedProduct, setSelectedProduct] = useState<string | null>(null)

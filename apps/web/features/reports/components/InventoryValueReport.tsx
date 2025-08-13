@@ -1,8 +1,6 @@
 import { Card } from "@/../components/ui/Card"
 
 export function InventoryValueReport() {
-  // TODO: Replace with React Query - const mockData = []
-  // TODO: Replace with React Query - const mockData = []
 
   const getTotalValue = () => {
     return Object.entries(inventory).reduce((total, [productId, item]) => {

@@ -5,7 +5,6 @@ import { useState } from "react"
 import { StockMovementDialog } from "@/StockMovementDialog"
 
 export function StockMovements() {
-  // TODO: Replace with React Query - const mockData = []
   const [showDialog, setShowDialog] = useState(false)
 
   return (

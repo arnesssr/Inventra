@@ -16,8 +16,6 @@ interface CreateOrderFormProps {
 }
 
 export function CreateOrderForm({ onSuccess }: CreateOrderFormProps) {
-  // TODO: Replace with React Query - const mockData = []
-  // TODO: Replace with React Query - const mockData = []
   
   const [orderItems, setOrderItems] = useState<Array<{
     productId: string;
