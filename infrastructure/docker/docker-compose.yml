@@ -1,0 +1,206 @@
+version: '3.8'
+
+services:
+  # Databases
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: inventra
+      POSTGRES_USER: inventra
+      POSTGRES_PASSWORD: inventra_dev
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ../databases/postgresql/init:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U inventra"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # API Gateway
+  api-gateway:
+    build:
+      context: ../../services/api-gateway
+      dockerfile: ../../infrastructure/docker/services/api-gateway.Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - NODE_ENV=development
+      - REDIS_URL=redis://redis:6379
+      - AUTH_SERVICE_URL=http://auth-service:8001
+    depends_on:
+      - redis
+      - auth-service
+    volumes:
+      - ../../services/api-gateway:/app
+      - /app/node_modules
+
+  # Auth Service
+  auth-service:
+    build:
+      context: ../../services/auth-service
+      dockerfile: ../../infrastructure/docker/services/auth-service.Dockerfile
+    ports:
+      - "8001:8001"
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://inventra:inventra_dev@postgres:5432/inventra
+      - JWT_SECRET=dev_jwt_secret_change_in_production
+    depends_on:
+      - postgres
+    volumes:
+      - ../../services/auth-service:/app
+      - /app/node_modules
+
+  # Product Service
+  product-service:
+    build:
+      context: ../../services/product-service
+      dockerfile: ../../infrastructure/docker/services/product-service.Dockerfile
+    ports:
+      - "8002:8002"
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://inventra:inventra_dev@postgres:5432/inventra
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - ../../services/product-service:/app
+      - /app/node_modules
+
+  # Inventory Service
+  inventory-service:
+    build:
+      context: ../../services/inventory-service
+      dockerfile: ../../infrastructure/docker/services/inventory-service.Dockerfile
+    ports:
+      - "8003:8003"
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://inventra:inventra_dev@postgres:5432/inventra
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - ../../services/inventory-service:/app
+      - /app/node_modules
+
+  # Order Service
+  order-service:
+    build:
+      context: ../../services/order-service
+      dockerfile: ../../infrastructure/docker/services/order-service.Dockerfile
+    ports:
+      - "8004:8004"
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://inventra:inventra_dev@postgres:5432/inventra
+      - PRODUCT_SERVICE_URL=http://product-service:8002
+      - INVENTORY_SERVICE_URL=http://inventory-service:8003
+    depends_on:
+      - postgres
+      - product-service
+      - inventory-service
+    volumes:
+      - ../../services/order-service:/app
+      - /app/node_modules
+
+  # Supplier Service
+  supplier-service:
+    build:
+      context: ../../services/supplier-service
+      dockerfile: ../../infrastructure/docker/services/supplier-service.Dockerfile
+    ports:
+      - "8005:8005"
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://inventra:inventra_dev@postgres:5432/inventra
+    depends_on:
+      - postgres
+    volumes:
+      - ../../services/supplier-service:/app
+      - /app/node_modules
+
+  # Notification Service
+  notification-service:
+    build:
+      context: ../../services/notification-service
+      dockerfile: ../../infrastructure/docker/services/notification-service.Dockerfile
+    ports:
+      - "8006:8006"
+    environment:
+      - NODE_ENV=development
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - redis
+    volumes:
+      - ../../services/notification-service:/app
+      - /app/node_modules
+
+  # File Service
+  file-service:
+    build:
+      context: ../../services/file-service
+      dockerfile: ../../infrastructure/docker/services/file-service.Dockerfile
+    ports:
+      - "8009:8009"
+    environment:
+      - NODE_ENV=development
+      - UPLOAD_DIR=/app/uploads
+    volumes:
+      - ../../services/file-service:/app
+      - /app/node_modules
+      - file_uploads:/app/uploads
+
+  # Monitoring
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ../monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3001:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ../monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards
+      - ../monitoring/grafana/datasources:/etc/grafana/provisioning/datasources
+
+volumes:
+  postgres_data:
+  redis_data:
+  prometheus_data:
+  grafana_data:
+  file_uploads:
+
+networks:
+  default:
+    name: inventra-network
