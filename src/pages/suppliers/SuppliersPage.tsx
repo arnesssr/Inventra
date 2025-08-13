@@ -1,10 +1,10 @@
 import { useState } from "react"
-import { SupplierList } from "../../components/suppliers/SupplierList"
-import { CreateSupplierForm } from "../../components/suppliers/CreateSupplierForm"
-import { Button } from "../../components/ui/Button"
-import { Card } from "../../components/ui/Card"
+import { SupplierList } from "@/components/suppliers/SupplierList"
+import { CreateSupplierForm } from "@/components/suppliers/CreateSupplierForm"
+import { Button } from "@/components/ui/Button"
+import { Card } from "@/components/ui/Card"
 import { Plus } from "lucide-react"
-import { SupplierAnalytics } from "../../features/suppliers/SupplierAnalytics"
+import { SupplierAnalytics } from "@/features/suppliers/SupplierAnalytics"
 
 export function SuppliersPage() {
   const [isCreating, setIsCreating] = useState(false)

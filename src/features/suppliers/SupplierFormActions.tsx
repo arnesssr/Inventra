@@ -1,8 +1,8 @@
-import { useSupplierStore } from "../../store/supplierStore"
-import { Button } from "../../components/ui/Button"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../../components/ui/dropdown-menu"
+import { useSupplierStore } from "@/store/supplierStore"
+import { Button } from "@/components/ui/Button"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { MoreHorizontal } from "lucide-react"
-import type { Supplier } from "../../types/supplierTypes"
+import type { Supplier } from "@/types/supplierTypes"
 
 interface SupplierFormActionsProps {
   supplier: Supplier

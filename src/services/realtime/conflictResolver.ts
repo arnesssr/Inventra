@@ -1,4 +1,4 @@
-import type { ConflictResolution } from '../../types/realtime.types';
+import type { ConflictResolution } from "@/types/realtime.types";
 
 export class ConflictResolver<T> {
   resolve(local: T, server: T, strategy: ConflictResolution<T>['strategy']): T {

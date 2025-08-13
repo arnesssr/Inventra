@@ -1,8 +1,8 @@
 import { NavLink } from "react-router-dom"
 import { LayoutDashboard, Package, Boxes, Settings, ChevronRight, BarChart, Truck, ShoppingBag, MessageSquare } from "lucide-react"
 import React from 'react'
-import { cn } from "../../lib/utils"
-import { Button } from "../ui/Button"
+import { cn } from "@/lib/utils"
+import { Button } from "@/ui/Button"
 
 interface SidebarProps {
   expanded: boolean

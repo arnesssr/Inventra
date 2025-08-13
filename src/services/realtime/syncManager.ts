@@ -1,6 +1,6 @@
-import type { SyncState, SyncStatus } from '../../types/realtime.types';
-import { OptimisticUpdater } from './optimisticUpdater';
-import { ConflictResolver } from './conflictResolver';
+import type { SyncState, SyncStatus } from "@/types/realtime.types";
+import { OptimisticUpdater } from "@/optimisticUpdater";
+import { ConflictResolver } from "@/conflictResolver";
 
 export class SyncManager<T> {
   private state: SyncState<T>;

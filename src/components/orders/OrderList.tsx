@@ -1,10 +1,10 @@
 import { useState } from "react"
-import { useOrderStore } from "../../store/orderStore"
-import { Table, TableBody, TableCell, TableHeader, TableRow } from "../ui/Table"
-import { OrderStatusBadge } from "./OrderStatusBadge"
-import { OrderDetailsDrawer } from "./OrderDetailsDrawer"
-import { formatDate } from "../../lib/utils/dateUtils"
-import type { Order } from "../../types/orderTypes"
+import { useOrderStore } from "@/store/orderStore"
+import { Table, TableBody, TableCell, TableHeader, TableRow } from "@/ui/Table"
+import { OrderStatusBadge } from "@/OrderStatusBadge"
+import { OrderDetailsDrawer } from "@/OrderDetailsDrawer"
+import { formatDate } from "@/lib/utils/dateUtils"
+import type { Order } from "@/types/orderTypes"
 
 export function OrderList() {
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null)

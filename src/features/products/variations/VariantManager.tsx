@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
-import { Button } from "../../../components/ui/Button"
-import { Input } from "../../../components/ui/Input"
+import { Button } from "@/../components/ui/Button"
+import { Input } from "@/../components/ui/Input"
 import { Plus, Trash2 } from "lucide-react"
-import type { Variation, VariantCombination } from '../../../types/variationTypes'
+import type { Variation, VariantCombination } from "@/../types/variationTypes"
 
 interface Props {
   variations: Variation[];

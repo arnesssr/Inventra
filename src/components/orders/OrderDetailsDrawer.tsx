@@ -1,8 +1,8 @@
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from "../ui/Sheet"  // Fixed import path
-import { OrderStatusBadge } from "./OrderStatusBadge"
-import { Separator } from "../ui/Separator"  // Fixed import path
-import { formatDate } from "../../lib/utils/dateUtils"  // Updated path
-import type { Order } from "../../types/orderTypes"
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/ui/Sheet"  // Fixed import path
+import { OrderStatusBadge } from "@/OrderStatusBadge"
+import { Separator } from "@/ui/Separator"  // Fixed import path
+import { formatDate } from "@/lib/utils/dateUtils"  // Updated path
+import type { Order } from "@/types/orderTypes"
 
 interface OrderDetailsDrawerProps {
   order: Order | null

@@ -1,5 +1,5 @@
-import { AuditService } from '../services/auditService'
-import type { AuditEventType } from '../../../types/auditTypes'
+import { AuditService } from "@/services/auditService"
+import type { AuditEventType } from "@/../types/auditTypes"
 import { useClerk } from '@clerk/clerk-react' // Add this import
 
 export function useAuditLog() {

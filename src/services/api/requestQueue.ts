@@ -1,4 +1,4 @@
-import { API_CONFIG } from '../../config/apiConfig';
+import { API_CONFIG } from "@/config/apiConfig";
 
 export class RequestQueue {
   private queue: Array<() => Promise<any>> = [];

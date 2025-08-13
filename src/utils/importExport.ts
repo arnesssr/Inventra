@@ -3,7 +3,7 @@
  * Can be used across different features, not just products
  */
 
-import { Product } from '../types/productTypes'
+import { Product } from "@/types/productTypes"
 
 export const exportToCsv = (
   data: any[],

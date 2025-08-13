@@ -1,9 +1,9 @@
-import { useProductStore } from "../../store/productStore"
-import { useCategoryStore } from "../../store/categoryStore" // Add this import
-import { Table, TableHeader, TableBody, TableRow, TableCell } from "../../components/ui/Table"
-import { Card } from "../../components/ui/Card"
-import { Button } from "../../components/ui/Button"
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../../components/ui/Dialog"
+import { useProductStore } from "@/store/productStore"
+import { useCategoryStore } from "@/store/categoryStore" // Add this import
+import { Table, TableHeader, TableBody, TableRow, TableCell } from "@/components/ui/Table"
+import { Card } from "@/components/ui/Card"
+import { Button } from "@/components/ui/Button"
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/Dialog"
 import { Undo, Trash2 } from "lucide-react"
 import { useState } from "react"
 

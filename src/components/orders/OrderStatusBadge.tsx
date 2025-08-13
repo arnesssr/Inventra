@@ -1,6 +1,6 @@
-import { Badge } from "../ui/Badge"
-import { cn } from "../../lib/utils"
-import type { OrderStatus } from "../../types/orderTypes"
+import { Badge } from "@/ui/Badge"
+import { cn } from "@/lib/utils"
+import type { OrderStatus } from "@/types/orderTypes"
 
 const statusStyles = {
   pending: "bg-yellow-500/10 text-yellow-500 border-yellow-500/20",

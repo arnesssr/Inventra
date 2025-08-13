@@ -1,4 +1,4 @@
-import type { RequestLog } from '../../types/monitoring.types';
+import type { RequestLog } from "@/types/monitoring.types";
 
 export class RequestLogger {
   private static logs: RequestLog[] = [];

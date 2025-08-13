@@ -1,6 +1,6 @@
-import { Badge } from "../ui/Badge"
-import { cn } from "../../lib/utils"
-import type { Supplier } from "../../types/supplierTypes"
+import { Badge } from "@/ui/Badge"
+import { cn } from "@/lib/utils"
+import type { Supplier } from "@/types/supplierTypes"
 
 const statusStyles = {
   active: "bg-green-500/10 text-green-500 border-green-500/20",

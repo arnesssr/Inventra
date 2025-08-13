@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
-import type { WebhookEventType } from '../types/webhookTypes';
+import type { WebhookEventType } from "@/types/webhookTypes";
 
 interface Notification {
   id: string;

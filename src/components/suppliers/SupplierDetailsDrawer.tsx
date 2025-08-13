@@ -1,7 +1,7 @@
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from "../ui/Sheet"
-import { SupplierStatusBadge } from "./SupplierStatusBadge"
-import { Separator } from "../ui/Separator"
-import type { Supplier } from "../../types/supplierTypes"
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/ui/Sheet"
+import { SupplierStatusBadge } from "@/SupplierStatusBadge"
+import { Separator } from "@/ui/Separator"
+import type { Supplier } from "@/types/supplierTypes"
 
 interface SupplierDetailsDrawerProps {
   supplier: Supplier | null;

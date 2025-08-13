@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion"
-import { FlowSteps } from "./FlowSteps"
-import { MockDashboard } from "./components/MockDashboard"
-import type { MockDashboardProps } from "./components/MockDashboard"
+import { FlowSteps } from "@/FlowSteps"
+import { MockDashboard } from "@/components/MockDashboard"
+import type { MockDashboardProps } from "@/components/MockDashboard"
 import { useState, useEffect } from "react"
 import { Store, Upload, Settings, Share2, LineChart, Box } from "lucide-react"
 

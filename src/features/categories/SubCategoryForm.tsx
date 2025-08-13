@@ -1,11 +1,11 @@
 import { useState } from "react"
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../../components/ui/Dialog"
-import { Button } from "../../components/ui/Button"
-import { Input } from "../../components/ui/Input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../components/ui/Select"
-import { Checkbox } from "../../components/ui/Checkbox"
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/Dialog"
+import { Button } from "@/components/ui/Button"
+import { Input } from "@/components/ui/Input"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/Select"
+import { Checkbox } from "@/components/ui/Checkbox"
 import { Plus, Trash } from "lucide-react"
-import { Field } from "../../types/category"
+import { Field } from "@/types/category"
 
 export interface SubCategory {
   id?: string;

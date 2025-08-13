@@ -1,4 +1,4 @@
-import type { StockMovement, InventoryItem } from '../types/inventoryTypes'
+import type { StockMovement, InventoryItem } from "@/types/inventoryTypes"
 
 // Error types
 export class NotificationError extends Error {

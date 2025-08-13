@@ -1,7 +1,7 @@
 /**
  * Global utility functions for managing variations
  */
-import { Variation, VariantCombination } from '../types/variationTypes';
+import { Variation, VariantCombination } from "@/types/variationTypes";
 
 /**
  * Generates all possible combinations of variation options

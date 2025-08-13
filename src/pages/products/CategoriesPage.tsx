@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom"
-import { useCategoryStore } from "../../store/categoryStore"
-import { useProductStore } from "../../store/productStore"
-import { Card, CardContent } from "../../components/ui/Card"
-import { Button } from "../../components/ui/Button"
+import { useCategoryStore } from "@/store/categoryStore"
+import { useProductStore } from "@/store/productStore"
+import { Card, CardContent } from "@/components/ui/Card"
+import { Button } from "@/components/ui/Button"
 import { Book, Gift, PenTool, Baby, Package, Plus, ChevronRight, BookOpen } from "lucide-react"
 
 const CATEGORY_ICONS: Record<string, JSX.Element> = {

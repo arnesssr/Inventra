@@ -1,7 +1,7 @@
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/Card"
-import { RadioGroup, RadioGroupItem } from "../ui/RadioGroup"
-import { Label } from "../ui/Label"
-import { useVisualStyle } from '../../context/visual-style-context'
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/RadioGroup"
+import { Label } from "@/components/ui/Label"
+import { useVisualStyle } from '@/context/visual-style-context'
 import { useEffect } from 'react'
 
 type VisualStyle = 'flat' | 'neumorphic' | 'glassmorphic'

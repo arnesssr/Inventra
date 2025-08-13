@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
-import type { AuditEventType, AuditLog, AuditSeverity } from '../types/auditTypes';
+import type { AuditEventType, AuditLog, AuditSeverity } from "@/types/auditTypes";
 
 interface AuditStore {
   logs: AuditLog[];

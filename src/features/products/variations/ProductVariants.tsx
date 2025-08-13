@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from "../../../components/ui/Card"
-import { Button } from "../../../components/ui/Button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/../components/ui/Card"
+import { Button } from "@/../components/ui/Button"
 import { Plus, X } from "lucide-react"
-import { Input } from "../../../components/ui/Input"
+import { Input } from "@/../components/ui/Input"
 
 interface Variant {
   id: string;

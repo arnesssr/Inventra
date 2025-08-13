@@ -3,23 +3,23 @@ import {
   Package, TrendingUp, AlertTriangle, Clock, ArrowUp, 
   ArrowDown, RefreshCw, ShoppingBag, Archive, AlertCircle 
 } from "lucide-react"
-import { useInventoryStore } from "../../store/inventoryStore"
-import { useProductStore } from "../../store/productStore"
-import { useCategoryStore } from "../../store/categoryStore"
-import { useActivityStore } from "../../store/activityStore"
-import type { InventoryState } from "../../store/inventoryStore"
-import type { CategoryState } from "../../types/categoryTypes"
-import type { ProductState } from "../../store/productStore"
+import { useInventoryStore } from "@/store/inventoryStore"
+import { useProductStore } from "@/store/productStore"
+import { useCategoryStore } from "@/store/categoryStore"
+import { useActivityStore } from "@/store/activityStore"
+import type { InventoryState } from "@/store/inventoryStore"
+import type { CategoryState } from "@/types/categoryTypes"
+import type { ProductState } from "@/store/productStore"
 
-import type { Activity, ChartDataItem, ValueComparisonData } from "../../types/activityTypes"
+import type { Activity, ChartDataItem, ValueComparisonData } from "@/types/activityTypes"
 
-import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/Card"
-import { Button } from "../../components/ui/Button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card"
+import { Button } from "@/components/ui/Button"
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell
 } from "recharts"
-import { calculateMetrics } from '../../utils/dashboardCalculations'
+import { calculateMetrics } from "@/utils/dashboardCalculations"
 import { format, formatDistanceToNow } from 'date-fns'
 
 /**

@@ -1,6 +1,6 @@
-import { Table, TableHeader, TableRow, TableCell, TableBody } from "../../components/ui/Table"
-import { Button } from "../../components/ui/Button"
-import { useStore } from "../../store/useStore"
+import { Table, TableHeader, TableRow, TableCell, TableBody } from "@/components/ui/Table"
+import { Button } from "@/components/ui/Button"
+import { useStore } from "@/store/useStore"
 import { AlertTriangle } from "lucide-react"
 
 export function InventoryList() {

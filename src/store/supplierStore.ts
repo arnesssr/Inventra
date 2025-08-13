@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
-import type { Supplier } from '../types/supplierTypes';
+import type { Supplier } from "@/types/supplierTypes";
 
 interface PurchaseOrder {
   id: string;

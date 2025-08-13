@@ -1,10 +1,10 @@
 import { UserButton } from "@clerk/clerk-react"
 import { Bell, Search, Store } from "lucide-react"
-import { Button } from "../ui/Button"
-import { ThemeToggle } from "../ui/ThemeToggle"
-import { useNotificationStore } from "../../store/notificationStore" // Updated import
+import { Button } from "@/ui/Button"
+import { ThemeToggle } from "@/ui/ThemeToggle"
+import { useNotificationStore } from "@/store/notificationStore" // Updated import
 import { useNavigate } from "react-router-dom"
-import { getCurrentConfig } from '../../config/environment'
+import { getCurrentConfig } from "@/config/environment"
 
 export function TopBar() {
   const navigate = useNavigate()
@@ -16,10 +16,10 @@ export function TopBar() {
   const handleStoreClick = () => {
     const { storefrontUrl } = getCurrentConfig();
     try {
-      console.log(`Opening storefront at: ${storefrontUrl}`);
+      
       window.open(storefrontUrl, '_blank', 'noopener,noreferrer');
     } catch (error) {
-      console.error('Failed to open storefront:', error);
+      
     }
   }
 

@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom"
-import { TopBar } from "./TopBar"
+import { TopBar } from "@/TopBar"
 import { Home, Package, Settings, LayoutGrid } from "lucide-react"
 
 const SIDEBAR_ITEMS = [

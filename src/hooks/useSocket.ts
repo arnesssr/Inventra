@@ -1,12 +1,12 @@
 import { useState, useEffect, useCallback } from 'react';
-import { socketService } from '../services/websocket/socketService';
+import { socketService } from "@/services/websocket/socketService";
 import type { 
   SocketConnectionState, 
   SocketEventType, 
   SocketEvent,
   EventMap,
   EventHandler
-} from '../types/socket.types';
+} from "@/types/socket.types";
 
 export function useSocket() {
   const [connectionState, setConnectionState] = useState<SocketConnectionState>('disconnected');

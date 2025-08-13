@@ -1,9 +1,9 @@
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../../components/ui/Dialog"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../components/ui/Select"
-import { Input } from "../../components/ui/Input"
-import { Button } from "../../components/ui/Button"
-import { useProductStore } from "../../store/productStore"
-import { useInventoryStore } from "../../store/inventoryStore"
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/Dialog"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/Select"
+import { Input } from "@/components/ui/Input"
+import { Button } from "@/components/ui/Button"
+import { useProductStore } from "@/store/productStore"
+import { useInventoryStore } from "@/store/inventoryStore"
 import { useState } from "react"
 
 interface StockMovementDialogProps {

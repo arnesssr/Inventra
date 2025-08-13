@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion"
-import { cn } from "../../lib/utils"
+import { cn } from "@/lib/utils"
 
 interface NavItem {
   name: string

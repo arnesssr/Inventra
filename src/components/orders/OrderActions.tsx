@@ -1,14 +1,14 @@
 import { MoreHorizontal } from "lucide-react"
-import { Button } from "../ui/Button"
+import { Button } from "@/ui/Button"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu"
-import { useStore } from "../../store/useStore"
-import type { Order } from "../../types/orderTypes"
+} from "@/ui/dropdown-menu"
+import { useStore } from "@/store/useStore"
+import type { Order } from "@/types/orderTypes"
 
 interface OrderActionsProps {
   order: Order

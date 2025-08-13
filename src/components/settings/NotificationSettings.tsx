@@ -1,7 +1,7 @@
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/Card"
-import { Button } from "../ui/Button"
-import { Switch } from "../ui/Switch"
-import { useNotificationStore } from "../../store/notificationStore"
+import { Card, CardContent, CardHeader, CardTitle } from "@/ui/Card"
+import { Button } from "@/ui/Button"
+import { Switch } from "@/ui/Switch"
+import { useNotificationStore } from "@/store/notificationStore"
 
 /**
  * NotificationSettings Component

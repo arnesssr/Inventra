@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
-import type { Product, ProductVariant } from '../types/productTypes';
+import type { Product, ProductVariant } from "@/types/productTypes";
 
 interface ProductState {
   products: Product[];
@@ -167,7 +167,7 @@ export const useProductStore = create<ProductState>()(
             }));
             return response;
           } catch (error) {
-            console.error('Failed to create product:', error);
+            
             throw error;
           }
         },
@@ -181,7 +181,7 @@ export const useProductStore = create<ProductState>()(
             }));
             return response;
           } catch (error) {
-            console.error('Failed to update product:', error);
+            
             throw error;
           }
         },
@@ -270,7 +270,7 @@ export const useProductStore = create<ProductState>()(
             }));
             return newProduct;
           } catch (error) {
-            console.error('Failed to create product:', error);
+            
             throw error;
           }
         },

@@ -1,10 +1,10 @@
 import { useState } from "react"
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../../components/ui/Dialog"
-import { Button } from "../../components/ui/Button"
-import { Input } from "../../components/ui/Input"
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/Dialog"
+import { Button } from "@/components/ui/Button"
+import { Input } from "@/components/ui/Input"
 import { Plus, Trash } from "lucide-react"
-import { Checkbox } from "../../components/ui/Checkbox"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../components/ui/Select"
+import { Checkbox } from "@/components/ui/Checkbox"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/Select"
 
 interface Field {
   name: string;

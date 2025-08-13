@@ -1,7 +1,7 @@
-import { useInventoryStore } from "../../store/inventoryStore"
-import { useProductStore } from "../../store/productStore"
-import { Card } from "../../components/ui/Card"
-import { Table, TableHeader, TableBody, TableRow, TableCell } from "../../components/ui/Table"
+import { useInventoryStore } from "@/store/inventoryStore"
+import { useProductStore } from "@/store/productStore"
+import { Card } from "@/components/ui/Card"
+import { Table, TableHeader, TableBody, TableRow, TableCell } from "@/components/ui/Table"
 import { BoxIcon, AlertTriangle, MinusCircle, TrendingUp } from "lucide-react"
 
 export function InventoryReport() {

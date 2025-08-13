@@ -1,7 +1,7 @@
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/Card"
-import { Switch } from "../ui/Switch"
-import { useNotificationStore } from "../../store/notificationStore"
-import { Button } from "../ui/Button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/ui/Card"
+import { Switch } from "@/ui/Switch"
+import { useNotificationStore } from "@/store/notificationStore"
+import { Button } from "@/ui/Button"
 
 export function NotificationCenter() {
   const preferences = useNotificationStore(state => state.preferences)

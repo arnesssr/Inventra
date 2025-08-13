@@ -1,4 +1,4 @@
-import { ValidationSchema, ValidationResult } from '../../types/security.types';
+import { ValidationSchema, ValidationResult } from "@/types/security.types";
 
 export class RequestValidator {
   static validate(data: any, schema: ValidationSchema): ValidationResult {

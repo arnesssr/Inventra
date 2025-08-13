@@ -1,8 +1,8 @@
 import { ColumnDef } from "@tanstack/react-table"
-import { OrderActions } from "./OrderActions"
-import { OrderStatusBadge } from "./OrderStatusBadge"
-import { formatDate } from "../../lib/utils/dateUtils"
-import type { Order } from "../../types/orderTypes"
+import { OrderActions } from "@/OrderActions"
+import { OrderStatusBadge } from "@/OrderStatusBadge"
+import { formatDate } from "@/lib/utils/dateUtils"
+import type { Order } from "@/types/orderTypes"
 
 export const columns: ColumnDef<Order>[] = [
   {

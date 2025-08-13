@@ -1,5 +1,5 @@
-import { Card } from "../../../components/ui/Card"
-import { useAuditStore } from "../../../store/auditStore"
+import { Card } from "@/../components/ui/Card"
+import { useAuditStore } from "@/../store/auditStore"
 import { ActivitySquare, AlertTriangle, UserCog, Settings } from "lucide-react"
 
 export function AuditSummary() {

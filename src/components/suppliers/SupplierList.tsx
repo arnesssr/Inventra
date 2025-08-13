@@ -1,10 +1,10 @@
-import { Table, TableHeader, TableRow, TableCell, TableBody } from "../ui/Table"
-import { useSupplierStore } from "../../store/supplierStore"
-import { SupplierStatusBadge } from "./SupplierStatusBadge"
-import { SupplierDetailsDrawer } from "./SupplierDetailsDrawer"
+import { Table, TableHeader, TableRow, TableCell, TableBody } from "@/ui/Table"
+import { useSupplierStore } from "@/store/supplierStore"
+import { SupplierStatusBadge } from "@/SupplierStatusBadge"
+import { SupplierDetailsDrawer } from "@/SupplierDetailsDrawer"
 import { useState } from "react"
-import type { Supplier } from "../../types/supplierTypes"
-import { SupplierFormActions } from "../../features/suppliers/SupplierFormActions"
+import type { Supplier } from "@/types/supplierTypes"
+import { SupplierFormActions } from "@/features/suppliers/SupplierFormActions"
 
 export function SupplierList() {
   const [selectedSupplier, setSelectedSupplier] = useState<Supplier | null>(null)

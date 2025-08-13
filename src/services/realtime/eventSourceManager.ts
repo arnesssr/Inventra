@@ -1,5 +1,5 @@
 import { EventEmitter } from 'events';
-import type { EventSourceConfig, EventSourceType } from '../../types/realtime.types';
+import type { EventSourceConfig, EventSourceType } from "@/types/realtime.types";
 
 export class EventSourceManager extends EventEmitter {
   private events: Array<{ type: string; data: any; timestamp: string }> = [];

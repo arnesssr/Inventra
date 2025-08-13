@@ -1,4 +1,4 @@
-import type { OptimisticUpdate } from '../../types/realtime.types';
+import type { OptimisticUpdate } from "@/types/realtime.types";
 
 export class OptimisticUpdater<T> {
   private updates = new Map<string, OptimisticUpdate<T>>();

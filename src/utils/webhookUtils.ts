@@ -1,5 +1,5 @@
 import { createHmac } from 'crypto';
-import { getCurrentConfig } from '../config/environment';
+import { getCurrentConfig } from "@/config/environment";
 
 export const verifyWebhookSignature = (payload: string, signature: string): boolean => {
   const config = getCurrentConfig();

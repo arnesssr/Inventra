@@ -65,11 +65,11 @@ export const getCurrentConfig = (): EnvConfig => {
 
   // Validate required environment variables
   if (!currentConfig.apiKey) {
-    console.error('Missing required API key configuration');
+    
   }
 
   if (!currentConfig.storefrontUrl || !currentConfig.apiUrl) {
-    console.error('Missing required URL configuration');
+    
   }
 
   return currentConfig;

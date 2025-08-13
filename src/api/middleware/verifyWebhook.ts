@@ -1,4 +1,4 @@
-import { RequestSigner } from '../../services/security/requestSigner';
+import { RequestSigner } from "@/services/security/requestSigner";
 
 export async function verifyWebhookSignature(request: Request): Promise<void> {
   const signature = request.headers.get('x-webhook-signature');

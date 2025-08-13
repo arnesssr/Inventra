@@ -1,8 +1,8 @@
-import { verifyWebhookSignature } from '../middleware/verifyWebhook';
-import type { WebhookEvent } from '../../types/webhook.types';
-import { useNotificationStore } from '../../store/notificationStore';
-import { useInventoryStore } from '../../store/inventoryStore';
-import { useProductStore } from '../../store/productStore';
+import { verifyWebhookSignature } from "@/middleware/verifyWebhook";
+import type { WebhookEvent } from "@/types/webhook.types";
+import { useNotificationStore } from "@/store/notificationStore";
+import { useInventoryStore } from "@/store/inventoryStore";
+import { useProductStore } from "@/store/productStore";
 
 export async function webhookHandler(request: Request) {
   try {

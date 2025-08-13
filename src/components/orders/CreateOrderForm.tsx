@@ -1,9 +1,9 @@
 import { useState } from "react"
-import { useOrderStore } from "../../store/orderStore"
-import { useProductStore } from "../../store/productStore"
-import { Button } from "../ui/Button"
-import { Input } from "../ui/Input"
-import { Card } from "../ui/Card"
+import { useOrderStore } from "@/store/orderStore"
+import { useProductStore } from "@/store/productStore"
+import { Button } from "@/ui/Button"
+import { Input } from "@/ui/Input"
+import { Card } from "@/ui/Card"
 import { Plus, Minus, Trash2 } from "lucide-react"
 import { 
   Select,
@@ -11,7 +11,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../ui/Select"
+} from "@/ui/Select"
 
 interface CreateOrderFormProps {
   onSuccess?: () => void

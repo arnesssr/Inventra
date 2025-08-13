@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse, CancelToken } from 'axios';
-import { API_CONFIG, ApiResponse } from '../../config/apiConfig';
-import { requestQueue } from './requestQueue';
-import { cacheManager } from './cacheManager';
+import { API_CONFIG, ApiResponse } from "@/config/apiConfig";
+import { requestQueue } from "@/requestQueue";
+import { cacheManager } from "@/cacheManager";
 
 export class RequestHandler {
   private cancelTokens = new Map<string, () => void>();

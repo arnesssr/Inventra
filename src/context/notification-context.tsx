@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect } from 'react';
-import { useNotificationStore } from '../store/notificationStore'; // Only change this line
+import { useNotificationStore } from "@/store/notificationStore"; // Only change this line
 import { toast } from 'sonner';
 
 export const NotificationContext = createContext<ReturnType<typeof useNotificationStore> | null>(null);

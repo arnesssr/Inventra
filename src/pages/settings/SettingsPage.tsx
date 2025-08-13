@@ -1,17 +1,17 @@
-import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/Card"
-import { Button } from "../../components/ui/Button"
-import { Input } from "../../components/ui/Input"
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "../../components/ui/Tabs"
-import { useTheme } from "../../context/theme-context"
-import { RadioGroup, RadioGroupItem } from "../../components/ui/RadioGroup"
-import { Label } from "../../components/ui/Label"
-import { VisualStyleSettings } from "../../components/settings/VisualStyleSettings"
-import { Switch } from "../../components/ui/Switch"
-import { NotificationSettings } from "../../components/settings/NotificationSettings"
-import { NotificationCenter } from "../../components/settings/NotificationCenter"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card"
+import { Button } from "@/components/ui/Button"
+import { Input } from "@/components/ui/Input"
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/Tabs"
+import { useTheme } from "@/context/theme-context"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/RadioGroup"
+import { Label } from "@/components/ui/Label"
+import { VisualStyleSettings } from "@/components/settings/VisualStyleSettings"
+import { Switch } from "@/components/ui/Switch"
+import { NotificationSettings } from "@/components/settings/NotificationSettings"
+import { NotificationCenter } from "@/components/settings/NotificationCenter"
 
 // Import Theme type from context
-import { Theme } from '../../context/theme-context'
+import { Theme } from "@/context/theme-context"
 
 // Define theme types to match available CSS files
 type AvailableTheme = Theme | 'default' | 'theme-red' | 'theme-rose' | 'theme-orange' | 'theme-yellow' | 'theme-violet' | 'theme-indigo' | 'theme-amber'

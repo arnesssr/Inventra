@@ -1,6 +1,6 @@
-import { Card } from "../../../components/ui/Card"
-import { useInventoryStore } from "../../../store/inventoryStore"
-import { useProductStore } from "../../../store/productStore"
+import { Card } from "@/../components/ui/Card"
+import { useInventoryStore } from "@/../store/inventoryStore"
+import { useProductStore } from "@/../store/productStore"
 
 export function InventoryValueReport() {
   const inventory = useInventoryStore(state => state.inventory)

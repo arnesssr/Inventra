@@ -1,9 +1,9 @@
-import { api } from '../lib/api';
+import { api } from "@/lib/api";
 import type { 
   StockMovement, 
   InventoryItem, 
   StockOrder 
-} from '../types/inventoryTypes';
+} from "@/types/inventoryTypes";
 
 export const inventoryService = {
   // Stock Management
@@ -12,7 +12,7 @@ export const inventoryService = {
       const response = await api.post('/inventory/movements', data);
       return response.data;
     } catch (error) {
-      console.error('Failed to create movement:', error);
+      
       throw error;
     }
   },

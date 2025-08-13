@@ -1,4 +1,4 @@
-import { securityConfig } from '../../config/securityConfig';
+import { securityConfig } from "@/config/securityConfig";
 
 export class TokenManager {
   private token: string | null = null;

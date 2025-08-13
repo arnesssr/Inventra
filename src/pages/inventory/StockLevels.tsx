@@ -1,14 +1,14 @@
-import { Table, TableHeader, TableRow, TableCell, TableBody } from "../../components/ui/Table"
-import { Button } from "../../components/ui/Button"
-import { useInventoryStore } from "../../store/inventoryStore"
-import { useCategoryStore } from "../../store/categoryStore"
+import { Table, TableHeader, TableRow, TableCell, TableBody } from "@/components/ui/Table"
+import { Button } from "@/components/ui/Button"
+import { useInventoryStore } from "@/store/inventoryStore"
+import { useCategoryStore } from "@/store/categoryStore"
 import { AlertTriangle, CheckCircle, ShoppingCart, ArrowUpDown, Filter } from "lucide-react"
-import { Input } from "../../components/ui/Input"
+import { Input } from "@/components/ui/Input"
 import { useState } from "react"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../components/ui/Select"
-import { Card } from "../../components/ui/Card"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/Select"
+import { Card } from "@/components/ui/Card"
 import { useNavigate, useSearchParams } from "react-router-dom"
-import { cn } from "../../lib/utils"
+import { cn } from "@/lib/utils"
 
 export function StockLevels() {
   const navigate = useNavigate()

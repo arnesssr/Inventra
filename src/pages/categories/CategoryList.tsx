@@ -1,15 +1,15 @@
 import { useNavigate } from "react-router-dom"
-import { Button } from "../../components/ui/Button"
-import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/Card"
+import { Button } from "@/components/ui/Button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card"
 import { Plus, MoreVertical, Pen, Trash2, Book, BookOpen, Gift, PenTool, Baby } from "lucide-react"
 import { useState, useEffect } from "react"
-import { useCategoryStore } from "../../store/categoryStore"
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../../components/ui/Dialog"
-import { Input } from "../../components/ui/Input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../components/ui/Select"
-import { Checkbox } from "../../components/ui/Checkbox"
-import type { Category, CategoryField } from "../../types/categoryTypes"
-import { DEFAULT_FIELDS } from '../../types/categoryTypes'
+import { useCategoryStore } from "@/store/categoryStore"
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/Dialog"
+import { Input } from "@/components/ui/Input"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/Select"
+import { Checkbox } from "@/components/ui/Checkbox"
+import type { Category, CategoryField } from "@/types/categoryTypes"
+import { DEFAULT_FIELDS } from "@/types/categoryTypes"
 
 // Icon mappings for different category types
 const CATEGORY_ICONS: Record<string, JSX.Element> = {

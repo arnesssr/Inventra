@@ -1,15 +1,15 @@
-import { Tabs, TabsList, TabsTrigger } from "../../components/ui/Tabs"
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/Tabs"
 import { useState, useEffect } from "react"
-import { StockLevels } from "./StockLevels"
-import { StockMovements } from "./StockMovements"
+import { StockLevels } from "@/StockLevels"
+import { StockMovements } from "@/StockMovements"
 import { 
   Package2,        // Changed from Boxes to Package2
   ArrowUpDown,     
   AlertTriangle,
   ClipboardList
 } from "lucide-react"
-import { StockAlerts } from "../../features/inventory/alerts/StockAlerts"
-import { StockOrderManagement } from "../../features/inventory/stock-orders/StockOrderManagement"
+import { StockAlerts } from "@/features/inventory/alerts/StockAlerts"
+import { StockOrderManagement } from "@/features/inventory/stock-orders/StockOrderManagement"
 import { useSearchParams } from 'react-router-dom'
 
 export function InventoryPage() {

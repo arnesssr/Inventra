@@ -1,6 +1,6 @@
-import { useSupplierStore } from "../../store/supplierStore"
-import { Card } from "../../components/ui/Card"
-import { Table, TableHeader, TableRow, TableCell, TableBody } from "../../components/ui/Table"
+import { useSupplierStore } from "@/store/supplierStore"
+import { Card } from "@/components/ui/Card"
+import { Table, TableHeader, TableRow, TableCell, TableBody } from "@/components/ui/Table"
 import { Truck, DollarSign, CheckCircle, AlertTriangle } from "lucide-react"
 
 export function SupplierReport() {

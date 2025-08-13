@@ -1,9 +1,9 @@
 import { AxiosRequestConfig, AxiosResponse, AxiosHeaders } from 'axios';
-import { RequestSigner } from './requestSigner';
-import { rateLimiter } from './rateLimiter';
-import { RequestValidator } from './requestValidator';
-import { tokenManager } from './tokenManager';
-import { securityConfig } from '../../config/securityConfig';
+import { RequestSigner } from "@/requestSigner";
+import { rateLimiter } from "@/rateLimiter";
+import { RequestValidator } from "@/requestValidator";
+import { tokenManager } from "@/tokenManager";
+import { securityConfig } from "@/config/securityConfig";
 
 export class SecurityMiddleware {
   static async requestInterceptor(config: AxiosRequestConfig): Promise<AxiosRequestConfig> {

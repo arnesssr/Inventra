@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from "../../../components/ui/Card"
-import { Input } from "../../../components/ui/Input"
-import { Button } from "../../../components/ui/Button"
-import type { VariantCombination } from '../../../types/variationTypes'
+import { Card, CardContent, CardHeader, CardTitle } from "@/../components/ui/Card"
+import { Input } from "@/../components/ui/Input"
+import { Button } from "@/../components/ui/Button"
+import type { VariantCombination } from "@/../types/variationTypes"
 
 interface Props {
   variants: VariantCombination[]

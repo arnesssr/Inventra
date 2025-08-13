@@ -1,21 +1,21 @@
-import { Card } from "../../../components/ui/Card"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../../components/ui/Select"
-import { Input } from "../../../components/ui/Input"
-import { Button } from "../../../components/ui/Button"
-import { formatDate } from "../../../lib/utils/dateUtils"
-import { useAuditStore } from "../../../store/auditStore"
+import { Card } from "@/../components/ui/Card"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/../components/ui/Select"
+import { Input } from "@/../components/ui/Input"
+import { Button } from "@/../components/ui/Button"
+import { formatDate } from "@/../lib/utils/dateUtils"
+import { useAuditStore } from "@/../store/auditStore"
 import { AlertTriangle, AlertCircle, Info, MoreHorizontal, ExternalLink, Check } from "lucide-react"
-import type { AuditEventType, AuditSeverity, AuditLog } from "../../../types/auditTypes"
-import { EVENT_TYPES } from "../../../types/auditTypes"  // Fixed import path
-import { AuditService } from "../services/auditService"
-import { Table, TableHeader, TableRow, TableCell, TableBody } from "../../../components/ui/Table"
+import type { AuditEventType, AuditSeverity, AuditLog } from "@/../types/auditTypes"
+import { EVENT_TYPES } from "@/../types/auditTypes"  // Fixed import path
+import { AuditService } from "@/services/auditService"
+import { Table, TableHeader, TableRow, TableCell, TableBody } from "@/../components/ui/Table"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
   DropdownMenuSeparator,
-} from "../../../components/ui/dropdown-menu"
+} from "@/../components/ui/dropdown-menu"
 
 import { useState, useEffect } from "react"
 import React from "react"

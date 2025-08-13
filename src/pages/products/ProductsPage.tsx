@@ -1,5 +1,5 @@
 import { useNavigate, Outlet, useLocation } from "react-router-dom"
-import { Tabs, TabsList, TabsTrigger } from "../../components/ui/Tabs"
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/Tabs"
 import { Search } from "lucide-react"
 import { useState } from "react"
 import { FolderKanban, PackageCheck, FileEdit, Archive } from 'lucide-react' // Import icons

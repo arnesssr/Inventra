@@ -1,4 +1,4 @@
-import type { PerformanceMetric } from '../../types/monitoring.types';
+import type { PerformanceMetric } from "@/types/monitoring.types";
 
 export class PerformanceTracker {
   private static metrics: PerformanceMetric[] = [];

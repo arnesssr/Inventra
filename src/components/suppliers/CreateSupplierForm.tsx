@@ -1,11 +1,11 @@
 import { useState } from "react"
-import { useSupplierStore } from "../../store/supplierStore"
-import { Button } from "../ui/Button"
-import { Input } from "../ui/Input"
-import { Textarea } from "../ui/Textarea"
-import { Card } from "../ui/Card"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/Select"
-import type { Supplier } from "../../types/supplierTypes"
+import { useSupplierStore } from "@/store/supplierStore"
+import { Button } from "@/ui/Button"
+import { Input } from "@/ui/Input"
+import { Textarea } from "@/ui/Textarea"
+import { Card } from "@/ui/Card"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/ui/Select"
+import type { Supplier } from "@/types/supplierTypes"
 
 interface CreateSupplierFormProps {
   onSuccess?: () => void;

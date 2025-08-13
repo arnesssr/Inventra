@@ -1,11 +1,11 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { useCategoryStore } from "../../store/categoryStore"
-import { useProductStore } from "../../store/productStore"
-import { Button } from "../../components/ui/Button"
-import { Input } from "../../components/ui/Input"
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "../../components/ui/Select"
-import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/Card"
+import { useCategoryStore } from "@/store/categoryStore"
+import { useProductStore } from "@/store/productStore"
+import { Button } from "@/components/ui/Button"
+import { Input } from "@/components/ui/Input"
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/Select"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card"
 
 export function ProductFormPage() {
   const [formData, setFormData] = useState({

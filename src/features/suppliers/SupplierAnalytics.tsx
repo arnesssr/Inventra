@@ -1,8 +1,8 @@
-import { Card } from "../../components/ui/Card"
-import { useSupplierStore } from "../../store/supplierStore"
-import { useInventoryStore } from "../../store/inventoryStore"
+import { Card } from "@/components/ui/Card"
+import { useSupplierStore } from "@/store/supplierStore"
+import { useInventoryStore } from "@/store/inventoryStore"
 import { PackageCheck, Clock, AlertTriangle, BadgeDollarSign } from "lucide-react"
-import { cn } from "../../lib/utils"
+import { cn } from "@/lib/utils"
 
 export function SupplierAnalytics() {
   const suppliers = useSupplierStore(state => state.suppliers)

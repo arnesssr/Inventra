@@ -1,7 +1,7 @@
 import { create } from 'zustand';
-import { useProductStore } from './productStore';
-import { useInventoryStore } from './inventoryStore';
-import { useOrderStore } from './orderStore';
+import { useProductStore } from "@/store/productStore";
+import { useInventoryStore } from "@/store/inventoryStore";
+import { useOrderStore } from "@/store/orderStore";
 
 interface ActivityItem {
   id: string;

@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react'
-import { ThemeBoundary } from '../lib/theme-boundary'
+import { ThemeBoundary } from "@/lib/theme-boundary"
 
 export type Theme = 'system' | 'light' | 'dark' | 'red' | 'rose' | 'orange' | 'green' | 'blue' | 'yellow' | 'violet'
 

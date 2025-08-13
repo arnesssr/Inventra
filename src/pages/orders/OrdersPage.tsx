@@ -1,10 +1,10 @@
 import { useState } from "react"
-import { OrderList } from "../../components/orders/OrderList"
-import { CreateOrderForm } from "../../components/orders/CreateOrderForm"
-import { Card } from "../../components/ui/Card"
-import { Button } from "../../components/ui/Button"
+import { OrderList } from "@/components/orders/OrderList"
+import { CreateOrderForm } from "@/components/orders/CreateOrderForm"
+import { Card } from "@/components/ui/Card"
+import { Button } from "@/components/ui/Button"
 import { Plus } from "lucide-react"
-import { OrderAnalytics } from "../../features/orders/OrderAnalytics"
+import { OrderAnalytics } from "@/features/orders/OrderAnalytics"
 
 export function OrdersPage() {
   const [isCreating, setIsCreating] = useState(false)

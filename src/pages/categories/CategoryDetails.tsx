@@ -1,9 +1,9 @@
 import { useParams, useNavigate } from "react-router-dom"
-import { Button } from "../../components/ui/Button"
+import { Button } from "@/components/ui/Button"
 import { Plus } from "lucide-react"
-import { useProductStore } from "../../store/productStore"
-import { useCategoryStore } from "../../store/categoryStore"
-import { Table, TableHeader, TableRow, TableCell, TableBody } from "../../components/ui/Table"
+import { useProductStore } from "@/store/productStore"
+import { useCategoryStore } from "@/store/categoryStore"
+import { Table, TableHeader, TableRow, TableCell, TableBody } from "@/components/ui/Table"
 
 export function CategoryDetails() {
   const { categoryId } = useParams()

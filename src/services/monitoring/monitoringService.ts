@@ -1,7 +1,7 @@
-import { RequestLogger } from './requestLogger';
-import { PerformanceTracker } from './performanceTracker';
-import { ErrorReporter } from './errorReporter';
-import type { LogLevel } from '../../types/monitoring.types';
+import { RequestLogger } from "@/requestLogger";
+import { PerformanceTracker } from "@/performanceTracker";
+import { ErrorReporter } from "@/errorReporter";
+import type { LogLevel } from "@/types/monitoring.types";
 
 export class MonitoringService {
   static logRequest(method: string, url: string, status: number, duration: number, error?: any) {

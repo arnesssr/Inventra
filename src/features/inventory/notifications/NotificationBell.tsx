@@ -1,7 +1,7 @@
 import { Bell } from "lucide-react"
-import { Button } from "../../../components/ui/Button"
+import { Button } from "@/../components/ui/Button"
 import { useNavigate } from "react-router-dom"
-import { useNotificationStore } from '../../../store/notificationStore'
+import { useNotificationStore } from "@/../store/notificationStore"
 
 export function NotificationBell() {
   const navigate = useNavigate()

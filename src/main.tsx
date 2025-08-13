@@ -2,8 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { ClerkProvider } from '@clerk/clerk-react'
 import { dark } from "@clerk/themes"
-import { ThemeProvider } from "./context/theme-context"
-import App from './App'
+import { ThemeProvider } from "@/context/theme-context"
+import App from "@/App"
 import './styles/globals.css'
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY

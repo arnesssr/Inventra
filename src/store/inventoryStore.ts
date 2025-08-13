@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
-import type { StockMovement, InventoryItem, StockOrder } from '../types/inventoryTypes';
-import { useSocket } from '../hooks/useSocket';
+import type { StockMovement, InventoryItem, StockOrder } from "@/types/inventoryTypes";
+import { useSocket } from "@/hooks/useSocket";
 
 export interface InventoryState {
   inventory: Record<string, InventoryItem>;

@@ -1,7 +1,7 @@
 import { motion, useAnimation, animate, useMotionValue, useTransform } from "framer-motion"
 import { useEffect, useState } from "react"
 import { useInView } from "react-intersection-observer"
-import { AnimatedCursor } from './AnimatedCursor'
+import { AnimatedCursor } from "@/AnimatedCursor"
 
 //NOTE: This is not the actual dashboard,it's for illustration purposes on the landing page
 

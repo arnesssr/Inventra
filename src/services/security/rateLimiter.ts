@@ -1,4 +1,4 @@
-import { securityConfig } from '../../config/securityConfig';
+import { securityConfig } from "@/config/securityConfig";
 
 export class RateLimiter {
   private requests: { timestamp: number; endpoint: string }[] = [];

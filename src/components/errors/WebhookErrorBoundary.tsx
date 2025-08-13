@@ -1,5 +1,5 @@
 import React, { Component, ErrorInfo } from 'react';
-import { useNotificationStore } from '../../store/notificationStore';
+import { useNotificationStore } from "@/store/notificationStore";
 
 interface Props {
   children: React.ReactNode;
@@ -19,7 +19,7 @@ export class WebhookErrorBoundary extends Component<Props, State> {
   }
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('Webhook Error:', error, errorInfo);
+    
   }
 
   public render() {

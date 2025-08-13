@@ -1,5 +1,5 @@
-import { Card } from "../../components/ui/Card"
-import { useOrderStore } from "../../store/orderStore"
+import { Card } from "@/components/ui/Card"
+import { useOrderStore } from "@/store/orderStore"
 
 export function SalesAnalytics() {
   const orders = useOrderStore(state => state.orders)

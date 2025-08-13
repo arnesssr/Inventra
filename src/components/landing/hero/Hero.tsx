@@ -1,5 +1,5 @@
 import { motion } from "framer-motion"
-import { HeroContent } from "./HeroContent"
+import { HeroContent } from "@/HeroContent"
 
 // Mock the missing components for tests
 const mockComponents = {

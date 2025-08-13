@@ -1,7 +1,7 @@
-import type { AuditEventType, AuditLog, AuditSeverity } from '../../../types/auditTypes'
-import { EVENT_TYPES } from '../../../types/auditTypes'
+import type { AuditEventType, AuditLog, AuditSeverity } from "@/../types/auditTypes"
+import { EVENT_TYPES } from "@/../types/auditTypes"
 import { create } from 'zustand'
-import { eventBus } from '../../../lib/eventBus'
+import { eventBus } from "@/../lib/eventBus"
 
 interface AuditStore {
   logs: AuditLog[]

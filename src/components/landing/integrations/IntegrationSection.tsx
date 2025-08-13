@@ -9,7 +9,7 @@ import {
   SiBigcommerce, 
   SiSquare 
 } from "react-icons/si"
-import { BackgroundGradient } from "../../ui/BackgroundGradient"
+import { BackgroundGradient } from "@/ui/BackgroundGradient"
 
 const PLATFORMS = [
   { name: "Shopify", icon: SiShopify },

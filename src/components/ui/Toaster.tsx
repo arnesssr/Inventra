@@ -1,5 +1,5 @@
-import { Toast, ToastProvider, ToastViewport } from "./Toast"
-import { useToast } from "./use-toast"
+import { Toast, ToastProvider, ToastViewport } from "@/Toast"
+import { useToast } from "@/use-toast"
 
 export function Toaster() {
   const { toasts } = useToast()

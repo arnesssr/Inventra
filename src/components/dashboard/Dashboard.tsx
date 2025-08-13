@@ -1,6 +1,6 @@
-import { Stats } from './Stats'
-import { RecentProducts } from './RecentProducts'
-import { AnalyticsChart } from './AnalyticsChart'
+import { Stats } from "@/Stats"
+import { RecentProducts } from "@/RecentProducts"
+import { AnalyticsChart } from "@/AnalyticsChart"
 
 export function Dashboard() {
   return (

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { Logo } from "../../brand/Logo"
+import { Logo } from "@/brand/Logo"
 
 export function Footer() {
   return (

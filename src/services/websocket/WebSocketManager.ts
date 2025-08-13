@@ -1,4 +1,4 @@
-import type { SocketConfig, SocketConnectionState } from '../../types/socket.types';
+import type { SocketConfig, SocketConnectionState } from "@/types/socket.types";
 import { EventEmitter } from 'events';
 
 export class WebSocketManager extends EventEmitter {
@@ -85,7 +85,7 @@ export class WebSocketManager extends EventEmitter {
 
   private handleError(error: any) {
     this.emit('error', error);
-    console.error('WebSocket error:', error);
+    
   }
 
   disconnect() {

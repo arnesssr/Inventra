@@ -1,4 +1,4 @@
-import type { SecurityConfig } from '../types/security.types';
+import type { SecurityConfig } from "@/types/security.types";
 
 export const securityConfig: SecurityConfig = {
     signatureSecret: import.meta.env.VITE_SECURITY_SIGNATURE_SECRET,

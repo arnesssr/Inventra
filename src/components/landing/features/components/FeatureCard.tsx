@@ -1,5 +1,5 @@
 import { motion } from "framer-motion"
-import type { Feature } from "../data/featuresData"
+import type { Feature } from "@/data/featuresData"
 
 export function FeatureCard({ title, description, icon: Icon }: Feature) {
   return (

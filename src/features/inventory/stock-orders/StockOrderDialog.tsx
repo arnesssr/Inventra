@@ -1,13 +1,13 @@
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../../../components/ui/Dialog"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../../components/ui/Select"
-import { Input } from "../../../components/ui/Input"
-import { Button } from "../../../components/ui/Button"
-import { useStore } from "../../../store/useStore"
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/../components/ui/Dialog"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/../components/ui/Select"
+import { Input } from "@/../components/ui/Input"
+import { Button } from "@/../components/ui/Button"
+import { useStore } from "@/../store/useStore"
 import { useState } from "react"
-import { Textarea } from "../../../components/ui/Textarea"
-import { useProductStore } from '../../../store/productStore'
-import { useSupplierStore } from '../../../store/supplierStore'
-import { useInventoryStore } from '../../../store/inventoryStore'
+import { Textarea } from "@/../components/ui/Textarea"
+import { useProductStore } from "@/../store/productStore"
+import { useSupplierStore } from "@/../store/supplierStore"
+import { useInventoryStore } from "@/../store/inventoryStore"
 
 interface StockOrderDialogProps {
   open: boolean

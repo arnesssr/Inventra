@@ -1,8 +1,8 @@
 import { useState } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/Card"
-import { Input } from "../../components/ui/Input"
-import { Button } from "../../components/ui/Button"
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "../../components/ui/Select"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card"
+import { Input } from "@/components/ui/Input"
+import { Button } from "@/components/ui/Button"
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/Select"
 import { ImagePlus, Upload } from "lucide-react"
 
 interface ProductFormData {
@@ -93,7 +93,7 @@ export function ProductForm() {
   const handleSubmit = (e: React.FormEvent, status: 'draft' | 'published') => {
     e.preventDefault()
     setFormData(prev => ({ ...prev, status }))
-    console.log(formData)
+    // TODO: Implement actual form submission
   }
 
   const renderGenreFields = () => {

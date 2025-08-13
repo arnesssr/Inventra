@@ -1,12 +1,12 @@
-import { Card } from "../../components/ui/Card"
-import { useNotificationStore } from "../../store/notificationStore"
+import { Card } from "@/components/ui/Card"
+import { useNotificationStore } from "@/store/notificationStore"
 import { 
   AlertTriangle, 
   CheckCircle, 
   Info,
   Bell 
 } from "lucide-react"
-import { cn } from "../../lib/utils"
+import { cn } from "@/lib/utils"
 
 export function MessagesPage() {
   const notifications = useNotificationStore(state => state.notifications)

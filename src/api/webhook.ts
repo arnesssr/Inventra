@@ -1,4 +1,4 @@
-import { RequestSigner } from '../services/security/requestSigner';
+import { RequestSigner } from "@/services/security/requestSigner";
 
 export async function handleWebhook(request: Request) {
   // Verify webhook signature

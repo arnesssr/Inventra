@@ -1,5 +1,5 @@
-import { apiService } from './apiService';
-import type { Supplier } from '../types/supplierTypes';
+import { apiService } from "@/apiService";
+import type { Supplier } from "@/types/supplierTypes";
 
 export class SupplierService {
   private baseUrl = '/api/suppliers';

@@ -1,9 +1,9 @@
-import { useProductStore } from "../../store/productStore"
-import { useCategoryStore } from "../../store/categoryStore"
-import { Table, TableHeader, TableBody, TableRow, TableCell } from "../../components/ui/Table"
-import { Card } from "../../components/ui/Card"
-import { Button } from "../../components/ui/Button"
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../../components/ui/Dialog"
+import { useProductStore } from "@/store/productStore"
+import { useCategoryStore } from "@/store/categoryStore"
+import { Table, TableHeader, TableBody, TableRow, TableCell } from "@/components/ui/Table"
+import { Card } from "@/components/ui/Card"
+import { Button } from "@/components/ui/Button"
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/Dialog"
 import { Eye, Send, Trash2 } from "lucide-react"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
@@ -45,7 +45,7 @@ export function DraftsPage() {
         setShowPublishConfirm(false);
         setSelectedProduct(null);
       } catch (error) {
-        console.error('Publish failed:', error);
+        
       }
     }
   }

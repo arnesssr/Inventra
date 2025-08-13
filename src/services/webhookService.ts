@@ -1,8 +1,8 @@
-import type { WebhookEventType, WebhookPayload } from '../types/webhookTypes';
-import { verifyWebhookSignature } from '../utils/webhookUtils';
-import { useNotificationStore } from '../store/notificationStore';
-import { useProductStore } from '../store/productStore';
-import { useInventoryStore } from '../store/inventoryStore';
+import type { WebhookEventType, WebhookPayload } from "@/types/webhookTypes";
+import { verifyWebhookSignature } from "@/utils/webhookUtils";
+import { useNotificationStore } from "@/store/notificationStore";
+import { useProductStore } from "@/store/productStore";
+import { useInventoryStore } from "@/store/inventoryStore";
 
 export const webhookHandlers = {
   'product.updated': async (payload: WebhookPayload) => {

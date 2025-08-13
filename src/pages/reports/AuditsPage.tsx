@@ -1,10 +1,10 @@
 import { useEffect } from "react"
-import { AuditTrail } from "../../features/audit/components/AuditTrail"
-import { AuditSummary } from "../../features/audit/components/AuditSummary"
-import { AuditToolbar } from "../../features/audit/components/AuditToolbar"
-import { Card } from "../../components/ui/Card"
-import { useAuditStore } from "../../store/auditStore"
-import { AuditService } from "../../features/audit/services/auditService"
+import { AuditTrail } from "@/features/audit/components/AuditTrail"
+import { AuditSummary } from "@/features/audit/components/AuditSummary"
+import { AuditToolbar } from "@/features/audit/components/AuditToolbar"
+import { Card } from "@/components/ui/Card"
+import { useAuditStore } from "@/store/auditStore"
+import { AuditService } from "@/features/audit/services/auditService"
 
 export function AuditsPage() {
   const stats = useAuditStore(state => state.getStats())

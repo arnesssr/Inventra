@@ -1,6 +1,6 @@
-import { useProductStore } from "../../store/productStore"
-import { Table, TableHeader, TableBody, TableRow, TableCell } from "../../components/ui/Table"
-import { Button } from "../../components/ui/Button"
+import { useProductStore } from "@/store/productStore"
+import { Table, TableHeader, TableBody, TableRow, TableCell } from "@/components/ui/Table"
+import { Button } from "@/components/ui/Button"
 import { Plus } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 

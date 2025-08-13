@@ -1,4 +1,4 @@
-import type { Product, StockMovement } from '../types/productTypes'
+import type { Product, StockMovement } from "@/types/productTypes"
 
 export const calculateTrend = (current: number, previous: number): number => {
   if (previous === 0) return 0

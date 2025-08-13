@@ -1,18 +1,18 @@
-import { useProductStore } from "../../store/productStore"
-import { useCategoryStore } from "../../store/categoryStore" // Add this import
-import { Table, TableHeader, TableBody, TableRow, TableCell } from "../../components/ui/Table"
-import { Card, CardContent } from "../../components/ui/Card"
-import { Input } from "../../components/ui/Input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../components/ui/Select"
-import { Button } from "../../components/ui/Button"
+import { useProductStore } from "@/store/productStore"
+import { useCategoryStore } from "@/store/categoryStore" // Add this import
+import { Table, TableHeader, TableBody, TableRow, TableCell } from "@/components/ui/Table"
+import { Card, CardContent } from "@/components/ui/Card"
+import { Input } from "@/components/ui/Input"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/Select"
+import { Button } from "@/components/ui/Button"
 import { Filter, ArrowUpDown, Edit, Archive, MinusCircle, PlusCircle, Loader2, FileDown } from "lucide-react"
 import { useState, useEffect } from "react"
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../../components/ui/Dialog"
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/Dialog"
 import { useNavigate, useOutletContext } from "react-router-dom"
-import { Checkbox } from "../../components/ui/Checkbox"
-import { useNotifications } from "../../components/ui/Notifications"
-import { BulkActionsBar } from "../../features/products/bulk-operations/BulkActionsBar"
-import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "../../components/ui/Collapsible"
+import { Checkbox } from "@/components/ui/Checkbox"
+import { useNotifications } from "@/components/ui/Notifications"
+import { BulkActionsBar } from "@/features/products/bulk-operations/BulkActionsBar"
+import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/Collapsible"
 
 interface OutletContextType {
   searchTerm: string;

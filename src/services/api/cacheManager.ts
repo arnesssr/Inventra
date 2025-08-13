@@ -1,4 +1,4 @@
-import { API_CONFIG } from '../../config/apiConfig';
+import { API_CONFIG } from "@/config/apiConfig";
 
 interface CacheEntry<T> {
   data: T;

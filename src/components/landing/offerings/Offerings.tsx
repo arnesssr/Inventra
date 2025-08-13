@@ -9,7 +9,7 @@ import {
   Boxes,
   Share2
 } from "lucide-react"
-import { DotBackground } from "../../ui/DotBackground"
+import { DotBackground } from "@/ui/DotBackground"
 
 const offerings = [
   {

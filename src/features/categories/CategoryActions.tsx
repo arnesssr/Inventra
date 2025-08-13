@@ -4,10 +4,10 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "../../components/ui/DropdownMenu"
-import { Button } from "../../components/ui/Button"
-import { useCategoryStore } from "../../store/categoryStore"
-import { useProductStore } from "../../store/productStore"
+} from "@/components/ui/DropdownMenu"
+import { Button } from "@/components/ui/Button"
+import { useCategoryStore } from "@/store/categoryStore"
+import { useProductStore } from "@/store/productStore"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -17,7 +17,7 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "../../components/ui/AlertDialog"
+} from "@/components/ui/AlertDialog"
 import { useState } from "react"
 
 interface CategoryActionsProps {

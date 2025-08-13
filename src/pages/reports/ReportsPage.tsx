@@ -1,11 +1,11 @@
 import { useSearchParams } from "react-router-dom"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../components/ui/Tabs"
-import { ErrorBoundary } from "../../components/ErrorBoundary"
-import { AuditsPage } from "./AuditsPage"
-import { Card } from "../../components/ui/Card"
-import { SalesReport } from "../../features/reports/SalesReport"
-import { InventoryReport } from "../../features/reports/InventoryReport"
-import { SupplierReport } from "../../features/reports/SupplierReport"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/Tabs"
+import { ErrorBoundary } from "@/components/ErrorBoundary"
+import { AuditsPage } from "@/AuditsPage"
+import { Card } from "@/components/ui/Card"
+import { SalesReport } from "@/features/reports/SalesReport"
+import { InventoryReport } from "@/features/reports/InventoryReport"
+import { SupplierReport } from "@/features/reports/SupplierReport"
 
 export function ReportsPage() {
   const [searchParams, setSearchParams] = useSearchParams()

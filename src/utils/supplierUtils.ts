@@ -1,4 +1,4 @@
-import type { Supplier, PurchaseOrder } from "../types/supplierTypes"
+import type { Supplier, PurchaseOrder } from "@/types/supplierTypes"
 
 export function calculateTotalSpentWithSupplier(purchaseOrders: PurchaseOrder[], supplierId: string): number {
 interface OrderItem {

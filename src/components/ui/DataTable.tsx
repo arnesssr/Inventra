@@ -14,7 +14,7 @@ import {
   TableCell,
   TableHeader,
   TableRow,
-} from "./Table"
+} from "@/Table"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]

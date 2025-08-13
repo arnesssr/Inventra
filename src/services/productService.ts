@@ -1,7 +1,7 @@
-import { API_CONFIG } from '../config/apiConfig';
+import { API_CONFIG } from "@/config/apiConfig";
 import axios from 'axios';
-import { apiService } from './apiService';
-import type { CreateProductInput, Product } from '../types/productTypes';
+import { apiService } from "@/apiService";
+import type { CreateProductInput, Product } from "@/types/productTypes";
 
 class ProductService {
   private config = API_CONFIG;
@@ -20,7 +20,7 @@ class ProductService {
       const response = await this.axiosInstance.get(this.config.endpoints.products.base);
       return response.data;
     } catch (error) {
-      console.error('Error fetching products:', error);
+      
       throw error;
     }
   }
@@ -28,7 +28,7 @@ class ProductService {
   async createProduct(data: CreateProductInput): Promise<Product> {
     try {
       // Log the request
-      console.log('Creating product with data:', data);
+      
       
       // Ensure correct endpoint
       const response = await apiService.post<Product>(this.config.endpoints.products.base, {
@@ -40,7 +40,7 @@ class ProductService {
         headers: this.config.headers
       });
       
-      console.log('Product created successfully:', response);
+      
       return response;
     } catch (error: any) {
       console.error('Product creation failed:', {
@@ -103,7 +103,7 @@ class ProductService {
       );
       return response.urls;
     } catch (error: any) {
-      console.error('Image upload failed:', error);
+      
       throw error;
     }
   }

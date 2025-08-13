@@ -1,11 +1,11 @@
 import { io, Socket } from 'socket.io-client';
-import { getCurrentConfig } from '../../config/environment';
+import { getCurrentConfig } from "@/config/environment";
 import type { 
   SocketConnectionState,
   EventMap,
   EventHandler,
   InventoryUpdateEvent
-} from '../../types/socket.types';
+} from "@/types/socket.types";
 
 class SocketService {
   unsubscribe(eventType: string, handler: (data: any) => void): any {
@@ -76,7 +76,7 @@ class SocketService {
     });
 
     this.socket.on('connect_error', (error: any) => {
-      console.error('Socket connection error:', error);
+      
       this.notifyHandlers('connectionChange', 'error');
     });
   }

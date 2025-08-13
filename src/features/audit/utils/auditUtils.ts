@@ -1,4 +1,4 @@
-import type { AuditEventType, AuditResource, AuditLog, AuditSeverity } from '../types/auditTypes'
+import type { AuditEventType, AuditResource, AuditLog, AuditSeverity } from "@/types/auditTypes"
 
 export function createAuditEntry(
   userId: string,

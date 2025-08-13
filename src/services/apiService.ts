@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
-import { getCurrentConfig } from '../config/environment';
-import type { ApiResponse, ApiError } from '../types/apiTypes';
+import { getCurrentConfig } from "@/config/environment";
+import type { ApiResponse, ApiError } from "@/types/apiTypes";
 
 export class ApiService {
   private api: AxiosInstance;
@@ -23,7 +23,7 @@ export class ApiService {
     this.api.interceptors.response.use(
       response => response,
       error => {
-        console.error('API Error:', error);
+        
         return Promise.reject(error);
       }
     );

@@ -1,7 +1,7 @@
-import { Button } from "../ui/Button"
-import { useStore } from "../../store/useStore"
+import { Button } from "@/ui/Button"
+import { useStore } from "@/store/useStore"
 import { Globe, Globe2 } from "lucide-react"
-import { useToast } from "../ui/use-toast"
+import { useToast } from "@/ui/use-toast"
 import { Product } from "@/types/productTypes"
 
 export function ProductActions({ product }: { product: Product }) {

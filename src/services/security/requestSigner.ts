@@ -1,5 +1,5 @@
-import { securityConfig } from '../../config/securityConfig';
-import type { RequestSignature } from '../../types/security.types';
+import { securityConfig } from "@/config/securityConfig";
+import type { RequestSignature } from "@/types/security.types";
 
 export class RequestSigner {
   private static async generateHash(message: string): Promise<string> {

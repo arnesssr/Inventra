@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
-import { Button } from "../../../components/ui/Button"
-import { Input } from "../../../components/ui/Input"
+import { Button } from "@/../components/ui/Button"
+import { Input } from "@/../components/ui/Input"
 import { Plus, Trash } from "lucide-react"
-import { Card, CardContent, CardHeader, CardTitle } from "../../../components/ui/Card"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../../components/ui/Select"
-import type { Variation, VariantCombination } from '../../../types/variationTypes'
-import { generateSKU } from '../../../utils/skuGenerator'
+import { Card, CardContent, CardHeader, CardTitle } from "@/../components/ui/Card"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/../components/ui/Select"
+import type { Variation, VariantCombination } from "@/../types/variationTypes"
+import { generateSKU } from "@/../utils/skuGenerator"
 
 interface Props {
   variations: Variation[]

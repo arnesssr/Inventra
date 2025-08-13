@@ -1,17 +1,17 @@
 // Import required dependencies and components
 import { useState, useEffect, type FormEvent } from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/Card"
-import { Input } from "../../components/ui/Input"
-import { Button } from "../../components/ui/Button"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../components/ui/Select"
-import { useProductStore } from "../../store/productStore"
-import { useCategoryStore } from "../../store/categoryStore"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card"
+import { Input } from "@/components/ui/Input"
+import { Button } from "@/components/ui/Button"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/Select"
+import { useProductStore } from "@/store/productStore"
+import { useCategoryStore } from "@/store/categoryStore"
 import { Trash } from "lucide-react"
-import { VariationManager } from "../../features/products/variations/VariationManager"
-import { generateSKU } from "../../utils/productUtils" // Create this utility
-import { validateImage, createSafeObjectURL } from '../../utils/imageUtils'
-import type { Variation, VariantCombination } from '../../types/variationTypes'
+import { VariationManager } from "@/features/products/variations/VariationManager"
+import { generateSKU } from "@/utils/productUtils" // Create this utility
+import { validateImage, createSafeObjectURL } from "@/utils/imageUtils"
+import type { Variation, VariantCombination } from "@/types/variationTypes"
 import { JSX } from "react/jsx-runtime"
 
 // Define interfaces for form field types and category configuration
@@ -310,7 +310,7 @@ export function ProductForm() {
 
       navigate('/app/products/published');
     } catch (error) {
-      console.error('Failed to save product:', error);
+      
       setErrors(prev => ({
         ...prev,
         submit: 'Failed to save product. Please try again.'

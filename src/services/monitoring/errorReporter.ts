@@ -1,4 +1,4 @@
-import type { ErrorReport } from '../../types/monitoring.types';
+import type { ErrorReport } from "@/types/monitoring.types";
 
 export class ErrorReporter {
   private static errors: ErrorReport[] = [];
@@ -18,7 +18,7 @@ export class ErrorReporter {
   private static sendToAnalytics(error: ErrorReport) {
     // In development, log to console
     if (import.meta.env.DEV) {
-      console.error('Error Report:', error);
+      
     }
     // In production, would send to analytics service
   }
